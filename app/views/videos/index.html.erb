@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Videos</h1>
+
+<% metadata = VideoHelper.get_configured_metadata %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Location</th>
+      <th>Name</th>
+      <th>Hash</th>
+      <% metadata.each do |conf| %>
+        <th><%= conf.name %></th>
+      <% end %>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @videos.each do |video| %>
+      <tr>
+        <td><%= video.location %></td>
+        <td><%= video.name %></td>
+        <td><%= video.file_hash %></td>
+        <% metadata.each do |conf| %>
+            <td><%= video[conf.name] %></td>
+        <% end %>
+        <td><%= link_to 'Show', video %></td>
+        <td><%= link_to 'Edit', edit_video_path(video) %></td>
+        <td><%= link_to 'Destroy', video, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Video', new_video_path %>

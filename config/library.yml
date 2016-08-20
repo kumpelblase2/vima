@@ -1,0 +1,17 @@
+production:
+
+development:
+  dir: ./videos
+  metadata:
+   - alternative: text
+   - name: rating
+     type: range
+     options:
+      min: 1
+      max: 10
+   - name: type
+     type: select
+     options:
+      values:
+       - a
+       - b

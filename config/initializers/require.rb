@@ -1,0 +1,1 @@
+require "#{Rails.root}/app/extensions/form_helper"
