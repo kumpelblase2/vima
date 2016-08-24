@@ -1,0 +1,18 @@
+<template id="video-row">
+    <tr>
+        <td>{{ video.location }}</td>
+        <td>{{ video.name }}</td>
+        <td>{{ video.file_hash }}</td>
+        <td v-for="key in metadata">{{ video[key] }}</td>
+    </tr>
+</template>
+
+<script>
+Vue.component('video-row', {
+    template: document.currentScript.ownerDocument.querySelector("#video-row").innerHTML,
+    props: {
+        video: Object,
+        metadata: Array
+    }
+});
+</script>

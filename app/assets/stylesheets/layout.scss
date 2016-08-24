@@ -1,0 +1,17 @@
+$spacing: 5px;
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: row;
+  padding: $spacing;
+}
+
+.form-input > * {
+  margin-left: $spacing;
+  margin-right: $spacing;
+}

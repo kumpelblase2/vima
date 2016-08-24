@@ -4,7 +4,7 @@ class VideosController < ApplicationController
   # GET /videos
   # GET /videos.json
   def index
-    VideoLoadJob.perform_later
+    #VideoLoadJob.perform_later
     if params[:search]
       p params[:search]
       @videos = Video.full_text_search(params[:search])
@@ -30,8 +30,7 @@ class VideosController < ApplicationController
   # POST /videos
   # POST /videos.json
   def create
-    @video = Video.new(all_params)
-
+    @video = Video.new(video_params)
     respond_to do |format|
       if @video.save
         format.html { redirect_to @video, notice: 'Video was successfully created.' }
@@ -47,7 +46,7 @@ class VideosController < ApplicationController
   # PATCH/PUT /videos/1.json
   def update
     respond_to do |format|
-      if @video.update(all_params)
+      if @video.update(video_params)
         format.html { redirect_to @video, notice: 'Video was successfully updated.' }
         format.json { render :show, status: :ok, location: @video }
       else
@@ -75,15 +74,6 @@ class VideosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
-      params.require(:video).permit(:location, :file_hash, :name)
-    end
-
-    def metadata_params
-      p VideoHelper.get_allowed_metadata_keys
-      params.permit(VideoHelper.get_allowed_metadata_keys)
-    end
-
-    def all_params
-      video_params.merge metadata_params
+      params.require(:video).permit(:location, :file_hash, :name, *VideoHelper.get_allowed_metadata_keys)
     end
 end

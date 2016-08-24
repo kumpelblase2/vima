@@ -1,0 +1,16 @@
+<template id="metadata-input">
+    <input type="text" v-if="metadata.type == 'text'" v-model="value" />
+    <input type="number" v-if="metadata.type == 'number'" v-model="value" />
+    <input type="checkbox" v-if="metadata.type == 'on_off'" v-model="value" />
+    <input type="range" v-if="metadata.type == 'range'" v-model="value" :min="metadata.options.min" :max="metadata.options.max" />
+    <select v-if="metadata.type == 'select'" v-model="value">
+        <option v-for="option in metadata.options.values">{{ option }}</option>
+    </select>
+</template>
+
+<script>
+    Vue.component('metadata-input', {
+        template: document.currentScript.ownerDocument.querySelector("#metadata-input").innerHTML,
+        props: ['metadata', 'value']
+    });
+</script>

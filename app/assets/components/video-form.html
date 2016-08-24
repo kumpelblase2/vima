@@ -1,0 +1,60 @@
+<template id="video-form">
+    <form>
+        <div class="form-input">
+            <label>Name</label>
+            <input type="text" v-model="video.name">
+        </div>
+        <div class="form-input">
+            <label>Location</label>
+            <input type="text" v-model="video.location">
+        </div>
+        <div class="form-input">
+            <label>Hash</label>
+            <input type="text" v-model="video.file_hash">
+        </div>
+        <div class="form-input" v-for="meta in metadata">
+            <label>{{ meta.name }}</label>
+            <metadata-input :value.sync="video[meta.name]" :metadata="meta" />
+        </div>
+    </form>
+    <button v-on:click="save()">Save</button>
+</template>
+
+<script>
+    Vue.component('video-editor', {
+        template: document.currentScript.ownerDocument.querySelector("#video-form").innerHTML,
+        props: {
+            video: Object
+        },
+        data: function() {
+            return {
+                metadata: []
+            };
+        },
+        methods: {
+            save: function() {
+                const that = this;
+                $.ajax({
+                    url: '/videos/' + this.video.id + '.json',
+                    method: 'put',
+                    dataType: "json",
+                    data: {
+                        video: this.video
+                    },
+                    success: function(response) {
+                        that.$dispatch('saved', response);
+                    }
+                });
+            }
+        },
+        ready: function() {
+            const that = this;
+            $.ajax({
+                url: '/metadata.json',
+                success: function(response) {
+                    that.metadata = response;
+                }
+            });
+        }
+    });
+</script>

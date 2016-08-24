@@ -9,6 +9,7 @@ development:
      options:
       min: 1
       max: 10
+   - good: on_off
    - name: type
      type: select
      options:

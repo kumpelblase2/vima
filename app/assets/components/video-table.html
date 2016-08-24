@@ -1,0 +1,59 @@
+<template id="video-table">
+    <table>
+        <thead>
+            <tr>
+                <th>Location</th>
+                <th>Name</th>
+                <th>Hash</th>
+                <th v-for="key in keys">{{ key }}</th>
+                <th colspan="3"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="video in videos" is="video-row" :video="video" :metadata="keys" v-on:click="editVideo(video)"></tr>
+        </tbody>
+    </table>
+    <div v-if="edit" is="video-editor" :video="editedVideo"></div>
+</template>
+
+<script>
+    Vue.component('video-table', {
+        template: document.currentScript.ownerDocument.querySelector("#video-table").innerHTML,
+        data: function() {
+            return {
+                videos: [],
+                keys: [],
+                edit: false,
+                editedVideo: null
+            }
+        },
+        methods: {
+            editVideo: function(video) {
+                this.editedVideo = video;
+                this.edit = true;
+            }
+        },
+        events: {
+            'saved': function(edited) {
+                this.edit = false;
+                this.editedVideo = null;
+            }
+        },
+        ready: function() {
+            const that = this;
+            $.ajax({
+                url: '/videos.json',
+                success: function(response) {
+                    that.videos = response;
+                }
+            });
+
+            $.ajax({
+                url: '/metadata/keys.json',
+                success: function(response) {
+                    that.keys = response;
+                }
+            });
+        }
+    });
+</script>

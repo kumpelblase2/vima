@@ -1,39 +1,20 @@
+<link rel="import" href="<%= asset_path("video-metadata-input.html") %>">
+<link rel="import" href="<%= asset_path("video-row.html") %>">
+<link rel="import" href="<%= asset_path("video-table.html") %>">
+<link rel="import" href="<%= asset_path("video-form.html") %>">
+
 <p id="notice"><%= notice %></p>
 
 <h1>Videos</h1>
 
-<% metadata = VideoHelper.get_configured_metadata %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Location</th>
-      <th>Name</th>
-      <th>Hash</th>
-      <% metadata.each do |conf| %>
-        <th><%= conf.name %></th>
-      <% end %>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @videos.each do |video| %>
-      <tr>
-        <td><%= video.location %></td>
-        <td><%= video.name %></td>
-        <td><%= video.file_hash %></td>
-        <% metadata.each do |conf| %>
-            <td><%= video[conf.name] %></td>
-        <% end %>
-        <td><%= link_to 'Show', video %></td>
-        <td><%= link_to 'Edit', edit_video_path(video) %></td>
-        <td><%= link_to 'Destroy', video, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div id="videos">
+  <video-table></video-table>
+</div>
 
 <br>
 
-<%= link_to 'New Video', new_video_path %>
+<script>
+  new Vue({
+    el: "#videos"
+  });
+</script>

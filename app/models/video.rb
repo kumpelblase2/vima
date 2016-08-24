@@ -1,5 +1,6 @@
 class Video
   include Mongoid::Document
+  include Mongoid::Timestamps
   include Mongoid::Attributes::Dynamic
   include Mongoid::Search
 
@@ -7,5 +8,5 @@ class Video
   field :file_hash
   field :name
 
-  search_in :name, :location, *VideoHelper.get_searchable_metadata
+  search_in :name, *VideoHelper.get_searchable_metadata
 end
