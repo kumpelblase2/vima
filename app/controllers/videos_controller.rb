@@ -4,7 +4,6 @@ class VideosController < ApplicationController
   # GET /videos
   # GET /videos.json
   def index
-    #VideoLoadJob.perform_later
     if params[:search]
       p params[:search]
       @videos = Video.full_text_search(params[:search])
@@ -25,6 +24,14 @@ class VideosController < ApplicationController
 
   # GET /videos/1/edit
   def edit
+  end
+
+  def refresh
+    VideoLoadJob.perform_now
+    respond_to do |format|
+      format.html { redirect_to videos_url, notice: 'Successfully reloaded.' }
+      format.json { head :no_content }
+    end
   end
 
   # POST /videos
