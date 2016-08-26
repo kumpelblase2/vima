@@ -8,13 +8,17 @@
 <h1>Videos</h1>
 
 <div id="videos">
-  <video-table></video-table>
+  <input type="text" v-model="query" debounce="500" />
+  <video-table :query="query"></video-table>
 </div>
 
 <br>
 
 <script>
   new Vue({
-    el: "#videos"
+    el: "#videos",
+    data: {
+      query: ""
+    }
   });
 </script>

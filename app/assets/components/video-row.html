@@ -4,6 +4,7 @@
         <td>{{ video.name }}</td>
         <td>{{ video.file_hash }}</td>
         <td v-for="key in metadata">{{ video[key] }}</td>
+        <td><button v-on:click="remove()">Remove</button></td>
     </tr>
 </template>
 
@@ -13,6 +14,18 @@ Vue.component('video-row', {
     props: {
         video: Object,
         metadata: Array
+    },
+    methods: {
+        remove: function() {
+            const that = this;
+            $.ajax({
+                url: '/videos/' + this.video.id + '.json',
+                method: 'delete',
+                success: function(response) {
+                    that.$dispatch('remove', that.video.id);
+                }
+            });
+        }
     }
 });
 </script>
