@@ -1,0 +1,27 @@
+<template id="library-refresh">
+    <button v-on:click="refresh()" :disabled="loading">Refresh</button>
+</template>
+
+<script>
+    Vue.component('library-refresh', {
+        template: document.currentScript.ownerDocument.querySelector("#library-refresh").innerHTML,
+        data: function() {
+            return {
+                loading: false
+            }
+        },
+        methods: {
+            refresh: function() {
+                this.loading = true;
+                const that = this;
+                $.ajax({
+                    url: '/videos/refresh.json',
+                    success: function() {
+                        that.$dispatch('refreshed');
+                        that.loading = false;
+                    }
+                });
+            }
+        }
+    });
+</script>

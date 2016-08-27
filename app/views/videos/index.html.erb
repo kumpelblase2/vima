@@ -2,6 +2,7 @@
 <link rel="import" href="<%= asset_path("video-row.html") %>">
 <link rel="import" href="<%= asset_path("video-table.html") %>">
 <link rel="import" href="<%= asset_path("video-form.html") %>">
+<link rel="import" href="<%= asset_path("library-refresh.html") %>">
 
 <p id="notice"><%= notice %></p>
 
@@ -9,6 +10,7 @@
 
 <div id="videos">
   <input type="text" v-model="query" debounce="500" />
+  <library-refresh></library-refresh>
   <video-table :query="query"></video-table>
 </div>
 
