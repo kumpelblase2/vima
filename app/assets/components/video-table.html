@@ -70,6 +70,9 @@
                 if(this.editedVideo != null && this.editedVideo.id == removed) {
                     this.stopEditing();
                 }
+            },
+            'cancel': function() {
+                this.stopEditing();
             }
         },
         watch: {

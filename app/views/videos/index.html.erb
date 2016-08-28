@@ -11,7 +11,7 @@
 <div id="videos">
   <input type="text" v-model="query" debounce="500" />
   <library-refresh></library-refresh>
-  <video-table :query="query"></video-table>
+  <video-table :query="query" v-ref:table></video-table>
 </div>
 
 <br>
@@ -21,6 +21,11 @@
     el: "#videos",
     data: {
       query: ""
+    },
+    events: {
+      refreshed: function() {
+        this.$refs.table.refresh();
+      }
     }
   });
 </script>
