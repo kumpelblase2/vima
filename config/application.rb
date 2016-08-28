@@ -26,6 +26,8 @@ module Vima
         g.orm :mongoid
     end
 
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+
     config.library = config_for(:library)
     config.library["metadata"].map! { |lib_hash| Metadata.from_hash lib_hash }
   end

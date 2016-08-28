@@ -16,3 +16,7 @@ development:
       values:
        - a
        - b
+  providers:
+   WatchedStatus:
+       test: 1
+   VideoMetadata: true

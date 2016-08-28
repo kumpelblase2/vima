@@ -13,6 +13,9 @@ module VideoHelper
       v.location = video
       v.file_hash = checksum
       v.name = get_video_name(video)
+
+      MetadataProvider.run :video_load, v
+
       v.save!
     end
   end

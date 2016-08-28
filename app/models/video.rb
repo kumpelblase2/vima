@@ -9,4 +9,8 @@ class Video
   field :name
 
   search_in :name, *VideoHelper.get_searchable_metadata
+
+  def file_name
+    File.basename(name) + ".mp4"
+  end
 end
