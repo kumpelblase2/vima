@@ -21,7 +21,11 @@ module VideoHelper
   end
 
   def self.get_configured_metadata
-    Rails.application.config.library["metadata"]
+    Rails.application.config.library["metadata"] + get_provider_metadata
+  end
+
+  def self.get_provider_metadata
+    MetadataProvider.enabled_metadata
   end
 
   def self.get_allowed_metadata_keys

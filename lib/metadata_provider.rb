@@ -4,9 +4,14 @@ class MetadataProvider
 
   def initialize
     @handlers = {}
+    @metadata = []
   end
 
   def configure(config)
+  end
+
+  def metadata
+    @metadata
   end
 
   def on_video_load(&block)
@@ -47,6 +52,12 @@ class MetadataProvider
     enabled_providers.each do |provider|
       provider.run(type, value)
     end
+  end
+
+  def self.enabled_metadata
+    enabled_providers.map do |provider|
+      provider.metadata
+    end.flatten
   end
 
   private

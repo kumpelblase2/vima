@@ -7,6 +7,10 @@ class VideoWatchStatusProvider < MetadataProvider
     on_video_start_play do |video|
       video[:watched] = true
     end
+
+    @metadata = [
+      Metadata.new("watched", "on_off")
+    ]
   end
 end
 
