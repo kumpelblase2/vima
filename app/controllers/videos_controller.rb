@@ -27,6 +27,7 @@ class VideosController < ApplicationController
   end
 
   def refresh
+    CleanupJob.perform_now
     VideoLoadJob.perform_now
     respond_to do |format|
       format.html { redirect_to videos_url, notice: 'Successfully reloaded.' }
