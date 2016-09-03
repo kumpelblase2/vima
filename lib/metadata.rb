@@ -29,4 +29,13 @@ class Metadata
   def to_s
     @name
   end
+
+  def self.allowed_type?(type)
+    case type.to_s
+      when "number" || "on_off" || "text" || "range" || "select"
+        true
+      else
+        false
+    end
+  end
 end
