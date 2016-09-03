@@ -20,24 +20,6 @@ module VideoHelper
     end
   end
 
-  def self.get_configured_metadata
-    Rails.application.config.library["metadata"] + get_provider_metadata
-  end
-
-  def self.get_provider_metadata
-    MetadataProvider.enabled_metadata
-  end
-
-  def self.get_allowed_metadata_keys
-    get_configured_metadata.map { |metadata| metadata.name }
-  end
-
-  def self.get_searchable_metadata
-    get_configured_metadata.select do |metadata|
-      metadata.type == "text"
-    end.map { |metadata| metadata.name }
-  end
-
   def self.get_video_name(file)
     File.basename(file, ".mp4")
   end

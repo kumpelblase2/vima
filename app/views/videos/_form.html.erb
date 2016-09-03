@@ -26,7 +26,7 @@
     <%= f.text_field :name %>
   </div>
 
-  <% VideoHelper.get_configured_metadata.each do |metadata| %>
+  <% MetadataHelper.get_configured_metadata.each do |metadata| %>
       <div class="field">
         <%= f.label metadata.name %>
         <%= generate_input_for video, metadata %>

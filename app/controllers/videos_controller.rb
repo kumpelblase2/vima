@@ -81,6 +81,6 @@ class VideosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
-      params.require(:video).permit(:location, :file_hash, :name, *VideoHelper.get_allowed_metadata_keys)
+      params.require(:video).permit(:location, :file_hash, :name, *MetadataHelper.get_updatable_keys)
     end
 end

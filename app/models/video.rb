@@ -8,7 +8,7 @@ class Video
   field :file_hash
   field :name
 
-  search_in :name, *VideoHelper.get_searchable_metadata
+  search_in :name, *MetadataHelper.get_searchable_metadata
 
   def file_name
     File.basename(name) + ".mp4"
