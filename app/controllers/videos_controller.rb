@@ -5,7 +5,6 @@ class VideosController < ApplicationController
   # GET /videos.json
   def index
     if params[:search]
-      p params[:search]
       @videos = Video.full_text_search(params[:search])
     else
       @videos = Video.all
