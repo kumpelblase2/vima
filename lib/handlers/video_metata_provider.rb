@@ -30,9 +30,9 @@ class VideoMetadataProvider < MetadataProvider
     end
 
     @metadata = [
-        Metadata.new("length", "numer"),
-        Metadata.new("resolution", "select", :values => [ "1080p", "720p", "480p", "SD", "Unknown" ]),
-        Metadata.new("bitrate", "number")
+        Metadata.new("length", "number", true),
+        Metadata.new("resolution", "select", true, :values => [ "1080p", "720p", "480p", "SD", "Unknown" ]),
+        Metadata.new("bitrate", "number", true)
     ]
   end
 end

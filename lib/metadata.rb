@@ -1,8 +1,9 @@
 class Metadata
-  def initialize(name, type, options = {})
+  def initialize(name, type, readonly = false, options = {})
     @name = name
     @type = type
     @options = options
+    @readonly = readonly
   end
 
   def name
@@ -15,6 +16,10 @@ class Metadata
 
   def options
     @options
+  end
+
+  def read_only?
+    @readonly
   end
 
   def self.from_hash(hash)
