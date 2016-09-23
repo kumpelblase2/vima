@@ -11,6 +11,12 @@ class VideosController < ApplicationController
     end
   end
 
+  def list
+    respond_to do |format|
+      format.json { render json: Video.all.map { |v| video_path(v) } }
+    end
+  end
+
   # GET /videos/1
   # GET /videos/1.json
   def show
@@ -66,6 +72,7 @@ class VideosController < ApplicationController
   # DELETE /videos/1
   # DELETE /videos/1.json
   def destroy
+    VideoHelper.clear_thumbnails @video
     @video.destroy
     respond_to do |format|
       format.html { redirect_to videos_url, notice: 'Video was successfully destroyed.' }

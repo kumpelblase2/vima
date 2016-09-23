@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   get '/videos/refresh', to: 'videos#refresh'
+  get '/videos/list', to: 'videos#list'
+
+  get '/thumbnails/:id', to: 'thumbnails#thumbnails', as: 'video_thumbnails'
+  get '/thumbnails/:id/:number', to: 'thumbnails#thumbnail', as: 'video_thumbnail'
 
   get '/metadata/keys', to: 'metadata#keys'
   get '/metadata', to: 'metadata#all'
