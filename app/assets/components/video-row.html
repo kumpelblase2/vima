@@ -3,6 +3,7 @@
         <td>{{ video.location }}</td>
         <td>{{ video.name }}</td>
         <td>{{ video.file_hash }}</td>
+        <td>{{ video.thumbnails.available.length }}</td>
         <td v-for="key in metadata">{{ video[key] }}</td>
         <td><button v-on:click="remove()">Remove</button></td>
     </tr>

@@ -12,6 +12,10 @@
             <label>Hash</label>
             <input type="text" v-model="video.file_hash">
         </div>
+        <div class="form-input">
+            <label>Thumbnails</label>
+            <image :src="thumb" height="160" width="320" v-for="thumb in video.thumbnails.available"></image>
+        </div>
         <div class="form-input" v-for="meta in metadata">
             <label>{{ meta.name }}</label>
             <metadata-input :value.sync="video[meta.name]" :metadata="meta" />
