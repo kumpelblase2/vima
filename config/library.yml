@@ -2,6 +2,10 @@ production:
 
 development:
   dir: ./videos
+  thumbnails:
+    generate: true
+    amount: 3
+    dir: ./.thumbnails
   metadata:
    - alternative: text
    - name: rating

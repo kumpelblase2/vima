@@ -17,10 +17,22 @@ module VideoHelper
       MetadataProvider.run :video_load, v
 
       v.save!
+
+      generate_thumbnails video
     end
   end
 
   def self.get_video_name(file)
     File.basename(file, ".mp4")
+  end
+
+  def self.generate_thumbnails file
+    ThumbnailGeneratorJob.perform_later file
+  end
+
+  def self.clear_thumbnails(video)
+    File.delete *video.thumbnails
+    video.thumbnails = []
+    video.save!
   end
 end
