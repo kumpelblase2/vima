@@ -27,7 +27,7 @@ class Metadata
       key = hash.keys.first
       new(key, hash[key])
     else
-      new(hash['name'], hash['type'], hash['options'])
+      new(hash['name'], hash['type'], hash.fetch('readonly', false), hash.fetch('options', {}))
     end
   end
 

@@ -1,6 +1,6 @@
 module MetadataHelper
   def self.get_configured_metadata
-    Rails.application.config.library["metadata"] + get_provider_metadata
+    Rails.configuration.library["metadata"] + get_provider_metadata
   end
 
   def self.get_provider_metadata
