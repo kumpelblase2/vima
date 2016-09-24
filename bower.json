@@ -1,0 +1,19 @@
+{
+  "name": "vima",
+  "authors": [
+    "kumpelblase2"
+  ],
+  "description": "Video Manager",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/components",
+    "test",
+    "tests"
+  ]
+}
