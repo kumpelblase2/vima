@@ -9,6 +9,17 @@
 
   <body>
     <%= javascript_include_tag 'application' %>
-    <%= yield %>
+    <div id="page">
+      <%= render 'shared/heading' %>
+      <div class="container is-fluid">
+        <%= yield %>
+      </div>
+      <%= render 'shared/footer' %>
+    </div>
+    <script>
+      new Vue({
+        el: "#page"
+      });
+    </script>
   </body>
 </html>

@@ -1,17 +1,11 @@
-$spacing: 5px;
+@import 'colors';
 
-form {
-  display: flex;
-  flex-direction: column;
+.header {
+  margin-bottom: 5px;
 }
 
-.form-input {
-  display: flex;
-  flex-direction: row;
-  padding: $spacing;
-}
+@import "bulma/bulma";
 
-.form-input > * {
-  margin-left: $spacing;
-  margin-right: $spacing;
+.nav-item.is-active > a {
+  color: $purple;
 }

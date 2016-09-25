@@ -13,8 +13,12 @@
             <input type="text" v-model="video.file_hash">
         </div>
         <div class="form-input">
-            <label>Thumbnails</label>
-            <image :src="thumb" height="160" width="320" v-for="thumb in video.thumbnails.available"></image>
+            <div class="column">
+                <label>Thumbnails</label>
+                <button v-on:click="clearThumbnails">Clear</button>
+                <button v-on:click="generateThumbnails">New</button>
+            </div>
+            <image :class="{ 'selected-thumbnail': isSelected(thumb) }" v-on:click="selectThumbnail(thumb)" :src="thumb" height="160" width="320" v-for="thumb in video.thumbnails.available"></image>
         </div>
         <div class="form-input" v-for="meta in metadata">
             <label>{{ meta.name }}</label>
@@ -52,6 +56,32 @@
             },
             cancel: function() {
                 this.$dispatch('cancel', this.video.id);
+            },
+            isSelected: function(thumb) {
+                var selected = this.video.thumbnails.selected;
+                return this.video.thumbnails.available[selected] === thumb;
+            },
+            selectThumbnail: function(thumb) {
+                var index = this.video.thumbnails.available.indexOf(thumb);
+                if(index < 0) {
+                    return;
+                }
+
+                this.video.thumbnails.selected = index;
+            },
+            clearThumbnails: function(ev) {
+                ev.preventDefault();
+                return $.ajax({
+                    url: '/thumbnails/' + this.video.id + '.json',
+                    method: 'delete'
+                });
+            },
+            generateThumbnails: function(ev) {
+                ev.preventDefault();
+                return $.ajax({
+                    url: '/thumbnails/' + this.video.id + '/generate.json',
+                    method: 'post'
+                });
             }
         },
         ready: function() {

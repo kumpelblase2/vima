@@ -1,0 +1,71 @@
+<link rel="import" href="<%= asset_path('dropdown-select.html') %>">
+
+<template id="videos-top-panel">
+    <div class="level">
+        <div class="level-left">
+            <button class="button is-primary" :class="{ 'is-loading': refreshing }" v-on:click="onRefresh">
+                <span class="icon">
+                    <i class="fa fa-refresh"></i>
+                </span>
+                <span>Reload</span>
+            </button>
+        </div>
+        <div class="level-item">
+            <div class="column is-4 is-offset-4 nav-item">
+                <input class="input is-expanded" placeholder="Search ..." v-on:keyup.enter="doSearch" v-model="search">
+            </div>
+        </div>
+        <div class="level-right">
+            <dropdown-select :elements="metadata" :selected.sync="visible">
+                <div class="button is-primary">
+                    <span>Display</span>
+                    <span class="icon">
+                        <i class="fa fa-caret-down"></i>
+                    </span>
+                </div>
+            </dropdown-select>
+        </div>
+    </div>
+</template>
+
+<script>
+    Vue.component('videos-top-panel', {
+        template: document.currentScript.ownerDocument.querySelector("#videos-top-panel").innerHTML,
+        props: {
+            visible: {
+                type: Array,
+                'default': () => []
+            }
+        },
+        data: function() {
+            return {
+                metadata: [],
+                search: "",
+                refreshing: false
+            };
+        },
+        methods: {
+            onRefresh: function() {
+                this.refreshing = true;
+                $.ajax({
+                    url: '/videos/refresh',
+                    success: () => {
+                        this.refreshing = false;
+                        this.$dispatch('reload');
+                    }
+                });
+            },
+            doSearch: function() {
+                this.$dispatch('search', this.search);
+            }
+        },
+        ready: function() {
+            $.ajax({
+                url: '/metadata/keys.json',
+                success: (response) => {
+                    this.metadata = response;
+                }
+            });
+        }
+    });
+</script>

@@ -1,0 +1,57 @@
+<link rel="import" href="<%= asset_path('video-card.html') %>">
+
+<template id="library-view">
+    <div class="columns is-multiline">
+        <video-card :url="video" v-for="video in videos" :metadata.sync="metadata"></video-card>
+    </div>
+</template>
+
+<script>
+    Vue.component('library-view', {
+        template: document.currentScript.ownerDocument.querySelector("#library-view").innerHTML,
+        props: {
+            metadata: Array
+        },
+        data: function() {
+            return {
+                videos: [],
+                loaded: false,
+                lastQuery: null
+            }
+        },
+        methods: {
+            load: function() {
+                this.loaded = false;
+                $.ajax({
+                    url: "/videos/list.json",
+                    success: (response) => {
+                        this.loaded = true;
+                        this.videos = response;
+                    }
+                });
+            },
+            query: function(query) {
+                this.loaded = false;
+                $.ajax({
+                    url: "/videos/search.json?query=" + query,
+                    success: (videos) => {
+                        this.loaded = true;
+                        this.videos = videos;
+                    }
+                });
+
+                this.lastQuery = query;
+            },
+            refresh: function() {
+                if(this.lastQuery && this.lastQuery.length() > 0) {
+                    this.query(this.lastQuery);
+                } else {
+                    this.load();
+                }
+            }
+        },
+        ready: function() {
+            this.load();
+        }
+    });
+</script>

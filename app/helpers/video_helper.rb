@@ -31,7 +31,12 @@ module VideoHelper
   end
 
   def self.clear_thumbnails(video)
-    File.delete *video.thumbnails
+    video.thumbnails.each do |thumb|
+      begin
+        File.delete thumb
+      rescue Exception => _
+      end
+    end
     video.thumbnails = []
     video.save!
   end

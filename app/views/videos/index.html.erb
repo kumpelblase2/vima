@@ -1,30 +1,31 @@
-<link rel="import" href="<%= asset_path("video-metadata-input.html") %>">
-<link rel="import" href="<%= asset_path("video-row.html") %>">
-<link rel="import" href="<%= asset_path("video-table.html") %>">
-<link rel="import" href="<%= asset_path("video-form.html") %>">
-<link rel="import" href="<%= asset_path("library-refresh.html") %>">
+<%= import_component("videos-top-panel") %>
+<%= import_component("library-view") %>
 
-<p id="notice"><%= notice %></p>
+<template id="videos">
+  <videos-top-panel :visible.sync="visible"></videos-top-panel>
+  <library-view :metadata="visible" v-ref:library></library-view>
+</template>
 
-<h1>Videos</h1>
-
-<div id="videos">
-  <input type="text" v-model="query" debounce="500" />
-  <library-refresh></library-refresh>
-  <video-table :query="query" v-ref:table></video-table>
-</div>
-
-<br>
+<videos></videos>
 
 <script>
-  new Vue({
-    el: "#videos",
-    data: {
-      query: ""
+  Vue.component('videos', {
+    template: '#videos',
+    data: function() {
+      return {
+        visible: []
+      };
     },
     events: {
       refreshed: function() {
-        this.$refs.table.refresh();
+        this.$refs.library.refresh();
+      },
+      reload: function() {
+        this.$refs.library.refresh();
+        console.log('reloaded');
+      },
+      search: function(query) {
+        this.$refs.library.query(query);
       }
     }
   });

@@ -26,6 +26,9 @@ module Vima
         g.orm :mongoid
     end
 
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+    config.sass.load_paths << Rails.root.join('vendor', 'assets', 'components')
+
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
     config.library = config_for(:library)

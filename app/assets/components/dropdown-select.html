@@ -1,0 +1,51 @@
+<template id="dropdown-select">
+    <div class="dropdown">
+        <div v-on:click="toggleDropdown" class="dropdown-toggle"><slot></slot></div>
+        <div class="dropdown-content columns is-multiline" :class="{ 'is-hidden': !opened }">
+            <div class="column is-6" v-for="elem in elements">
+                <p class="control">
+                    <label class="checkbox">
+                        <input type="checkbox" v-model="selected" value="{{ elem }}" />
+                        {{ elem | capitalize }}
+                    </label>
+                </p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    Vue.component('dropdown-select', {
+        template: document.currentScript.ownerDocument.querySelector("#dropdown-select").innerHTML,
+        props: {
+            elements: {
+                type: Array,
+                'default': () => []
+            },
+            selected: {
+                type: Array,
+                'default': () => []
+            }
+        },
+        data: function() {
+            return {
+                opened: false
+            };
+        },
+        methods: {
+            toggleDropdown: function() {
+                this.opened = !this.opened;
+            },
+            closeDropdown: function() {
+                this.opened = false;
+            }
+        },
+        ready: function() {
+            $(window).click((ev) => {
+                if(!$(ev.target).closest('.dropdown').length) {
+                    this.closeDropdown();
+                }
+            });
+        }
+    });
+</script>

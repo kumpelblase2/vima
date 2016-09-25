@@ -17,6 +17,18 @@ class VideosController < ApplicationController
     end
   end
 
+  def search
+    if params[:query] and params[:query].size > 0
+      @videos = Video.full_text_search(params[:query])
+    else
+      @videos = Video.all
+    end
+
+    respond_to do |format|
+      format.json { render json: @videos.map { |v| video_path(v) } }
+    end
+  end
+
   # GET /videos/1
   # GET /videos/1.json
   def show
@@ -88,6 +100,7 @@ class VideosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
-      params.require(:video).permit(:location, :file_hash, :name, *MetadataHelper.get_updatable_keys)
+      selected_thumbnail = params.require(:video).permit(thumbnails: [:selected])
+      params.require(:video).permit(:name, *MetadataHelper.get_updatable_keys).merge({ 'selected_thumbnail' => selected_thumbnail.dig(:thumbnails, :selected) })
     end
 end

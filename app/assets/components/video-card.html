@@ -1,0 +1,74 @@
+<template id="video-card">
+    <div class="column is-2">
+        <div class="card">
+            <div class="card-image">
+                <div class="image-overlay">
+                    <img :src="selectedThumbnail()" class="image" />
+                    <div class="image-overlay-content">
+                        <div class="video-edit">
+                            <span class="icon" v-on:click="edit">
+                                <i class="fa fa-pencil"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-header">
+                <div class="card-header-title">{{ video.name }}</div>
+            </div>
+            <div class="card-content">
+                <div class="content">
+                    <div class="" v-for="key in metadata">{{ key | capitalize }}: {{ video[key] }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    Vue.component('video-card', {
+        template: document.currentScript.ownerDocument.querySelector("#video-card").innerHTML,
+        props: {
+            id: String,
+            url: String,
+            metadata: Array
+        },
+        data: function() {
+            return {
+                video: {},
+                loaded: false
+            }
+        },
+        methods: {
+            load: function() {
+                var url = this.url;
+                if(this.id) {
+                    url = "/videos/" + this.id + ".json";
+                }
+
+                const self = this;
+                $.ajax({
+                    url: url,
+                    dataType: "json",
+                    success: function(response) {
+                        self.loaded = true;
+                        self.video = response;
+                    }
+                });
+            },
+            selectedThumbnail: function() {
+                if(this.loaded && this.video.thumbnails.available.length > 0) {
+                    return this.video.thumbnails.available[this.video.thumbnails.selected];
+                } else {
+                    return "";
+                }
+            },
+            edit: function() {
+
+            }
+        },
+        ready: function() {
+            this.load();
+        }
+    });
+</script>

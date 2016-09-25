@@ -1,3 +1,55 @@
 // Place all the styles related to the Video controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.thumbnail {
+  padding: 10px;
+}
+
+.metadata-entry {
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.video-name {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.metadata-collection {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.selected-thumbnail {
+  border: 2px black solid;
+}
+
+.image-overlay .image-overlay-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.image-overlay:hover .image-overlay-content {
+  display: block;
+  background: linear-gradient(to bottom, rgba(69,72,77,0) 0%,rgba(24,25,27,0.27) 65%,rgba(0,0,0,0.74) 100%);
+}
+
+.video-edit {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: white;
+}
+
+.video-edit .icon {
+  cursor: pointer;
+}
