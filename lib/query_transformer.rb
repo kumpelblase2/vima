@@ -41,16 +41,14 @@ class QueryTransformer < Parslet::Transform
   }
 
   rule(:query => subtree(:queries)) {
-    if queries.is_a? Array
-      text_queries, normal_queries = queries.partition { |q| (not q.is_a? QueryNodes::Node) and q.has_key? :text }
-      full_text, simple_text = text_queries.map { |t| t[:text] }.partition { |t| t.has_key? :exact }
+    queries_array = (queries.is_a?(Array) ? queries : [ queries ])
 
-      full_text.map! { |t| QueryNodes::TextSearchNode.new(t[:exact], true) }
-      simple_text = QueryNodes::TextSearchNode.new(simple_text.map { |s| s[:simple] }.join(' '))
+    text_queries, normal_queries = queries_array.partition { |q| q.is_a? Hash and q.has_key? :text }
+    full_text, simple_text = text_queries.map { |t| t[:text] }.partition { |t| t.has_key? :exact }
 
-      { query: normal_queries + full_text + [simple_text] }
-    else
-      { query: [ queries ] }
-    end
+    full_text.map! { |t| QueryNodes::TextSearchNode.new(t[:exact], true) }
+    simple_text = QueryNodes::TextSearchNode.new(simple_text.map { |s| s[:simple] }.join(' '))
+
+    { query: normal_queries + full_text + [simple_text] }
   }
 end
