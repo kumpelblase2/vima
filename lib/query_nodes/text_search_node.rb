@@ -6,7 +6,7 @@ module QueryNodes
     end
 
     def apply(query, _keys)
-      query.full_text_search(query, match: (@exact ? :all : :any))
+      query.full_text_search(@text, match: (@exact ? :all : :any))
     end
   end
 end
