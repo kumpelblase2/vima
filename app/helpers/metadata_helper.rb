@@ -22,4 +22,12 @@ module MetadataHelper
   def self.get_updatable_keys
     get_configured_metadata.reject(&:read_only?).map(&:name)
   end
+
+  def self.fix_metadata_types(video)
+    get_configured_metadata.reject(&:read_only?).each do |meta|
+      value = video[meta.name]
+      video[meta.name] = meta.format(value)
+    end
+    video
+  end
 end

@@ -35,9 +35,20 @@ class Metadata
     @name
   end
 
+  def format(current)
+    case @type.to_s
+      when "number", "range"
+        current.to_i
+      when "on_off"
+        current == "1" || current == "true"
+      else
+        current
+    end
+  end
+
   def self.allowed_type?(type)
     case type.to_s
-      when "number" || "on_off" || "text" || "range" || "select"
+      when "number", "on_off", "text", "range", "select"
         true
       else
         false

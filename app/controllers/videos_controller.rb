@@ -18,8 +18,9 @@ class VideosController < ApplicationController
   end
 
   def search
-    if params[:query] and params[:query].size > 0
-      @videos = Video.full_text_search(params[:query])
+    query = params[:query]
+    if query and query.size > 0
+      @videos = QueryEvaluator.new(query).run(Video)
     else
       @videos = Video.all
     end
@@ -55,7 +56,8 @@ class VideosController < ApplicationController
   # POST /videos
   # POST /videos.json
   def create
-    @video = Video.new(video_params)
+    params = MetadataHelper.fix_metadata_types(video_params)
+    @video = Video.new(params)
     respond_to do |format|
       if @video.save
         format.html { redirect_to @video, notice: 'Video was successfully created.' }
@@ -70,8 +72,9 @@ class VideosController < ApplicationController
   # PATCH/PUT /videos/1
   # PATCH/PUT /videos/1.json
   def update
+    params = MetadataHelper.fix_metadata_types(video_params)
     respond_to do |format|
-      if @video.update(video_params)
+      if @video.update(params)
         format.html { redirect_to @video, notice: 'Video was successfully updated.' }
         format.json { render :show, status: :ok, location: @video }
       else
