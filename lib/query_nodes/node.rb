@@ -1,6 +1,6 @@
 module QueryNodes
   class Node
-    def apply(model)
+    def apply(model, keys)
     end
 
     def format_key(key)

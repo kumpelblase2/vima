@@ -4,9 +4,9 @@ module QueryNodes
       @elements = args
     end
 
-    def apply(query)
-      first = @elements.head.apply(query)
-      @elements.tail.reduce(first) { |full, curr| curr.apply(full.union) }
+    def apply(query, keys)
+      first = @elements.head.apply(query, keys)
+      @elements.tail.reduce(first) { |full, curr| curr.apply(full.union, keys) }
     end
   end
 end

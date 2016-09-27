@@ -4,8 +4,8 @@ module QueryNodes
        @elements = args
     end
 
-    def apply(query)
-      @elements.reduce(query) { |full, curr| curr.apply(full) }
+    def apply(query, keys)
+      @elements.reduce(query) { |full, curr| curr.apply(full, keys) }
     end
   end
 end

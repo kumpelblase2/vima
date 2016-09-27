@@ -5,8 +5,8 @@ module QueryNodes
       @value = value
     end
 
-    def apply(query)
-      query.where(@key => @value)
+    def apply(query, keys)
+      query.where(@key => @value) if keys.include? @key
     end
   end
 end
