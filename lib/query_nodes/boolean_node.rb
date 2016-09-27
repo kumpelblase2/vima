@@ -1,7 +1,7 @@
 module QueryNodes
   class BooleanNode < Node
     def initialize(key, included)
-      @key = key
+      @key = format_key key
       @included = included
     end
 

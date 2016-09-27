@@ -1,7 +1,7 @@
 module QueryNodes
   class PropertyNode < Node
     def initialize(key, value)
-      @key = key
+      @key = format_key key
       @value = value
     end
 

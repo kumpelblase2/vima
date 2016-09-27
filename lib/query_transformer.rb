@@ -7,17 +7,17 @@ class QueryTransformer < Parslet::Transform
   rule(:range => subtree(:range)) {
     if range.has_key? :smallerRange
       value = range[:smallerRange]
-      QueryNodes::RangeNode.new(value[:key].str, true, Integer(value[:value]))
+      QueryNodes::RangeNode.new(value[:key], true, Integer(value[:value]))
     elsif range.has_key? :biggerRange
       value = range[:biggerRange]
-      QueryNodes::RangeNode.new(value[:key].str, false, Integer(value[:value]))
+      QueryNodes::RangeNode.new(value[:key], false, Integer(value[:value]))
     else
       raise Exception.new("Couldn't find a range")
     end
   }
 
   rule(:property => subtree(:text)) {
-    QueryNodes::PropertyNode.new(text[:key].str, text[:value].str)
+    QueryNodes::PropertyNode.new(text[:key], text[:value].str)
   }
 
   rule(:or => subtree(:union)) {
@@ -31,10 +31,10 @@ class QueryTransformer < Parslet::Transform
   rule(:boolean => subtree(:boolean)) {
     if boolean.has_key? :exclusion
       value = boolean[:exclusion]
-      QueryNodes::BooleanNode.new(value[:key].str, false)
+      QueryNodes::BooleanNode.new(value[:key], false)
     elsif boolean.has_key? :inclusion
       value = boolean[:inclusion]
-      QueryNodes::BooleanNode.new(value[:key].str, true)
+      QueryNodes::BooleanNode.new(value[:key], true)
     else
       raise Exception.new("Couldn't find a boolean")
     end
