@@ -1,9 +1,11 @@
 <link rel="import" href="<%= asset_path('video-card.html') %>">
+<link rel="import" href="<%= asset_path('video-edit-modal.html') %>">
 
 <template id="library-view">
     <div class="columns is-multiline">
-        <video-card :url="video" v-for="video in videos" :metadata.sync="metadata"></video-card>
+        <video-card :url="video" v-for="video in videos" :metadata.sync="metadata" @edit-request="openEdit"></video-card>
     </div>
+    <video-edit-modal v-if="currentlyEditing" :video="currentlyEditing" :shown="currentlyEditing != null" @edit-finish="closeEdit"></video-edit-modal>
 </template>
 
 <script>
@@ -16,7 +18,8 @@
             return {
                 videos: [],
                 loaded: false,
-                lastQuery: null
+                lastQuery: null,
+                currentlyEditing: null
             }
         },
         methods: {
@@ -33,7 +36,7 @@
             query: function(query) {
                 this.loaded = false;
                 $.ajax({
-                    url: "/videos/search.json?query=" + query,
+                    url: "/videos/search.json?query=" + encodeURIComponent(query),
                     success: (videos) => {
                         this.loaded = true;
                         this.videos = videos;
@@ -48,6 +51,17 @@
                 } else {
                     this.load();
                 }
+            },
+            openEdit: function(video) {
+                this.currentlyEditing = video;
+            },
+            closeEdit: function() {
+                this.currentlyEditing = null;
+            }
+        },
+        events: {
+            'video-update': function(video) {
+                //TODO
             }
         },
         ready: function() {

@@ -6,7 +6,7 @@
                     <img :src="selectedThumbnail()" class="image" />
                     <div class="image-overlay-content">
                         <div class="video-edit">
-                            <span class="icon" v-on:click="edit">
+                            <span class="icon" @click="edit">
                                 <i class="fa fa-pencil"></i>
                             </span>
                         </div>
@@ -36,7 +36,7 @@
         data: function() {
             return {
                 video: {},
-                loaded: false
+                loaded: false,
             }
         },
         methods: {
@@ -64,7 +64,7 @@
                 }
             },
             edit: function() {
-
+                this.$dispatch('edit-request', this.video);
             }
         },
         ready: function() {

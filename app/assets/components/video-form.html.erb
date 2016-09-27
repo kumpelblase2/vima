@@ -1,0 +1,101 @@
+<link rel="import" href="<%= asset_path('video-metadata-input.html') %>">
+
+<template id="video-form">
+    <form>
+        <div class="control is-horizontal">
+          <div class="control-label">
+              <label class="label">Name</label>
+          </div>
+          <div class="control">
+              <input class="input" type="text" v-model="video.name" placeholder="Name">
+          </div>
+        </div>
+        <div class="control is-horizontal">
+            <div class="control-label">
+                <label class="label">Thumbnails</label>
+                <button class="button" @click="clearThumbnails">Clear</button>
+                <button class="button" @click="generateThumbnails">New</button>
+            </div>
+            <div class="control columns is-multiline">
+                <image class="column thumbnail is-4" :class="{ 'selected-thumbnail': isSelected(thumb) }" @click="selectThumbnail(thumb)" :src="thumb" height="160" width="320" v-for="thumb in video.thumbnails.available"></image>
+            </div>
+        </div>
+        <div v-for="meta in metadata" class="control is-horizontal">
+            <div class="control-label">
+                <label class="label">{{ meta.name | capitalize }}</label>
+            </div>
+            <div class="control">
+                <metadata-input :value.sync="video[meta.name]" :metadata="meta" />
+            </div>
+        </div>
+
+
+        <div class="control is-horizontal">
+            <div class="control is-grouped">
+              <div class="control is-expanded">
+                <label class="label">Hash</label>
+                <div class="control">
+                    <input class="input" type="text" v-model="video.file_hash" disabled>
+                </div>
+              </div>
+              <div class="control is-expanded">
+                <label class="label">Location</label>
+                <div class="control">
+                  <input class="input" type="text" v-model="video.location" disabled>
+                </div>
+              </div>
+            </div>
+        </div>
+    </form>
+</template>
+
+<script>
+    Vue.component('video-form', {
+        template: document.currentScript.ownerDocument.querySelector("#video-form").innerHTML,
+        props: {
+            video: Object
+        },
+        data: function() {
+            return {
+                metadata: []
+            };
+        },
+        methods: {
+            isSelected: function(thumb) {
+                var selected = this.video.thumbnails.selected;
+                return this.video.thumbnails.available[selected] === thumb;
+            },
+            selectThumbnail: function(thumb) {
+                var index = this.video.thumbnails.available.indexOf(thumb);
+                if(index < 0) {
+                    return;
+                }
+
+                this.video.thumbnails.selected = index;
+            },
+            clearThumbnails: function(ev) {
+                ev.preventDefault();
+                return $.ajax({
+                    url: '/thumbnails/' + this.video.id + '.json',
+                    method: 'delete'
+                });
+            },
+            generateThumbnails: function(ev) {
+                ev.preventDefault();
+                return $.ajax({
+                    url: '/thumbnails/' + this.video.id + '/generate.json',
+                    method: 'post'
+                });
+            }
+        },
+        ready: function() {
+            const that = this;
+            $.ajax({
+                url: '/metadata.json',
+                success: function(response) {
+                    that.metadata = response;
+                }
+            });
+        }
+    });
+</script>

@@ -5,7 +5,4 @@
 }
 
 @import "bulma/bulma";
-
-.nav-item.is-active > a {
-  color: $purple;
-}
+@import "bulma_addons/*";

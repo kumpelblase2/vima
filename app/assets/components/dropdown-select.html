@@ -1,6 +1,6 @@
 <template id="dropdown-select">
     <div class="dropdown">
-        <div v-on:click="toggleDropdown" class="dropdown-toggle"><slot></slot></div>
+        <div @click="toggleDropdown" class="dropdown-toggle"><slot></slot></div>
         <div class="dropdown-content columns is-multiline" :class="{ 'is-hidden': !opened }">
             <div class="column is-6" v-for="elem in elements">
                 <p class="control">

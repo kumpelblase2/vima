@@ -3,7 +3,7 @@
 <template id="videos-top-panel">
     <div class="level">
         <div class="level-left">
-            <button class="button is-primary" :class="{ 'is-loading': refreshing }" v-on:click="onRefresh">
+            <button class="button is-primary" :class="{ 'is-loading': refreshing }" @click="onRefresh">
                 <span class="icon">
                     <i class="fa fa-refresh"></i>
                 </span>
@@ -12,7 +12,7 @@
         </div>
         <div class="level-item">
             <div class="column is-4 is-offset-4 nav-item">
-                <input class="input is-expanded" placeholder="Search ..." v-on:keyup.enter="doSearch" v-model="search">
+                <input class="input is-expanded" placeholder="Search ..." @keyup.enter="doSearch" v-model="search">
             </div>
         </div>
         <div class="level-right">

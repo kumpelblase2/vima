@@ -1,10 +1,10 @@
 <template id="card-modal">
     <div class="modal" :class="{ 'is-active': opened }">
-        <div class="modal-background" v-on:click="closeIfCloseable"><slot name="background"></slot></div>
+        <div class="modal-background" @click="closeIfCloseable"><slot name="background"></slot></div>
         <div class="modal-card">
             <header class="modal-card-head">
                 <p class="modal-card-title"><slot name="title"></slot></p>
-                <button v-if="closeable" class="delete" v-on:click="closeIfCloseable"></button>
+                <button v-if="closeable" class="delete" @click="closeIfCloseable"></button>
             </header>
             <section class="modal-card-body">
                 <slot></slot>
@@ -42,6 +42,7 @@
             closeIfCloseable: function() {
                 if(this.closeable) {
                     this.close();
+                    this.$dispatch('close');
                 }
             }
         }
