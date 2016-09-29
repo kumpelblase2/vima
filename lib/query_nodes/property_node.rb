@@ -6,7 +6,14 @@ module QueryNodes
     end
 
     def apply(query, keys)
-      query.where(@key => @value) if keys.include? @key
+      if keys.has_key? @key
+        metadata = keys[@key]
+        if metadata.type == "taglist"
+          query.in(@key => [ @value ])
+        else
+          query.where(@key => @value)
+        end
+      end
     end
   end
 end

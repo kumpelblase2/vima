@@ -20,8 +20,7 @@ class VideosController < ApplicationController
   def search
     query = params[:query]
     if query and query.size > 0
-      @videos = QueryEvaluator.new(query, MetadataHelper.get_allowed_keys.map(&:to_sym)).run(Video)
-      @videos = Video.all unless @videos
+      @videos = (QueryEvaluator.new(query, MetadataHelper.get_metadata_hash(MetadataHelper.get_configured_metadata)).run(Video) or Video.all)
     else
       @videos = Video.all
     end

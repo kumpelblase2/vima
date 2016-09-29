@@ -6,7 +6,7 @@ module QueryNodes
     end
 
     def apply(query, keys)
-      query.where(@key => @included) if keys.include? @key
+      query.where(@key => @included) if keys.has_key? @key
     end
   end
 end

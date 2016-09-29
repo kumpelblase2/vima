@@ -5,6 +5,10 @@ module MetadataHelper
     config_metadata + provider_metadata
   end
 
+  def self.get_metadata_hash(metadata_array)
+    metadata_array.reduce({}) { |all, metadata| all[metadata.name.to_sym] = metadata; all }
+  end
+
   def self.get_provider_metadata
     MetadataProvider.enabled_metadata
   end
