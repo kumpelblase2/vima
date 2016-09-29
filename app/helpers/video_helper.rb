@@ -14,6 +14,8 @@ module VideoHelper
       v.file_hash = checksum
       v.name = get_video_name(video)
 
+      MetadataProvider.run :video_create, v
+      MetadataHelper.apply_defaults(v)
       MetadataProvider.run :video_load, v
 
       v.save!
@@ -37,6 +39,7 @@ module VideoHelper
       rescue Exception => _
       end
     end
+
     video.thumbnails = []
     video.save!
   end

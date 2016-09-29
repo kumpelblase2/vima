@@ -2,7 +2,7 @@ class Metadata
   def initialize(name, type, readonly = false, options = {})
     @name = name
     @type = type
-    @options = options
+    @options = options.map { |k,v| [k.to_sym, v] }.to_h
     @readonly = readonly
   end
 
@@ -20,6 +20,14 @@ class Metadata
 
   def read_only?
     @readonly
+  end
+
+  def has_default?
+    @options.has_key?(:default) || Metadata.get_default_value(@type, @options) != nil
+  end
+
+  def default
+    @options[:default] || Metadata.get_default_value(@type, @options)
   end
 
   def self.from_hash(hash)
@@ -48,10 +56,29 @@ class Metadata
 
   def self.allowed_type?(type)
     case type.to_s
-      when "number", "on_off", "text", "range", "select"
+      when "number", "on_off", "text", "range", "select", "taglist"
         true
       else
         false
+    end
+  end
+
+  def self.get_default_value(type, options = {})
+    case type.to_s
+      when "number"
+        0
+      when "on_off"
+        false
+      when "text"
+        ""
+      when "taglist"
+        []
+      when "range"
+        (options and options.has_key?(:min) ? options[:min] : 0)
+      when "select"
+        (options and options.has_key?(:values) ? options[:values].first : nil)
+      else
+        nil
     end
   end
 end

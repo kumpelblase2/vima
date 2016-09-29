@@ -34,4 +34,10 @@ module MetadataHelper
     end
     video
   end
+
+  def self.apply_defaults(video)
+    get_configured_metadata.each do |metadata|
+      video[metadata.name] = metadata.default if metadata.has_default?
+    end
+  end
 end
