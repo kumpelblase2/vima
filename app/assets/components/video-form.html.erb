@@ -17,7 +17,7 @@
                 <button class="button" @click="generateThumbnails">New</button>
             </div>
             <div class="control columns is-multiline">
-                <image class="column thumbnail is-4" :class="{ 'selected-thumbnail': isSelected(thumb) }" @click="selectThumbnail(thumb)" :src="thumb" height="160" width="320" v-for="thumb in video.thumbnails.available"></image>
+                <image class="column thumbnail is-5" :class="{ 'selected-thumbnail': isSelected(thumb) }" @click="selectThumbnail(thumb)" :src="thumb" height="180" width="320" v-for="thumb in video.thumbnails.available"></image>
             </div>
         </div>
         <div v-for="meta in metadata" class="control is-horizontal">
