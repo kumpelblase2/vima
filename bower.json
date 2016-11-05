@@ -15,5 +15,11 @@
     "vendor/assets/components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "bulma": "0.2.1",
+    "components-font-awesome": "4.6.3",
+    "vue": "1.0.28",
+    "taggle": "^1.11.1"
+  }
 }

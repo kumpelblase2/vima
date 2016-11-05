@@ -1,0 +1,36 @@
+<template id="tag-list">
+    <div class="input clearfix"></div>
+</template>
+
+<script>
+    Vue.component('tag-list', {
+        template: document.currentScript.ownerDocument.querySelector("#tag-list").innerHTML,
+        props: {
+            tags: Array,
+            readonly: Boolean
+        },
+        data: function() {
+            return {
+                taggle: null
+            }
+        },
+        methods: {
+        },
+        ready: function() {
+            if(this.tags == null) {
+                this.tags = [];
+            }
+
+            const updateTags = () => { this.tags = this.taggle.getTagValues(); };
+
+            this.taggle = new Taggle(this.$el, {
+                tags: this.tags,
+                onTagAdd: updateTags,
+                onTagRemove: updateTags,
+                containerFocusClass: 'is-active'
+            });
+
+            this.taggle.input.className += " input";
+        }
+    });
+</script>

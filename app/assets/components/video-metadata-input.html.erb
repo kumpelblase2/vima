@@ -1,3 +1,5 @@
+<link rel="import" href="<%= asset_path('tag-list.html') %>">
+
 <template id="metadata-input">
     <input class="input" type="text" v-if="metadata.type == 'text'" v-model="value" :readonly="metadata.readonly" />
     <input class="input" type="number" v-if="metadata.type == 'number'" v-model="value" :readonly="metadata.readonly" />
@@ -8,6 +10,7 @@
             <option v-for="option in metadata.options.values">{{ option }}</option>
         </select>
     </span>
+    <tag-list :tags.sync="value" v-if="metadata.type == 'taglist'" :readonly="metadata.readonly"></tag-list>
 </template>
 
 <script>

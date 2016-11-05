@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require vue/dist/vue
+//= require taggle/src/taggle
 //= require_tree .
