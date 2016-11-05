@@ -23,8 +23,8 @@ module MetadataHelper
     end.map(&:name)
   end
 
-  def self.get_updatable_keys
-    get_configured_metadata.reject(&:read_only?).map(&:name)
+  def self.get_updatable_parameters
+    get_configured_metadata.reject(&:read_only?).map(&:as_param_requirement)
   end
 
   def self.fix_metadata_types(video)

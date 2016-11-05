@@ -104,6 +104,6 @@ class VideosController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
       selected_thumbnail = params.require(:video).permit(thumbnails: [:selected])
-      params.require(:video).permit(:name, *MetadataHelper.get_updatable_keys).merge({ 'selected_thumbnail' => selected_thumbnail.dig(:thumbnails, :selected) })
+      params.require(:video).permit(:name, *MetadataHelper.get_updatable_parameters).merge({'selected_thumbnail' => selected_thumbnail.dig(:thumbnails, :selected) })
     end
 end

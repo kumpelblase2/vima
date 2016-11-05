@@ -30,6 +30,14 @@ class Metadata
     @options[:default] || Metadata.get_default_value(@type, @options)
   end
 
+  def as_param_requirement
+    if @type.to_s == "taglist"
+      return @name => []
+    end
+
+    @type
+  end
+
   def self.from_hash(hash)
     if hash.size == 1
       key = hash.keys.first
