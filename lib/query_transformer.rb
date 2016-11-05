@@ -47,8 +47,12 @@ class QueryTransformer < Parslet::Transform
     full_text, simple_text = text_queries.map { |t| t[:text] }.partition { |t| t.has_key? :exact }
 
     full_text.map! { |t| QueryNodes::TextSearchNode.new(t[:exact], true) }
-    simple_text = QueryNodes::TextSearchNode.new(simple_text.map { |s| s[:simple] }.join(' '))
+    remaining_text = simple_text.map { |s| s[:simple] }.join(' ')
+    rest = []
+    if remaining_text.length > 0
+      rest << QueryNodes::TextSearchNode.new(remaining_text)
+    end
 
-    { query: normal_queries + full_text + [simple_text] }
+    { query: normal_queries + full_text + rest}
   }
 end
