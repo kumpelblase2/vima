@@ -1,0 +1,18 @@
+<%= import_component("video-player") %>
+
+<template id="play-video">
+  <div class="column is-two-thirds is-offset-2">
+    <video-player :url="url" :autoplay="true"></video-player>
+  </div>
+</template>
+
+<play-video url="/content/<%= params[:id] %>/stream"></play-video>
+
+<script>
+  Vue.component('play-video', {
+      template: '#play-video',
+      props: {
+          url: String
+      }
+  });
+</script>

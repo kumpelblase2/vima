@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get '/content/:id/preview', to: 'content#preview'
   get '/content/:id/stream', to: 'content#video_stream'
 
+  get '/watch/:id', to: 'watch#index'
+
   resources :videos
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

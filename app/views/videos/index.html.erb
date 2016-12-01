@@ -26,6 +26,9 @@
       },
       search: function(query) {
         this.$refs.library.query(query);
+      },
+      'play-request': function(video) {
+        window.location.pathname = "/watch/" + video.id
       }
     }
   });

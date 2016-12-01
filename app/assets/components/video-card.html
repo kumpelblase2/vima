@@ -10,6 +10,11 @@
                                 <i class="fa fa-pencil"></i>
                             </span>
                         </div>
+                        <div class="video-play">
+                            <span class="icon" @click="play">
+                                <i class="fa fa-play"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -65,6 +70,9 @@
             },
             edit: function() {
                 this.$dispatch('edit-request', this.video);
+            },
+            play: function() {
+                this.$dispatch('play-request', this.video);
             }
         },
         ready: function() {

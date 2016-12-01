@@ -56,3 +56,14 @@
 .video-edit .icon {
   cursor: pointer;
 }
+
+.video-play {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: calc(50% - 12px);
+  color: white;
+}
+
+.video-play .icon {
+  cursor: pointer;
+}

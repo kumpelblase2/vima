@@ -1,0 +1,15 @@
+<template id="video-player">
+    <video controls :autoplay="autoplay" :src="url" class="column is-12"></video>
+</template>
+
+<script>
+    Vue.component('video-player', {
+        template: document.currentScript.ownerDocument.querySelector("#video-player").innerHTML,
+        props: {
+            url: String,
+            autoplay: Boolean
+        },
+        ready: function() {
+        }
+    });
+</script>
