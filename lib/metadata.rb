@@ -35,7 +35,7 @@ class Metadata
       return @name => []
     end
 
-    @type
+    @name
   end
 
   def self.from_hash(hash)

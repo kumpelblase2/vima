@@ -30,7 +30,9 @@ module MetadataHelper
   def self.fix_metadata_types(video)
     get_configured_metadata.reject(&:read_only?).each do |meta|
       value = video[meta.name]
-      video[meta.name] = meta.format(value)
+      if value != nil
+        video[meta.name] = meta.format(value)
+      end
     end
     video
   end
