@@ -19,7 +19,8 @@
                 videos: [],
                 loaded: false,
                 lastQuery: null,
-                currentlyEditing: null
+                currentlyEditing: null,
+                selected: []
             }
         },
         methods: {
@@ -62,6 +63,15 @@
         events: {
             'video-update': function(video) {
                 //TODO
+            },
+            'video-select': function(video) {
+                this.selected.push(video);
+            },
+            'video-deselect': function(video) {
+                const index = this.selected.findIndex((elem) => elem.id === video.id);
+                if(index >= 0) {
+                    this.selected.splice(index, index + 1);
+                }
             }
         },
         ready: function() {

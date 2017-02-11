@@ -1,7 +1,7 @@
 <template id="video-card">
     <div class="column is-2">
-        <div class="card">
-            <div class="card-image">
+        <div class="card" @click="onClick">
+            <div class="card-image" :class="{ 'is-selected-video': selected }">
                 <div class="image-overlay">
                     <img :src="selectedThumbnail()" class="image" />
                     <div class="image-overlay-content">
@@ -42,11 +42,12 @@
             return {
                 video: {},
                 loaded: false,
+                selected: false
             }
         },
         methods: {
             load: function() {
-                var url = this.url;
+                let url = this.url;
                 if(this.id) {
                     url = "/videos/" + this.id + ".json";
                 }
@@ -73,6 +74,20 @@
             },
             play: function() {
                 this.$dispatch('play-request', this.video);
+            },
+            toggleSelect: function() {
+                this.selected = !this.selected;
+                if(this.selected) {
+                    this.$dispatch('video-select', this.video);
+                } else {
+                    this.$dispatch('video-deselect', this.video);
+                }
+            },
+            onClick: function(event) {
+                if(event.ctrlKey) {
+                    event.stopPropagation();
+                    this.toggleSelect();
+                }
             }
         },
         ready: function() {
