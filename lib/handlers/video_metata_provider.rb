@@ -37,4 +37,4 @@ class VideoMetadataProvider < MetadataProvider
   end
 end
 
-MetadataProvider.register "VideoMetadata", VideoMetadataProvider
+MetadataProviders.register "VideoMetadata", VideoMetadataProvider

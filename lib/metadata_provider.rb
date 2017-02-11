@@ -1,7 +1,4 @@
 class MetadataProvider
-  @@available_providers = {}
-  @@enabled_providers = []
-
   def initialize
     @handlers = {}
     @metadata = []
@@ -12,6 +9,10 @@ class MetadataProvider
 
   def metadata
     @metadata
+  end
+
+  def on_video_create(&block)
+    register_handler :video_create, block
   end
 
   def on_video_load(&block)
@@ -28,36 +29,6 @@ class MetadataProvider
 
   def run(type, video)
     call_handler type, video
-  end
-
-  def self.available_providers
-    @@available_providers
-  end
-
-  def self.enabled_providers
-    @@enabled_providers
-  end
-
-  def self.enable_provider(name, config)
-    provider = available_providers[name]
-    provider.configure config
-    @@enabled_providers << provider
-  end
-
-  def self.register(name, clazz)
-    @@available_providers[name] = clazz.new
-  end
-
-  def self.run(type, value)
-    enabled_providers.each do |provider|
-      provider.run(type, value)
-    end
-  end
-
-  def self.enabled_metadata
-    enabled_providers.map do |provider|
-      provider.metadata
-    end.flatten
   end
 
   private

@@ -14,4 +14,4 @@ class VideoWatchStatusProvider < MetadataProvider
   end
 end
 
-MetadataProvider.register "WatchedStatus", VideoWatchStatusProvider
+MetadataProviders.register "WatchedStatus", VideoWatchStatusProvider

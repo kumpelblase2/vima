@@ -10,7 +10,7 @@ module MetadataHelper
   end
 
   def self.get_provider_metadata
-    MetadataProvider.enabled_metadata
+    MetadataProviders.enabled_metadata
   end
 
   def self.get_allowed_keys
