@@ -32,6 +32,7 @@
         methods: {
             open: function() {
                 this.opened = true;
+                this.$dispatch('open');
             },
             close: function() {
                 this.opened = false;

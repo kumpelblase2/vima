@@ -47,11 +47,7 @@
         },
         methods: {
             load: function() {
-                let url = this.url;
-                if(this.id) {
-                    url = "/videos/" + this.id + ".json";
-                }
-
+                const url = this.id ? "/videos/" + this.id + ".json" : this.url;
                 const self = this;
                 $.ajax({
                     url: url,
