@@ -10,3 +10,4 @@ MetadataHelper.get_allowed_keys.each do |key|
 end
 
 json.url video_url(video, format: :json)
+json.html_url video_url(video)
