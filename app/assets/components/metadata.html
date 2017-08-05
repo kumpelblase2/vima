@@ -1,0 +1,17 @@
+<script>
+    Vue.component('metadata', {
+        methods: {
+            load: function() {
+                $.ajax({
+                    url: '/metadata.json',
+                    success: (response) => {
+                        this.$dispatch('metadata', response);
+                    }
+                });
+            }
+        },
+        attached: function() {
+            this.load();
+        }
+    });
+</script>
