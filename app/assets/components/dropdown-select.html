@@ -5,7 +5,7 @@
             <div class="column is-6" v-for="elem in elements">
                 <p class="control">
                     <label class="checkbox">
-                        <input type="checkbox" v-model="selected" value="{{ elem }}" />
+                        <input type="checkbox" v-model="selected" value="{{ elem }}" @change="fireChange" />
                         {{ elem | capitalize }}
                     </label>
                 </p>
@@ -38,6 +38,9 @@
             },
             closeDropdown: function() {
                 this.opened = false;
+            },
+            fireChange: function() {
+                this.$dispatch('selected-changed', this.selected);
             }
         },
         ready: function() {

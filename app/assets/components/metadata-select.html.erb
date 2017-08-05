@@ -1,0 +1,27 @@
+<link rel="import" href="<%= asset_path('dropdown-select.html') %>">
+
+<template id="metadata-select">
+  <dropdown-select :elements="metadataKeys" :selected="visible">
+    <div class="button is-primary">
+      <span>Display</span>
+      <span class="icon">
+        <i class="fa fa-caret-down"></i>
+      </span>
+    </div>
+  </dropdown-select>
+</template>
+
+<script>
+    Vue.component('metadata-select', {
+        template: document.currentScript.ownerDocument.querySelector("#metadata-select").innerHTML,
+        props: {
+            metadata: Array,
+            selected: Array
+        },
+        computed: {
+            metadataKeys: function() {
+                return this.metadata.map((meta) => meta.name);
+            }
+        }
+    });
+</script>

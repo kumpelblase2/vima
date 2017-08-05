@@ -1,4 +1,4 @@
-<link rel="import" href="<%= asset_path('dropdown-select.html') %>">
+<link rel="import" href="<%= asset_path('metadata-select.html') %>">
 <link rel="import" href="<%= asset_path('search.html') %>">
 
 <template id="videos-top-panel">
@@ -15,14 +15,7 @@
             <search />
         </div>
         <div class="level-right">
-            <dropdown-select :elements="metadata" :selected.sync="visible">
-                <div class="button is-primary">
-                    <span>Display</span>
-                    <span class="icon">
-                        <i class="fa fa-caret-down"></i>
-                    </span>
-                </div>
-            </dropdown-select>
+            <metadata-select :metadata="metadata" :selected="visible" @selected-changed="emitVisibleChanged"></metadata-select>
         </div>
     </div>
 </template>
@@ -31,14 +24,11 @@
     Vue.component('videos-top-panel', {
         template: document.currentScript.ownerDocument.querySelector("#videos-top-panel").innerHTML,
         props: {
-            visible: {
-                type: Array,
-                'default': () => []
-            }
+            metadata: Array,
+            visible: Array
         },
         data: function() {
             return {
-                metadata: [],
                 search: "",
                 refreshing: false
             };
@@ -54,17 +44,9 @@
                     }
                 });
             },
-            doSearch: function() {
-                this.$dispatch('search', this.search);
+            emitVisibleChanged: function(changed) {
+                this.$dispatch('visible-changed', changed);
             }
-        },
-        ready: function() {
-            $.ajax({
-                url: '/metadata/keys.json',
-                success: (response) => {
-                    this.metadata = response;
-                }
-            });
         }
     });
 </script>
