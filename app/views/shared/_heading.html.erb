@@ -2,7 +2,7 @@
   <div class="header">
     <nav class="level nav has-shadow">
       <p class="level-item nav-item has-text-centered" :class="{ 'is-active': isPage('playlists') }">
-        <a class="link is-info">Playlists</a>
+        <a class="link is-info" href="<%= playlists_path %>">Playlists</a>
       </p>
       <p class="level-item nav-item has-text-centered" :class="{ 'is-active': isPage('library') }">
         <a class="link is-info" href="<%= videos_path %>">Library</a>
