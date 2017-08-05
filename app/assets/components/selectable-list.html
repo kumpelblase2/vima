@@ -1,0 +1,21 @@
+<template id="selectable-list">
+    <div>
+        <ul class="selectable-list">
+            <li class="selectable-list-element" v-for="elem in elements" @click="click(elem)"><p>{{elem.name}}</p></li>
+        </ul>
+    </div>
+</template>
+
+<script>
+    Vue.component('selectable-list', {
+        template: document.currentScript.ownerDocument.querySelector("#selectable-list").innerHTML,
+        props: {
+            elements: Array
+        },
+        methods: {
+            click: function(elem) {
+                this.$dispatch('select', elem);
+            }
+        }
+    });
+</script>
