@@ -1,4 +1,5 @@
 <link rel="import" href="<%= asset_path('dropdown-select.html') %>">
+<link rel="import" href="<%= asset_path('search.html') %>">
 
 <template id="videos-top-panel">
     <div class="level">
@@ -11,9 +12,7 @@
             </button>
         </div>
         <div class="level-item">
-            <div class="column is-4 is-offset-4 nav-item">
-                <input class="input is-expanded" placeholder="Search ..." @keyup.enter="doSearch" v-model="search">
-            </div>
+            <search />
         </div>
         <div class="level-right">
             <dropdown-select :elements="metadata" :selected.sync="visible">
