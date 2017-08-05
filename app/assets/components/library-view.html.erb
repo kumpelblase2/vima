@@ -1,26 +1,22 @@
-<link rel="import" href="<%= asset_path('video-card.html') %>">
-<link rel="import" href="<%= asset_path('video-edit-modal.html') %>">
+<link rel="import" href="<%= asset_path('video-list.html') %>">
 
 <template id="library-view">
-    <div class="columns is-multiline">
-        <video-card :url="video" v-for="video in videos" :metadata.sync="metadata" @edit-request="openEdit"></video-card>
-    </div>
-    <video-edit-modal v-if="currentlyEditing" :video="currentlyEditing" :shown="currentlyEditing != null" @edit-finish="closeEdit"></video-edit-modal>
+  <video-list :videos="videos" :metadata="visibleMetadata" :selected="selected"></video-list>
 </template>
 
 <script>
     Vue.component('library-view', {
         template: document.currentScript.ownerDocument.querySelector("#library-view").innerHTML,
         props: {
-            metadata: Array
+            visibleMetadata: Array,
+            selected: Array
         },
         data: function() {
             return {
                 videos: [],
                 loaded: false,
                 lastQuery: null,
-                currentlyEditing: null,
-                selected: []
+                currentlyEditing: null
             }
         },
         methods: {
@@ -58,6 +54,9 @@
             },
             closeEdit: function() {
                 this.currentlyEditing = null;
+            },
+            clearSelected: function () {
+                this.selected = [];
             }
         },
         events: {

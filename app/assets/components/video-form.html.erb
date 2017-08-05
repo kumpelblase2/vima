@@ -7,7 +7,7 @@
               <label class="label">Name</label>
           </div>
           <div class="control">
-              <input class="input" type="text" v-model="video.name" placeholder="Name">
+              <input class="input" v-model="video.name" placeholder="Name">
           </div>
         </div>
         <div class="control is-horizontal">
@@ -35,13 +35,13 @@
               <div class="control is-expanded">
                 <label class="label">Hash</label>
                 <div class="control">
-                    <input class="input" type="text" v-model="video.file_hash" readonly>
+                    <input class="input" v-model="video.file_hash" readonly>
                 </div>
               </div>
               <div class="control is-expanded">
                 <label class="label">Location</label>
                 <div class="control">
-                  <input class="input" type="text" v-model="video.location" readonly>
+                  <input class="input" v-model="video.location" readonly>
                 </div>
               </div>
             </div>
@@ -62,11 +62,11 @@
         },
         methods: {
             isSelected: function(thumb) {
-                var selected = this.video.thumbnails.selected;
+                const selected = this.video.thumbnails.selected;
                 return this.video.thumbnails.available[selected] === thumb;
             },
             selectThumbnail: function(thumb) {
-                var index = this.video.thumbnails.available.indexOf(thumb);
+                const index = this.video.thumbnails.available.indexOf(thumb);
                 if(index < 0) {
                     return;
                 }

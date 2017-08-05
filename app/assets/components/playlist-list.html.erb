@@ -1,0 +1,49 @@
+<link rel="import" href="<%= asset_path('playlist-delete.html') %>">
+
+<template id="playlist-list">
+    <div class="columns is-multiline">
+        <div class="column is-12 columns" v-for="playlist in playlists">
+            <div class="column is-11">
+                <a :href="playlist.html_url">{{playlist.name}}</a>
+            </div>
+            <div class="column is-1">
+                <playlist-delete :playlist="playlist" />
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    Vue.component('playlist-list', {
+        template: document.currentScript.ownerDocument.querySelector("#playlist-list").innerHTML,
+        props: {
+
+        },
+        data: function() {
+            return {
+                loaded: false,
+                playlists: []
+            }
+        },
+        methods: {
+            load: function() {
+                this.loaded = false;
+                $.ajax({
+                    url: "/playlists.json",
+                    success: (response) => {
+                        this.loaded = true;
+                        this.playlists = response;
+                    }
+                });
+            },
+        },
+        ready: function() {
+            this.load();
+        },
+        events: {
+            'playlist-deleted': function () {
+                this.load();
+            }
+        }
+    });
+</script>
