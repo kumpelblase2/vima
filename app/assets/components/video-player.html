@@ -1,5 +1,5 @@
 <template id="video-player">
-    <video controls :autoplay="autoplay" :src="url" class="column is-12"></video>
+    <video controls preload :autoplay="autoplay" :src="url" class="column is-12"></video>
 </template>
 
 <script>
@@ -8,8 +8,6 @@
         props: {
             url: String,
             autoplay: Boolean
-        },
-        ready: function() {
         }
     });
 </script>
