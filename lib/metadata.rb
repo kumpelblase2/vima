@@ -57,6 +57,8 @@ class Metadata
         current.to_i
       when "on_off"
         current == "1" || current == "true"
+      when "date"
+        Date.strptime(current, "%Y-%m-%d")
       else
         current
     end
@@ -64,7 +66,7 @@ class Metadata
 
   def self.allowed_type?(type)
     case type.to_s
-      when "number", "on_off", "text", "range", "select", "taglist"
+      when "number", "on_off", "text", "range", "select", "taglist", "date"
         true
       else
         false
