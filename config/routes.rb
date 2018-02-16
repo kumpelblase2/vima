@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get '/videos/search', to: 'videos#search', as: 'video_search'
 
   get '/playlists/:id/videos', to: 'playlists#videos'
+  post '/playlists/:id/videos', to: 'playlists#add_video'
+  delete '/playlists/:id/videos', to: 'playlists#remove_video'
 
   get '/thumbnails/:id', to: 'thumbnails#thumbnails', as: 'video_thumbnails'
   get '/thumbnails/:id/:number', to: 'thumbnails#thumbnail', as: 'video_thumbnail'
