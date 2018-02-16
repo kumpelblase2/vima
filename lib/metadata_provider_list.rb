@@ -1,4 +1,8 @@
+require 'singleton'
+
 class MetadataProviderList
+  include Singleton
+
   def initialize
     @available_providers = {}
     @enabled_providers = []
@@ -29,16 +33,14 @@ class MetadataProviderList
   end
 
   def run(type, value)
-    enabled_providers.each do |provider|
+    @enabled_providers.each do |provider|
       provider.run(type, value)
     end
   end
 
   def enabled_metadata
-    enabled_providers.map do |provider|
+    @enabled_providers.map do |provider|
       provider.metadata
     end.flatten
   end
 end
-
-::MetadataProviders = MetadataProviderList.new
