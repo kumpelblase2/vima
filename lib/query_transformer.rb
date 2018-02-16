@@ -7,10 +7,12 @@ class QueryTransformer < Parslet::Transform
   rule(:range => subtree(:range)) {
     if range.has_key? :smallerRange
       value = range[:smallerRange]
-      QueryNodes::RangeNode.new(value[:key], true, Integer(value[:value]))
+      typed_value = if value[:value] then Integer(value[:value]) else Date.strptime(value[:date_value], "%Y-%m-%d") end
+      QueryNodes::RangeNode.new(value[:key], true, typed_value)
     elsif range.has_key? :biggerRange
       value = range[:biggerRange]
-      QueryNodes::RangeNode.new(value[:key], false, Integer(value[:value]))
+      typed_value = if value[:value] then Integer(value[:value]) else Date.strptime(value[:date_value], "%Y-%m-%d") end
+      QueryNodes::RangeNode.new(value[:key], false, typed_value)
     else
       raise Exception.new("Couldn't find a range")
     end
