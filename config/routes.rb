@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
   get '/watch/:id', to: 'watch#index'
 
+  post '/events/:videoId', to: 'event#handle'
+
   get '/home', to: 'home#home'
   root 'home#index'
 
