@@ -9,9 +9,11 @@ class ThumbnailsController < ApplicationController
 
   def thumbnail
     number = params[:number].to_i
-    thumb = @video.thumbnails[number]
-    send_file thumb, type: "application/jpeg"
-    fresh_when :last_modified => @video.updated_at.utc
+    if number < @video.thumbnails.size
+      thumb = @video.thumbnails[number]
+      send_file thumb, type: "application/jpeg"
+      fresh_when :last_modified => @video.updated_at.utc
+    end
   end
 
   def generate
