@@ -48,7 +48,7 @@ class QueryParser < Parslet::Parser
 
   rule(:orExpr) { (andExpr.as(:left) >> ws >> orOp >> ws >> orExpr.as(:right)).as(:or) | andExpr }
   rule(:andExpr) { (expr.as(:left) >> ws >> andOp >> ws >> andExpr.as(:right)).as(:and) | expr }
-  rule(:expr) { element | str('(') >> fullexpr >> str(')') }
+  rule(:expr) { (str('(') >> fullexpr >> str(')')) | element }
 
   rule(:fullexpr) { joining(orExpr, ws).as(:query) }
 
