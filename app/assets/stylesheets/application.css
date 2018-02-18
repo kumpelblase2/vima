@@ -11,6 +11,6 @@
  * It is generally better to create a new file per style scope.
  *= require_directory .
  *= require_self
- *= require components-font-awesome/css/font-awesome.min
+ *= require font-awesome
  *= require select2
  */
