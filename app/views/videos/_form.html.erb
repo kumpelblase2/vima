@@ -71,9 +71,11 @@
                     </div>
                 </div>
             <% end %>
-            <div class="field">
+            <div class="field is-grouped">
                 <div class="actions control">
                     <%= f.submit class: 'button is-primary' %>
+                </div>
+                <div class="control">
                     <%= link_to 'Renew Thumbnails', video_thumbnails_regenerate_path(video), remote: true, class: 'button' %>
                 </div>
             </div>
