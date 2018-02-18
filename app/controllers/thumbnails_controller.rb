@@ -1,5 +1,5 @@
 class ThumbnailsController < ApplicationController
-  before_action :set_video, only: [:thumbnails, :thumbnail, :clear, :generate]
+  before_action :set_video, only: [:thumbnails, :thumbnail, :clear, :generate, :regenerate]
 
   def thumbnails
     respond_to do |format|
@@ -26,6 +26,13 @@ class ThumbnailsController < ApplicationController
     respond_to do |format|
       format.json { head :no_content, status: :deleted }
     end
+  end
+
+  def regenerate
+    disable_cache
+    VideoHelper.clear_thumbnails @video
+    ThumbnailGeneratorJob.perform_now @video.location
+    @video = Video.find(@video._id)
   end
 
   private

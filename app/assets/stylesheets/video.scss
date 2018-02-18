@@ -28,7 +28,7 @@
   justify-content: space-around;
 }
 
-.selected-thumbnail {
+.thumbnail.is-selected {
   border: 2px black solid;
 }
 
@@ -70,4 +70,14 @@
 
 .fullscreen-video {
   max-height: 88vh;
+}
+
+.fullscreen-video video {
+  height: 88vh;
+  width: 100vw;
+}
+
+.thumbnail-select {
+  display: flex;
+  flex-wrap: wrap;
 }

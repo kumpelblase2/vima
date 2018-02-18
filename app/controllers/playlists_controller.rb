@@ -1,5 +1,5 @@
 class PlaylistsController < ApplicationController
-  before_action :set_playlist, only: [:show, :edit, :update, :destroy, :videos, :add_video, :remove_video]
+  before_action :set_playlist, only: [:show, :edit, :update, :destroy, :videos, :add_videos, :update_videos]
 
   # GET /playlists
   # GET /playlists.json
@@ -51,18 +51,19 @@ class PlaylistsController < ApplicationController
     end
   end
 
-  def add_video
-    params[:videos].each { |_,video|
-      video_id = video[:id]
-      @playlist.videos << Video.find(video_id) unless has_video_id(@playlist, video_id)
+  def update_videos
+    @playlist.videos.clear
+    params[:videos].each { |id|
+      @playlist.videos << Video.find(id) unless has_video_id(@playlist, id)
     }
 
     @playlist.save!
   end
 
-  def remove_video
-    @playlist.videos.delete_if! { |video| params[:videos].any? { |toDelete| toDelete.id.eql? video.id } }
-    @playlist.save!
+  def add_videos
+    params[:videos].each {|id|
+      @playlist.videos << Video.find(id) unless has_video_id(@playlist, id)
+    }
   end
 
   # DELETE /playlists/1
@@ -75,10 +76,8 @@ class PlaylistsController < ApplicationController
     end
   end
 
-  def videos
-    respond_to do |format|
-      format.json { render json: @playlist.videos.map { |v| video_path(v) } }
-    end
+  def playlist_select
+    @playlists = Playlist.all
   end
 
   private

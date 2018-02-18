@@ -4,8 +4,9 @@ class VideosController < ApplicationController
   # GET /videos
   # GET /videos.json
   def index
-    if params[:search]
-      @videos = Video.full_text_search(params[:search])
+    query = params[:search]
+    if query and not query.empty?
+      @videos = SearchHelper.query(Video, query)
     else
       @videos = Video.all
     end
@@ -14,19 +15,6 @@ class VideosController < ApplicationController
   def list
     respond_to do |format|
       format.json { render json: Video.all.map { |v| video_path(v) } }
-    end
-  end
-
-  def search
-    query = params[:query]
-    if query and query.size > 0
-      @videos = SearchHelper.query(Video, query)
-    else
-      @videos = Video.all
-    end
-
-    respond_to do |format|
-      format.json { render json: @videos.map { |v| video_path(v) } }
     end
   end
 
@@ -103,7 +91,7 @@ class VideosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
-      selected_thumbnail = params.require(:video).permit(thumbnails: [:selected])
-      params.require(:video).permit(:name, *MetadataHelper.get_updatable_parameters).merge({'selected_thumbnail' => selected_thumbnail.dig(:thumbnails, :selected) })
+      updateable_parameters = MetadataHelper.get_updatable_parameters
+      params.require(:video).permit(:name, :selected_thumbnail, *updateable_parameters)
     end
 end

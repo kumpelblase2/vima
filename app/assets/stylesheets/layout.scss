@@ -1,12 +1,18 @@
 @import 'colors';
 
-.header {
-  margin-bottom: 5px;
-}
-
 .spacer {
   width: 5px;
 }
 
 @import "bulma/bulma";
 @import "bulma_addons/*";
+
+.header {
+  margin-bottom: 5px;
+  box-shadow: $card-shadow;
+}
+
+
+.is-active > .link {
+  color: $primary;
+}

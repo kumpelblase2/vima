@@ -1,18 +1,3 @@
-<%= import_component("video-player") %>
-
-<template id="play-video">
-  <div class="column fullscreen-video">
-    <video-player :url="url" :autoplay="true" class="fullscreen-video"></video-player>
-  </div>
-</template>
-
-<play-video url="/content/<%= params[:id] %>/stream"></play-video>
-
-<script>
-  Vue.component('play-video', {
-      template: '#play-video',
-      props: {
-          url: String
-      }
-  });
-</script>
+<div class="column fullscreen-video">
+    <%= render 'shared/video_player', video: @video, next_video_path: @next_video %>
+</div>

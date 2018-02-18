@@ -1,0 +1,23 @@
+<div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <section class="modal-card-body">
+            <div>
+                <ul class="selectable-list">
+                    <% @playlists.each do |playlist| %>
+                        <li class="selectable-list-element playlist-selection" data-playlist-id="<%= playlist._id.to_s %>" onclick="add_videos_to_playlist($(this).data('playlist-id'), get_selected_videoids()); this.closest('.modal').remove()">
+                            <p><%= playlist.name %></p>
+                        </li>
+                    <% end %>
+                </ul>
+            </div>
+            <div class="control">
+                <input class="input playlist-create-name" placeholder="New Playlist Name"/>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success" onclick="create_playlist($('.playlist-create-name').val(), get_selected_videoids()); this.closest('.modal').remove()">Save</button>
+            <button class="button" onclick="this.closest('modal').remove()">Cancel</button>
+        </footer>
+    </div>
+</div>

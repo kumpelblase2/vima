@@ -1,0 +1,35 @@
+<div class="column is-2">
+    <div class="card video-card" data-video-id="<%= video._id.to_s %>">
+        <div class="card-image">
+            <div class="image-overlay">
+                <%= image_tag video_thumbnail_path(video._id, video.selected_thumbnail || 0), class: 'image' %>
+                <div class="image-overlay-content">
+                    <div class="video-edit">
+                        <a href="<%= edit_video_path(video) %>">
+                            <span class="icon">
+                                <i class="fa fa-pencil"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="video-play">
+                        <%= link_to watch_video_path(video, playlist: playlist) do %>
+                            <span class="icon">
+                                <i class="fa fa-play"></i>
+                            </span>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-header">
+            <div class="card-header-title"><%= video.name %></div>
+        </div>
+        <div class="card-content">
+            <div class="content">
+                <% MetadataHelper.get_allowed_keys.each do |name| %>
+                    <div class="metadata-display-<%= name %>"><%= name %>: <%= video[name] %></div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

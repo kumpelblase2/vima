@@ -1,0 +1,16 @@
+<div class="column is-2">
+    <a href="<%= playlist_path(playlist) %>">
+        <div class="card video-card">
+            <div class="card-image">
+                <% video = playlist.videos.sample %>
+                <%= image_tag video_thumbnail_path(video._id, video.selected_thumbnail || 0), class: 'image' %>
+            </div>
+            <div class="card-header">
+                <div class="card-header-title"><%= playlist.name %></div>
+            </div>
+            <div class="card-content">
+                <%= playlist.videos.size %> Videos
+            </div>
+        </div>
+    </a>
+</div>

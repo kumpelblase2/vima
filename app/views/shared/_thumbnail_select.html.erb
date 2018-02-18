@@ -1,0 +1,19 @@
+<div class="thumbnail-select">
+    <% video.thumbnails.each_with_index do |_,i| %>
+        <div class="is-2">
+            <% is_selected = if i == video.selected_thumbnail then ' is-selected' else '' end %>
+            <%= image_tag video_thumbnail_path(video._id, i, i: Time.now.to_i), class: 'thumbnail' + is_selected, data: { 'thumbnail-id' => i } %>
+        </div>
+    <% end %>
+    <script>
+        $('.thumbnail-select .thumbnail').click(function() {
+            const elem = $(this);
+            const thumbnailId = elem.data('thumbnail-id');
+            $('.thumbnail-select .thumbnail').each(function() {
+                $(this).removeClass('is-selected');
+            });
+            elem.addClass('is-selected');
+            document.getElementsByName('video[selected_thumbnail]')[0].value = thumbnailId;
+        });
+    </script>
+</div>

@@ -1,0 +1,22 @@
+<div class="level">
+    <div class="level-left">
+        <div class="level-item">
+            <div class="block">
+                <%= link_to playlist_select_path, remote: true do %>
+                    <span class="icon">
+                        <i class="fa fa-plus-square"></i>
+                    </span>
+                    <span>Add to Playlist</span>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <div class="level-item">
+        <%= render 'shared/top_panel/video_search', search: search_term %>
+    </div>
+    <div class="level-right">
+        <div class="level-item">
+            <%= render 'shared/top_panel/video_metadata_select', metadata_elements: MetadataHelper.get_configured_metadata %>
+        </div>
+    </div>
+</div>

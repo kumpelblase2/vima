@@ -30,6 +30,11 @@ module MetadataHelper
   def self.fix_metadata_types(video)
     get_configured_metadata.reject(&:read_only?).each do |meta|
       value = video[meta.name]
+      if meta.type == "taglist" and value == nil
+        value = []
+        video[meta.name] = []
+      end
+
       if value != nil
         video[meta.name] = meta.format(value)
       end
@@ -41,5 +46,9 @@ module MetadataHelper
     get_configured_metadata.each do |metadata|
       video[metadata.name] = metadata.default if metadata.has_default?
     end
+  end
+
+  def self.get_values_for_metadata(name)
+    Video.all.map {|v| v[name]}.flatten.uniq
   end
 end

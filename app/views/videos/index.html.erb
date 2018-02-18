@@ -1,71 +1,21 @@
-<%= import_component("metadata") %>
-<%= import_component("videos-top-panel") %>
-<%= import_component("library-view") %>
-<%= import_component("playlist-select-modal") %>
-
-<template id="videos">
-    <metadata @metadata="updateMetadata"></metadata>
-    <videos-top-panel :metadata="availableMetadata" :visible="visible" @visible-changed="updateVisibleMetadata"></videos-top-panel>
-    <library-view :visible-metadata="visible" v-ref:library :selected="selected"></library-view>
-    <playlist-select-modal :shown="createPlaylist"></playlist-select-modal>
-</template>
-
-<videos></videos>
-
+<%= render 'shared/video_bar', search_term: params[:search] %>
+<%= render 'shared/video_collection', videos: @videos, playlist: nil %>
+<div id="playlist-select"></div> <!-- need this when adding videos to a playlist -->
 <script>
-    Vue.component('videos', {
-        template: '#videos',
-        data: function () {
-            return {
-                availableMetadata: [],
-                visible: [],
-                createPlaylist: false,
-                selected: []
-            };
-        },
-        methods: {
-            updateMetadata: function (metadata) {
-                this.availableMetadata = metadata;
-            },
-            updateVisibleMetadata: function (visible) {
-                this.visible = visible;
-            }
-        },
-        events: {
-            refreshed: function () {
-                this.$refs.library.refresh();
-            },
-            reload: function () {
-                this.$refs.library.refresh();
-                console.log('reloaded');
-            },
-            search: function (query) {
-                this.$refs.library.query(query);
-            },
-            'play-request': function (video) {
-                window.location.pathname = "/watch/" + video.id
-            },
-            'do-create-playlist': function() {
-                const selected = this.selected;
-                if (selected && selected.length > 0) {
-                    this.createPlaylist = true;
-                }
-            },
-            'playlist-selected': function (playlist) {
-                $.ajax({
-                    url: `/playlists/${playlist.id}.json`,
-                    method: 'put',
-                    form: {
-                        playlist: {
-                            videos: this.$refs.library.selected
-                        }
-                    },
-                    success: () => {
-                        this.$refs.library.clearSelected();
-                        this.selected = [];
-                    }
-                });
-            }
+    let controlDown = false;
+
+    $('.video-card').click(event => {
+        if(controlDown) {
+            $(event.currentTarget).toggleClass('is-selected-video');
         }
     });
+
+    const toggleControl = (status) => (event) => {
+        if(event.which == 17) {
+            controlDown = status;
+        }
+    };
+
+    $(document).keydown(toggleControl(true));
+    $(document).keyup(toggleControl(false));
 </script>

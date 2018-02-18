@@ -1,0 +1,11 @@
+<div class="column is-half nav-item">
+    <input id="search" class="input is-expanded" placeholder="Search ..." value="<%= search || "" %>">
+</div>
+<script>
+    $('#search').on('keyup', event => {
+        if (event.which === 13) {
+            const input = event.target.value;
+            window.location.search = `?search=${encodeURIComponent(input)}`;
+        }
+    });
+</script>

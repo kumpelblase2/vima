@@ -22,6 +22,5 @@ development:
        - b
    - butts: taglist
   providers:
-   WatchedStatus:
-       test: 1
+   WatchedStatus: true
    VideoMetadata: true

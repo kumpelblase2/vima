@@ -1,20 +1,10 @@
-<%= import_component("playlist-list") %>
-
-<template id="playlists">
-  <div class="columns is-multiline">
-    <div class="column is-12">
-      <div class="column is-2 is-offset-1 title">Playlists</div>
+<div class="columns is-multiline">
+    <div class="columns column is-12">
+        <div class="column is-2 is-offset-1 title">Playlists</div>
     </div>
     <div class="column is-10 is-offset-2">
-      <playlist-list></playlist-list>
+        <% @playlists.each do |playlist| %>
+            <%= render 'shared/playlist', playlist: playlist %>
+        <% end %>
     </div>
-  </div>
-</template>
-
-<playlists></playlists>
-
-<script>
-  Vue.component('playlists', {
-    template: '#playlists'
-  });
-</script>
+</div>

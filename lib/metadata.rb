@@ -58,7 +58,7 @@ class Metadata
       when "on_off"
         current == "1" || current == "true"
       when "date"
-        Date.strptime(current, "%Y-%m-%d")
+        Date.strptime(current, "%Y-%m-%d") if current and current.length > 0
       else
         current
     end

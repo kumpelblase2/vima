@@ -1,0 +1,34 @@
+<div class="dropdown">
+    <div class="dropdown-toggle">
+        <div class="button is-primary">
+            <span>Display</span>
+            <span class="icon">
+        <i class="fa fa-caret-down"></i>
+      </span>
+        </div>
+    </div>
+    <div class="dropdown-content columns is-multiline is-hidden">
+        <% metadata_elements.each do |metadata| %>
+            <div class="column is-6">
+                <p class="control">
+                    <label class="checkbox">
+                        <input type="checkbox" checked data-metadata-name="<%= metadata.name %>"/>
+                        <%= metadata.name %>
+                    </label>
+                </p>
+            </div>
+        <% end %>
+    </div>
+</div>
+<script>
+    $('.dropdown-toggle').click(event => {
+        const toggle = event.currentTarget;
+        const content = $(toggle).children('.dropdown-content');
+        content.toggleClass('is-hidden')
+    });
+
+    $('.checkbox input[type=checkbox]').change(event => {
+        const metadataName = $(event.target).data('metadata-name');
+        $(`.metadata-display-${metadataName}`).toggleClass('is-hidden');
+    });
+</script>

@@ -4,7 +4,7 @@
   &:hover {
     outline: none;
 
-    &::-webkit-slider-thumb {
+    &::-moz-range-thumb {
       border: 1px solid $primary;
     }
   }
@@ -12,21 +12,21 @@
   &:focus {
     outline: none;
 
-    &::-webkit-slider-thumb {
-      background: $control-active-background;
+    &::-moz-range-thumb {
+      background: $primary;
       border: 0;
     }
   }
 
-  &::-webkit-slider-runnable-track {
+  &::-moz-range-track {
     width: 100%;
     height: 3px;
     border-radius: 3px;
     border: none;
-    background: $control-border;
+    background: $dark;
   }
 
-  &::-webkit-slider-thumb {
+  &::-moz-range-thumb {
     -webkit-appearance: none;
     background: $grey-lighter;
     height: 16px;

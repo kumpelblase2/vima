@@ -1,38 +1,92 @@
 <%= form_for(video) do |f| %>
-  <% if video.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(video.errors.count, "error") %> prohibited this video from being saved:</h2>
+    <div class="columns">
+        <div class="column is-5">
+            <%= f.hidden_field :selected_thumbnail %>
+            <div id="thumbnail-select">
+                <%= render 'shared/thumbnail_select', video: video %>
+            </div>
+        </div>
+        <div class="column is-7">
+            <% if video.errors.any? %>
+                <article class="message is-danger">
+                    <div class="message-header">
+                        <p>There was an error saving the video</p>
+                    </div>
+                    <div class="message-body">
+                        <ul>
+                            <% video.errors.full_messages.each do |message| %>
+                                <li><%= message %></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                </article>
+            <% end %>
 
-      <ul>
-      <% video.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    <%= f.label :location, class: 'label' %>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <%= f.text_field :location, readonly: true, class: 'input' %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    <%= f.label :file_hash, class: 'label' %>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <%= f.text_field :file_hash, readonly: true, class: 'input' %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    <%= f.label :name, class: 'label' %>
+                </div>
+                <div class="field-body">
+                    <div class="control">
+                        <%= f.text_field :name, class: 'input' %>
+                    </div>
+                </div>
+            </div>
+
+            <% MetadataHelper.get_configured_metadata.each do |metadata| %>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <%= f.label metadata.name, class: 'label' %>
+                    </div>
+                    <div class="field-body">
+                        <div class="control">
+                            <%= generate_input_for video, metadata %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+            <div class="field">
+                <div class="actions control">
+                    <%= f.submit class: 'button is-primary' %>
+                    <%= link_to 'Renew Thumbnails', video_thumbnails_regenerate_path(video), remote: true, class: 'button' %>
+                </div>
+            </div>
+        </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :location %>
-    <%= f.text_field :location %>
-  </div>
-
-  <div class="field">
-    <%= f.label :file_hash %>
-    <%= f.text_field :file_hash %>
-  </div>
-
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-
-  <% MetadataHelper.get_configured_metadata.each do |metadata| %>
-      <div class="field">
-        <%= f.label metadata.name %>
-        <%= generate_input_for video, metadata %>
-      </div>
-  <% end %>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <script>
+        $('.taglist').each(function () {
+            const input = $(this);
+            input.select2({
+                tags: true,
+                tokenSeparators: [',', ' '],
+                containerCssClass: 'select is-multiple'
+            });
+        });
+    </script>
 <% end %>

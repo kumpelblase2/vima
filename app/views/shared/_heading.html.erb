@@ -1,46 +1,13 @@
-<template id="header">
-  <div class="header">
-    <nav class="level nav has-shadow">
-      <p class="level-item nav-item has-text-centered" :class="{ 'is-active': isPage('playlists') }">
-        <a class="link is-info" href="<%= playlists_path %>">Playlists</a>
-      </p>
-      <p class="level-item nav-item has-text-centered" :class="{ 'is-active': isPage('library') }">
-        <a class="link is-info" href="<%= videos_path %>">Library</a>
-      </p>
-      <p class="level-item nav-item has-text-centered" :class="{ 'is-active': isPage('root') }">
-        <a class="link is-info title" href="<%= home_path %>">Vima</a>
-      </p>
-      <p class="level-item nav-item has-text-centered" :class="{ 'is-active': isPage('settings') }">
-        <a class="link is-info">Settings</a>
-      </p>
-      <p class="level-item nav-item has-text-centered":class="{ 'is-active': isPage('info') }">
-        <a class="link is-info">Info</a>
-      </p>
+<div class="header">
+    <nav class="level has-shadow">
+        <p class="level-item has-text-centered <%= if current_controller?('playlists') then 'is-active' end %>">
+            <a class="link" href="<%= playlists_path %>">Playlists</a>
+        </p>
+        <p class="level-item has-text-centered <%= if current_page?(home_path) then 'is-active' end %>">
+            <a class="link title" href="<%= home_path %>">Vima</a>
+        </p>
+        <p class="level-item has-text-centered <%= if current_controller?('videos') then 'is-active' end %>">
+            <a class="link" href="<%= videos_path %>">Library</a>
+        </p>
     </nav>
-  </div>
-</template>
-
-<vima-header></vima-header>
-
-<script>
-  Vue.component('vima-header', {
-    template: '#header',
-    data: function() {
-      return {
-        routes: {
-          'library': '/videos',
-          'playlists': '/playlists',
-          'root': '/home',
-          'settings': '/settings',
-          'info': '/info'
-        }
-      };
-    },
-    methods: {
-      isPage: function(page) {
-        const path = window.location.pathname;
-        return path.startsWith(this.routes[page]);
-      }
-    }
-  });
-</script>
+</div>

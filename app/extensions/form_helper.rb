@@ -9,11 +9,11 @@ module ActionView
 
         case metadata_info.type
           when "number"
-            number_field_tag name, value, options
+            number_field_tag name, value, options.merge({class: 'input'})
           when "text"
-            text_field_tag name, value, options
+            text_field_tag name, value, options.merge({ class: 'input' })
           when "range"
-            range_field_tag name, value, options.merge(metadata_info.options)
+            range_field_tag name, value, options.merge({ class: 'range' }).merge(metadata_info.options)
           when "select"
             select_tag name, options_for_select(metadata_info.options[:values], value), options
           when "on_off"
@@ -21,6 +21,13 @@ module ActionView
           when "date"
             str_value = if value then value.strftime("%Y-%m-%d") else "" end
             date_field_tag name, str_value, options
+          when "time"
+            time_field_tag name, value, options
+          when "taglist"
+            selected_values = options_from_collection_for_select(MetadataHelper.get_values_for_metadata(metadata_info.name), 'to_s', 'to_s', value)
+            tag.div(class: %(select is-multiple)) do
+              select_tag name + "[]", selected_values, options.merge({class: 'taglist', data: { metadata: metadata_info.name, value: value.join(',') }, multiple: 'multiple', style: 'width: 100%'})
+            end
           else
         end
       end

@@ -4,6 +4,6 @@ class HomeController < ApplicationController
   end
 
   def home
-
+    @videos = Video.all
   end
 end

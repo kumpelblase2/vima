@@ -1,13 +1,12 @@
 .selectable-list {
-  border: 2px solid #2E2F30;
-  border-right-width: 0;
-  border-left-width: 0;
+  padding: 2px;
 }
 
-.selectable-list-element {
-  height: 30px;
-  width: 100%;
-  border: 2px solid #2E2F30;
-  border-right-width: 0;
-  border-left-width: 0;
+.selectable-list li {
+  padding: 2px;
+}
+
+.selectable-list li:nth-child(2) {
+  border: 0 solid #dddddd;
+  border-top-width: 2px;
 }
