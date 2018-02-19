@@ -9,7 +9,7 @@ module ImageHelper
       times = generate_image_times movie.duration, amount
       times.map do |time|
         filename = output_format % time
-        movie.screenshot filename, { seek_time: time, resolution: RESOLUTION, quality: quality }, preserve_aspect_ratio: :width
+        movie.screenshot filename, { resolution: RESOLUTION, quality: quality }, { input_options: { ss: time.to_s } }
         filename
       end
     else
