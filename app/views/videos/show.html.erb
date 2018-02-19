@@ -1,26 +1,55 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @video.location %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @video.name %>
-</p>
-
-<p>
-  <strong>Hash:</strong>
-  <%= @video.file_hash %>
-</p>
-
-<% MetadataHelper.get_configured_metadata.each do |metadata| %>
-    <p>
-      <strong><%= metadata.name %>:</strong>
-      <%= @video[metadata.name] %>
-    </p>
+<% if notice %>
+    <div class="message is-small">
+        <div class="message-body">
+            <%= notice %>
+        </div>
+    </div>
 <% end %>
+<div class="columns">
+    <div class="column is-4">
+        <div class="image">
+            <div class="image-overlay">
+                <%= image_tag video_thumbnail_path(@video._id, @video.selected_thumbnail || 0) %>
+                <div class="image-overlay-content">
+                    <div class="video-play">
+                        <%= link_to watch_video_path(@video, playlist: @playlist) do %>
+                        <span class="icon">
+                            <i class="fa fa-play"></i>
+                        </span>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column is-8">
+        <table class="table is-fullwidth">
+            <tbody>
+                <tr>
+                    <td>Name</td>
+                    <td><%= @video.name %></td>
+                </tr>
+                <tr>
+                    <td>Location</td>
+                    <td><%= @video.location %></td>
+                </tr>
+                <tr>
+                    <td>Hash</td>
+                    <td><%= @video.file_hash %></td>
+                </tr>
+                <% MetadataHelper.get_configured_metadata.each do |metadata| %>
+                    <tr>
+                        <td><%= metadata.name %></td>
+                        <td><%= @video[metadata.name] %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <div class="column pull-right">
+            <%= link_to 'Edit', edit_video_path(@video), class: 'button is-primary' %>
+        </div>
+    </div>
+</div>
 
-<%= link_to 'Edit', edit_video_path(@video) %> |
-<%= link_to 'Back', videos_path %>
+
+
