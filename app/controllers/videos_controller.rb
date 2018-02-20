@@ -12,12 +12,6 @@ class VideosController < ApplicationController
     end
   end
 
-  def list
-    respond_to do |format|
-      format.json { render json: Video.all.map { |v| video_path(v) } }
-    end
-  end
-
   # GET /videos/1
   # GET /videos/1.json
   def show

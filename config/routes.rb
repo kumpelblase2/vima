@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   get '/videos/refresh', to: 'videos#refresh'
-  get '/videos/list', to: 'videos#list'
 
   # we need these for different usecases
   # First is to re-order videos (and thus know all of the videos)
