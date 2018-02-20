@@ -5,9 +5,9 @@ module VideoHelper
 
   def self.load_video(video)
     checksum = FileHelper.get_file_hash(video)
-    logger.info "Checking video #{video}"
+    logger.debug "Checking video #{video}"
     if Video.where(file_hash: checksum).exists?
-      logger.info 'Video already exists'
+      logger.debug 'Video already exists'
     else
       v = Video.new
       v.location = video
