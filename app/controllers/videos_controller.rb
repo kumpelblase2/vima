@@ -8,7 +8,7 @@ class VideosController < ApplicationController
     if query and not query.empty?
       @videos = SearchHelper.query(Video, query)
     else
-      @videos = Video.all
+      @videos = Video.order_by(name: 'asc')
     end
   end
 
