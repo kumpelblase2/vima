@@ -4,6 +4,12 @@ class HomeController < ApplicationController
   end
 
   def home
-    @videos = Video.all
+    @videos = Video.order_by(created_at: 'desc').take(video_amount)
+  end
+
+  private
+
+  def video_amount
+    Rails.configuration.library["home"]["videos"]
   end
 end

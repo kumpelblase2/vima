@@ -2,6 +2,8 @@ production:
 
 development:
   dir: ./videos
+  home:
+    videos: 5
   thumbnails:
     generate: true
     amount: 3
