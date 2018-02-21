@@ -3,6 +3,13 @@ module VideoHelper
     Rails.logger
   end
 
+  def self.get_unknown_videos(videos)
+    video_checksum_map = videos.map {|video| { file: video, checksum: FileHelper.get_file_hash(video)}}
+    checksums = video_checksum_map.map { |elem| elem[:checksum] }
+    found = Video.where(:file_hash.in => checksums).distinct(:file_hash)
+    video_checksum_map.reject { |elem| found.include? elem[:checksum] }.map { |elem| elem[:video] }
+  end
+
   def self.load_video(video)
     checksum = FileHelper.get_file_hash(video)
     logger.debug "Checking video #{video}"

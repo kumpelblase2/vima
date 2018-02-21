@@ -13,6 +13,7 @@ class VideoLoadJob < ApplicationJob
       end
     end
 
-    found.each { |video| VideoHelper.load_video(video) }
+    new_videos = VideoHelper.get_unknown_videos(found)
+    new_videos.each { |video| VideoHelper.load_video(video) }
   end
 end
