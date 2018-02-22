@@ -27,6 +27,10 @@ class MetadataProvider
     register_handler :video_finish, block
   end
 
+  def on_video_update(&block)
+    register_handler :video_update, block
+  end
+
   def run(type, video)
     call_handler type, video
   end

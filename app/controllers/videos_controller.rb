@@ -60,6 +60,7 @@ class VideosController < ApplicationController
     params = MetadataHelper.fix_metadata_types(video_params)
     respond_to do |format|
       if @video.update(params)
+        MetadataProviderList.instance.run :video_update, @video
         format.html { redirect_to @video, notice: 'Video was successfully updated.' }
         format.json { render :show, status: :ok, location: @video }
       else
