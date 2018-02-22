@@ -1,32 +1,26 @@
-<div class="dropdown">
-    <div class="dropdown-toggle">
-        <div class="button is-primary">
+<div class="dropdown is-right">
+    <div class="dropdown-trigger">
+        <button class="button is-primary" aria-haspopup="true" aria-controls="metadata-menu">
             <span>Display</span>
-            <span class="icon">
-        <i class="fa fa-caret-down"></i>
-      </span>
-        </div>
+            <span class="icon is-small">
+                <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </span>
+        </button>
     </div>
-    <div class="dropdown-content columns is-multiline is-hidden">
-        <% metadata_elements.each do |metadata| %>
-            <div class="column is-6">
-                <p class="control">
+    <div class="dropdown-menu" id="metadata-menu" role="menu">
+        <div class="dropdown-content">
+            <% metadata_elements.each do |metadata| %>
+                <div class="dropdown-item">
                     <label class="checkbox">
                         <input type="checkbox" checked data-metadata-name="<%= metadata.name %>"/>
                         <%= metadata.name %>
                     </label>
-                </p>
-            </div>
-        <% end %>
+                </div>
+            <% end %>
+        </div>
     </div>
 </div>
 <script>
-    $('.dropdown-toggle').click(event => {
-        const toggle = event.currentTarget;
-        const content = $(toggle).children('.dropdown-content');
-        content.toggleClass('is-hidden')
-    });
-
     $('.checkbox input[type=checkbox]').change(event => {
         const metadataName = $(event.target).data('metadata-name');
         $(`.metadata-display-${metadataName}`).toggleClass('is-hidden');
