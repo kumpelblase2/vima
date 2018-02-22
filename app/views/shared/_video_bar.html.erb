@@ -16,6 +16,9 @@
     </div>
     <div class="level-right">
         <div class="level-item">
+            <%= render 'shared/order_by_dropdown', search: search_term %>
+        </div>
+        <div class="level-item">
             <%= render 'shared/top_panel/video_metadata_select', metadata_elements: MetadataHelper.get_configured_metadata %>
         </div>
     </div>

@@ -50,4 +50,10 @@ module VideoHelper
     video.thumbnails = []
     video.save!
   end
+
+  def self.ordering_options(name, selected, default_dir, current_ordering)
+    opposite_dir = if current_ordering == 'asc' then 'desc' else 'asc' end
+    new_dir = if selected then opposite_dir else default_dir end
+    { order: name, dir: new_dir }
+  end
 end

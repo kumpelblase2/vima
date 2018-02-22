@@ -51,4 +51,8 @@ module MetadataHelper
   def self.get_values_for_metadata(name)
     Video.all.map {|v| v[name]}.flatten.uniq
   end
+
+  def self.get_ordering_metadata
+    get_configured_metadata.reject { |metadata| metadata.type == "taglist" }.map(&:name)
+  end
 end

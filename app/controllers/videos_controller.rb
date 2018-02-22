@@ -4,11 +4,14 @@ class VideosController < ApplicationController
   # GET /videos
   # GET /videos.json
   def index
+    order_by = params[:order] || :name
+    direction = params[:dir] || 'asc'
+
     query = params[:search]
     if query and not query.empty?
-      @videos = SearchHelper.query(Video, query)
+      @videos = SearchHelper.query(Video.order_by(order_by => direction), query)
     else
-      @videos = Video.order_by(name: 'asc')
+      @videos = Video.order_by(order_by => direction)
     end
   end
 

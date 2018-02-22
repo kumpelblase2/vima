@@ -1,0 +1,8 @@
+<%= link_to videos_path(query_params), class: classes do %>
+    <span><%= display_name %></span>
+    <% if selected %>
+        <span class="icon is-small">
+            <i class="fa <%= if current_order == 'asc' then 'fa-caret-up' else 'fa-caret-down' end %>"></i>
+        </span>
+    <% end %>
+<% end %>
