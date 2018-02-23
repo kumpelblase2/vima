@@ -3,7 +3,7 @@ class VideoLoadJob < ApplicationJob
 
   def perform(*args)
     config = Rails.application.config
-    dir = config.library["dir"]
+    dir = File.absolute_path(config.library["dir"])
     found = []
 
     Dir.chdir(dir) do
