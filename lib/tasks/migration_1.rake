@@ -18,3 +18,11 @@ task :make_paths_absolute => :environment do
     video.update(thumbnails: new_thumbnail_paths)
   end
 end
+
+task :generate_file_hashes => :environment do
+  Video.all.each do |video|
+    video_location = video.location
+    new_hash = FileHelper.get_file_hash(video_location)
+    video.update(file_hash: new_hash)
+  end
+end
