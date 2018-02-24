@@ -32,10 +32,6 @@ class VideosController < ApplicationController
   def refresh
     CleanupJob.perform_now
     VideoLoadJob.perform_now
-    respond_to do |format|
-      format.html { redirect_to videos_url, notice: 'Successfully reloaded.' }
-      format.json { head :no_content }
-    end
   end
 
   # POST /videos

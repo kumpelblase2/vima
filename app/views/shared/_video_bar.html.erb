@@ -10,6 +10,16 @@
                 <% end %>
             </div>
         </div>
+        <div class="level-item">
+            <div class="button outlined">
+                <%= link_to videos_refresh_path, remote: true do %>
+                    <span class="icon">
+                        <i class="fa fa-refresh"></i>
+                    </span>
+                    <span>Refresh</span>
+                <% end %>
+            </div>
+        </div>
     </div>
     <div class="level-item">
         <%= render 'shared/top_panel/video_search', search: search_term %>
