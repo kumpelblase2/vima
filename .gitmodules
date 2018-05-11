@@ -1,0 +1,3 @@
+[submodule "app/assets/javascripts/img-2"]
+	path = vendor/assets/javascripts/img-2
+	url = git@github.com:RevillWeb/img-2.git

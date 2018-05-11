@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require select2-full
+//= require img-2/bower_components/webcomponentsjs/webcomponents-hi-sd.js
+//= require img-2/dist/img-2.js
 //= require_tree .
 
 function getQueryParam(name) {
