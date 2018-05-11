@@ -40,7 +40,14 @@
                 <% MetadataHelper.get_configured_metadata.each do |metadata| %>
                     <tr>
                         <td><%= metadata.name %></td>
-                        <td><%= @video[metadata.name] %></td>
+                        <td>
+                            <% if metadata.type == "taglist" %>
+                                <% tag_values = @video[metadata.name] %>
+                                <%= render 'shared/taglist', tags: tag_values %>
+                            <% else %>
+                                <%= @video[metadata.name] %>
+                            <% end %>
+                        </td>
                     </tr>
                 <% end %>
             </tbody>

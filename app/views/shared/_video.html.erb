@@ -29,11 +29,20 @@
             </div>
         </div>
         <div class="card-content">
-            <div class="content">
+            <table class="table">
                 <% MetadataHelper.get_allowed_keys.each do |name| %>
-                    <div class="metadata-display-<%= name %>"><%= name %>: <%= video[name] %></div>
+                    <tr class="metadata-display-<%= name %>">
+                        <td><%= name %></td>
+                        <td>
+                            <% if video[name].is_a?(Array) %>
+                                <%= render 'shared/taglist', tags: video[name] %>
+                            <% else %>
+                                <%= video[name] %>
+                            <% end %>
+                        </td>
+                    </tr>
                 <% end %>
-            </div>
+            </table>
         </div>
     </div>
 </div>
