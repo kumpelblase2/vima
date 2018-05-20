@@ -19,4 +19,8 @@ class Video
   def self.find_by_hash(hash)
     self.where(file_hash: hash).first()
   end
+
+  def selected_thumbnail_path
+    self.thumbnails[self.selected_thumbnail || 0]
+  end
 end

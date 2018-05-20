@@ -15,9 +15,8 @@ class ThumbnailGeneratorJob < ApplicationJob
         if video
           puts "Generating #{amount} thumbnails for #{video_loc}"
           thumbnails = ImageHelper.generate_thumbnails video_loc, amount, File.join(thumb_dir, file_hash + "_%d.jpg")
-          video.thumbnails = thumbnails
-          video.selected_thumbnail = 0
-          video.save!
+          thumbnails = thumbnails.map { |file| File.basename(file) }
+          video.update(selected_thumbnail: 0, thumbnails: thumbnails)
         end
       end
     end

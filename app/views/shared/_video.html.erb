@@ -2,8 +2,8 @@
     <div class="card video-card" data-video-id="<%= video._id.to_s %>">
         <div class="card-image">
             <div class="image-overlay">
-                <figure class="image">
-                    <%= tag "img-2", { :src => video_thumbnail_path(video._id, video.selected_thumbnail || 0), :width => 303.133, :height => 180.3 } %>
+                <figure class="image is-16by9">
+                    <%= image_tag video_thumbnail_path(video.selected_thumbnail_path) %>
                 </figure>
                 <div class="image-overlay-content">
                     <div class="video-edit">

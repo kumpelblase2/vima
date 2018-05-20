@@ -1,5 +1,7 @@
+require "time"
+
 class ThumbnailsController < ApplicationController
-  before_action :set_video, only: [:thumbnails, :thumbnail, :clear, :generate, :regenerate]
+  before_action :set_video, only: [:thumbnails, :clear, :generate, :regenerate]
 
   def thumbnails
     respond_to do |format|
@@ -8,11 +10,10 @@ class ThumbnailsController < ApplicationController
   end
 
   def thumbnail
-    number = params[:number].to_i
-    if number < @video.thumbnails.size
-      thumb = @video.thumbnails[number]
-      send_file thumb, type: "application/jpeg"
-      fresh_when :last_modified => @video.updated_at.utc
+    file = params[:file]
+    http_cache_forever public: true do
+      response.headers["Expires"] = 6.months.from_now.httpdate
+      send_file ThumbnailsHelper.full_thumbnail_path(file), type: "application/jpeg"
     end
   end
 
