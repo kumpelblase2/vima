@@ -1,8 +1,8 @@
 <div class="thumbnail-select">
-    <% video.thumbnails.each_with_index do |_,i| %>
+    <% video.thumbnails.each_with_index do |thumb,i| %>
         <div class="is-2">
             <% is_selected = if i == video.selected_thumbnail then ' is-selected' else '' end %>
-            <%= image_tag video_thumbnail_path(video._id, i, i: Time.now.to_i), class: 'thumbnail' + is_selected, data: { 'thumbnail-id' => i } %>
+            <%= image_tag video_thumbnail_path(thumb, i: Time.now.to_i), class: 'thumbnail' + is_selected, data: { 'thumbnail-id' => i } %>
         </div>
     <% end %>
     <script>

@@ -9,7 +9,7 @@
     <div class="column is-4">
         <div class="image">
             <div class="image-overlay">
-                <%= image_tag video_thumbnail_path(@video._id, @video.selected_thumbnail || 0) %>
+                <%= image_tag video_thumbnail_path(@video.selected_thumbnail_path) %>
                 <div class="image-overlay-content">
                     <div class="video-play">
                         <%= link_to watch_video_path(@video, playlist: @playlist) do %>
