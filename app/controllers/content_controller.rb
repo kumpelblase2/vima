@@ -6,7 +6,7 @@ class ContentController < ApplicationController
   def video_stream
     video = (Video.find(params[:id]) or not_found)
     location = video.location
-    send_file location, type: "application/mp4"
+    send_file location, type: "application/mp4", disposition: 'inline', range: true
     fresh_when :etag => video.file_hash
   end
 end
