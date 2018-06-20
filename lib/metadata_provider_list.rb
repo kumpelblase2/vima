@@ -32,9 +32,13 @@ class MetadataProviderList
     @available_providers[name] = clazz.new
   end
 
-  def run(type, value)
+  def run(type, value, save = true)
     @enabled_providers.each do |provider|
       provider.run(type, value)
+    end
+
+    if save
+      value.save!
     end
   end
 

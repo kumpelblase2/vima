@@ -21,9 +21,9 @@ module VideoHelper
       v.file_hash = checksum
       v.name = get_video_name(video)
 
-      MetadataProviderList.instance.run :video_create, v
+      MetadataProviderList.instance.run :video_create, v, false
       MetadataHelper.apply_defaults(v)
-      MetadataProviderList.instance.run :video_load, v
+      MetadataProviderList.instance.run :video_load, v, false
 
       v.save!
 
