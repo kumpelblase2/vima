@@ -2,7 +2,7 @@
 <script>
     $('.video-player').on('ended', event => {
         const elem = $(event.target);
-        sendEvent(elem.data('video-id'), 'video_finished', () => {
+        sendEvent(elem.data('video-id'), 'video_finish', () => {
             const nextVideo = elem.data('next-video-path');
             if(nextVideo != null && nextVideo.length > 0) {
                 window.location.pathname = nextVideo;
@@ -12,6 +12,6 @@
 
     $('.video-player').on('loadstart', event => {
         const elem = $(event.target);
-        sendEvent(elem.data('video-id'), 'video_started');
+        sendEvent(elem.data('video-id'), 'video_start');
     });
 </script>
