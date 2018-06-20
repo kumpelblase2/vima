@@ -3,7 +3,7 @@ class VideoWatchStatusProvider < MetadataProvider
     on_video_load do |video|
       video[:watched] = false
       video[:watched_times] = 0
-      video[:added_date] = DateTime.now.to_date
+      video[:added_date] = DateTime.now
     end
 
     on_video_start_play do |video|
@@ -13,9 +13,9 @@ class VideoWatchStatusProvider < MetadataProvider
     on_video_finish_play do |video|
       current_times = video[:watched_times] || 0
       video[:watched_times] = current_times + 1
-      video[:last_watched] = DateTime.now.to_date
+      video[:last_watched] = DateTime.now
       if video[:first_watched] == nil
-        video[:first_watched] = DateTime.now.to_date
+        video[:first_watched] = DateTime.now
       end
     end
 

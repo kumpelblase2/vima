@@ -19,8 +19,8 @@ module ActionView
           when "on_off"
             check_box_tag name, "1", value, options
           when "date"
-            str_value = if value then value.strftime("%Y-%m-%d") else "" end
-            date_field_tag name, str_value, options
+            str_value = if value then value.strftime("%Y-%m-%d %H:%M:%S") else "" end
+            datetime_field_tag name, str_value, options
           when "time"
             time_field_tag name, value, options
           when "taglist"
