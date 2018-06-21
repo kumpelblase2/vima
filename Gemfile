@@ -6,7 +6,7 @@ gem 'rails', '5.1.4'
 
 gem 'parslet'
 
-gem 'mongoid', '6.2.1'
+gem 'mongoid', '7.0.1'
 gem 'mongoid_search'
 # Use Puma as the app server
 gem 'puma', '3.10'
