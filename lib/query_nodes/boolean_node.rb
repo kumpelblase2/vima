@@ -5,8 +5,12 @@ module QueryNodes
       @included = included
     end
 
+    def is_applicable?(keys)
+      keys.has_key? @key
+    end
+
     def apply(query, keys)
-      query.where(@key => @included) if keys.has_key? @key
+      query.where(@key => @included)
     end
   end
 end

@@ -6,8 +6,12 @@ module QueryNodes
       @value = value
     end
 
-    def apply(query, keys)
-      query.where((@smaller ? @key.lt : @key.gt) => @value) if keys.has_key? @key
+    def apply(query, keys, is_and = false)
+      query.where((@smaller ? @key.lt : @key.gt) => @value)
+    end
+
+    def is_applicable?(keys)
+      keys.has_key? @key
     end
   end
 end

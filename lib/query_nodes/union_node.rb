@@ -5,8 +5,14 @@ module QueryNodes
     end
 
     def apply(query, keys)
-      first = @elements.shift.apply(query, keys)
-      @elements.reduce(first) { |full, curr| curr.apply(full.union, keys) }
+      applicable_elements = @elements.select { |elem| elem.is_applicable?(keys) }
+      selectors = applicable_elements.map { |elem| elem.apply(query, keys).selector }
+
+      query.or(*selectors)
+    end
+
+    def is_applicable?(keys)
+      @elements.any? {|elem| elem.is_applicable?(keys)}
     end
   end
 end
