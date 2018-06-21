@@ -1,5 +1,3 @@
 <div class="columns is-multiline">
-    <% videos.each do |video| %>
-        <%= render 'shared/video', video: video, playlist: playlist %>
-    <% end %>
+    <%= render partial: 'shared/video', collection: videos, as: 'video', cached: true, locals: { playlist: playlist } %>
 </div>

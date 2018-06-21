@@ -1,48 +1,50 @@
-<div class="column is-2 video-column">
-    <div class="card video-card" data-video-id="<%= video._id.to_s %>">
-        <div class="card-image">
-            <div class="image-overlay">
-                <figure class="image is-16by9">
-                    <%= image_tag video_thumbnail_path(video.selected_thumbnail_path) %>
-                </figure>
-                <div class="image-overlay-content">
-                    <div class="video-edit">
-                        <a href="<%= edit_video_path(video) %>">
-                            <span class="icon">
-                                <i class="fa fa-pencil"></i>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="video-play">
-                        <%= link_to watch_video_path(video, playlist: playlist) do %>
-                            <span class="icon">
-                                <i class="fa fa-play"></i>
-                            </span>
-                        <% end %>
+<% cache video do %>
+    <div class="column is-2 video-column">
+        <div class="card video-card" data-video-id="<%= video._id.to_s %>">
+            <div class="card-image">
+                <div class="image-overlay">
+                    <figure class="image is-16by9">
+                        <%= image_tag video_thumbnail_path(video.selected_thumbnail_path) %>
+                    </figure>
+                    <div class="image-overlay-content">
+                        <div class="video-edit">
+                            <a href="<%= edit_video_path(video) %>">
+                                <span class="icon">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="video-play">
+                            <%= link_to watch_video_path(video, playlist: playlist) do %>
+                                <span class="icon">
+                                    <i class="fa fa-play"></i>
+                                </span>
+                            <% end %>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="card-header">
-            <div class="card-header-title">
-                <%= link_to video.name, video %>
+            <div class="card-header">
+                <div class="card-header-title">
+                    <%= link_to video.name, video %>
+                </div>
+            </div>
+            <div class="card-content">
+                <table class="table">
+                    <% MetadataHelper.get_allowed_keys.each do |name| %>
+                        <tr class="metadata-display-<%= name %>">
+                            <td><%= name %></td>
+                            <td>
+                                <% if video[name].is_a?(Array) %>
+                                    <%= render 'shared/taglist', tags: video[name] %>
+                                <% else %>
+                                    <%= video[name] %>
+                                <% end %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </table>
             </div>
         </div>
-        <div class="card-content">
-            <table class="table">
-                <% MetadataHelper.get_allowed_keys.each do |name| %>
-                    <tr class="metadata-display-<%= name %>">
-                        <td><%= name %></td>
-                        <td>
-                            <% if video[name].is_a?(Array) %>
-                                <%= render 'shared/taglist', tags: video[name] %>
-                            <% else %>
-                                <%= video[name] %>
-                            <% end %>
-                        </td>
-                    </tr>
-                <% end %>
-            </table>
-        </div>
     </div>
-</div>
+<% end %>
