@@ -14,8 +14,10 @@ module ActionView
             text_field_tag name, value, options.merge({ class: 'input' })
           when "range"
             range_field_tag name, value, options.merge({ class: 'range' }).merge(metadata_info.options)
-          when "select"
-            select_tag name, options_for_select(metadata_info.options[:values], value), options
+        when "select"
+            tag.div(class: 'select') do
+              select_tag name, options_for_select(metadata_info.options[:values], value), options
+            end
           when "on_off"
             check_box_tag name, "1", value, options
           when "date"
