@@ -1,3 +1,4 @@
-.is-selected-video .card-image {
-  border: 5px solid $primary;
+.is-selected-video .card-image,
+.thumbnail.is-selected {
+  outline: 2px solid $primary;
 }
