@@ -1,12 +1,12 @@
 <%= form_for(video) do |f| %>
     <div class="columns">
-        <div class="column is-5">
+        <div class="column is-5 is-offset-1">
             <%= f.hidden_field :selected_thumbnail %>
             <div id="thumbnail-select">
                 <%= render 'shared/thumbnail_select', video: video %>
             </div>
         </div>
-        <div class="column is-7">
+        <div class="column is-5">
             <% if video.errors.any? %>
                 <article class="message is-danger">
                     <div class="message-header">
@@ -23,7 +23,7 @@
             <% end %>
 
             <div class="field is-horizontal">
-                <div class="field-label">
+                <div class="field-label is-normal">
                     <%= f.label :location, class: 'label' %>
                 </div>
                 <div class="field-body">
@@ -36,7 +36,7 @@
             </div>
 
             <div class="field is-horizontal">
-                <div class="field-label">
+                <div class="field-label is-normal">
                     <%= f.label :file_hash, class: 'label' %>
                 </div>
                 <div class="field-body">
@@ -49,24 +49,28 @@
             </div>
 
             <div class="field is-horizontal">
-                <div class="field-label">
+                <div class="field-label is-normal">
                     <%= f.label :name, class: 'label' %>
                 </div>
                 <div class="field-body">
-                    <div class="control">
-                        <%= f.text_field :name, class: 'input' %>
+                    <div class="field">
+                        <div class="control">
+                            <%= f.text_field :name, class: 'input' %>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <% MetadataHelper.get_configured_metadata.each do |metadata| %>
                 <div class="field is-horizontal">
-                    <div class="field-label">
+                    <div class="field-label is-normal">
                         <%= f.label metadata.name, class: 'label' %>
                     </div>
                     <div class="field-body">
-                        <div class="control">
-                            <%= generate_input_for video, metadata %>
+                        <div class="field">
+                            <div class="control">
+                                <%= generate_input_for video, metadata %>
+                            </div>
                         </div>
                     </div>
                 </div>
