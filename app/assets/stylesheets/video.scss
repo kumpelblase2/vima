@@ -1,6 +1,8 @@
 // Place all the styles related to the Video controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "theme/variables";
+
 .thumbnail {
   padding: 0px;
   margin: 10px;
@@ -46,7 +48,12 @@
   position: absolute;
   bottom: 5px;
   right: 5px;
-  color: white;
+  color: $text;
+}
+
+.video-edit span:hover,
+.video-edit i:hover {
+  color: $primary;
 }
 
 .video-edit .icon {
@@ -57,7 +64,12 @@
   position: absolute;
   top: calc(50% - 12px);
   left: calc(50% - 12px);
-  color: white;
+  color: $text;
+}
+
+.video-play span:hover,
+.video-play i:hover {
+  color: $primary;
 }
 
 .video-play .icon {
