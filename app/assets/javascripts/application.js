@@ -14,8 +14,3 @@
 //= require jquery_ujs
 //= require select2-full
 //= require_tree .
-
-function getQueryParam(name) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.has(name) ? urlParams.get(name) : null;
-}
