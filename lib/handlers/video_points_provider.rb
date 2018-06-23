@@ -31,14 +31,37 @@ class VideoPointsProvider < MetadataProvider
   end
 
   def compute_points_for(metadata_value, scoring)
-    if metadata_value.is_a?(Numeric) then
+    case scoring
+    when Hash
+      compute_points_from_hash metadata_value, scoring
+    when Numeric
+      compute_points_from_number metadata_value, scoring
+    else
+      0
+    end
+  end
+
+  def compute_points_from_hash(metadata_value, scoring)
+    case metadata_value
+    when Boolean
+      scoring[metadata_value.to_s] || 0
+    when Array
+      metadata_value.map { |value| scoring[value] || 0 }.sum
+    when Numeric
+      scoring.sort_by { |key,_value| key }.reverse.find([0]) { |elem| metadata_value >= elem.last }.last
+    when String
+      scoring[metadata_value] || 0
+    else
+      0
+    end
+  end
+
+  def compute_points_from_number(metadata_value, scoring)
+    case metadata_value
+    when Numeric
       metadata_value * scoring
-    elsif metadata_value.is_a?(String) then
-      scoring[metadata_value]
-    elsif metadata_value.is_a?(Array) then
-      metadata_value.map { |value| scoring[value] }.sum
-    elsif metadata_value.is_a?(Boolean) then
-      metadata_value ? scoring : 0
+    when Boolean
+      (metadata_value ? scoring : 0)
     else
       0
     end
