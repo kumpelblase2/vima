@@ -57,6 +57,7 @@
 
     .select2-results__options {
       max-height: 200px !important;
+      overflow: auto;
 
       .select2-results__option {
         padding: 0.37em 0.75em !important;
