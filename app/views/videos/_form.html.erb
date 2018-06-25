@@ -4,9 +4,9 @@
             <%= f.hidden_field :selected_thumbnail %>
             <div id="thumbnail-select">
                 <%= render 'shared/thumbnail_select', video: video %>
-                <div class="buttons is-centered">
-                    <%= link_to 'Renew Thumbnails', video_thumbnails_regenerate_path(video), remote: true, class: 'button' %>
-                </div>
+            </div>
+            <div class="buttons is-centered">
+                <%= link_to 'Renew Thumbnails', video_thumbnails_regenerate_path(video), remote: true, class: 'button' %>
             </div>
         </div>
         <div class="column is-5">
