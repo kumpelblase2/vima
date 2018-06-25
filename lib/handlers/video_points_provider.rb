@@ -48,7 +48,7 @@ class VideoPointsProvider < MetadataProvider
     when Array
       metadata_value.map { |value| scoring[value] || 0 }.sum
     when Numeric
-      scoring.sort_by { |key,_value| key }.reverse.find([0]) { |elem| metadata_value >= elem.last }.last
+      scoring.sort_by { |key,_value| key }.reverse.find([0]) { |elem| metadata_value >= elem.first }.last
     when String
       scoring[metadata_value] || 0
     else
