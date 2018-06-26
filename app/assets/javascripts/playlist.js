@@ -2,11 +2,14 @@ function create_playlist(name, videoIds) {
     $.ajax({
         url: '/playlists',
         method: 'POST',
+        dataType: 'json',
         data: {
-            name: name
+            playlist: {
+                name: name
+            }
         },
-        success: (id) => {
-            add_videos_to_playlist(id, videoIds);
+        success: (playlist) => {
+            add_videos_to_playlist(playlist.id, videoIds);
         }
     })
 }

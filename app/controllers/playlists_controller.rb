@@ -64,6 +64,7 @@ class PlaylistsController < ApplicationController
     params[:videos].each {|id|
       @playlist.videos << Video.find(id) unless has_video_id(@playlist, id)
     }
+    @playlist.save!
   end
 
   # DELETE /playlists/1
@@ -88,7 +89,7 @@ class PlaylistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def playlist_params
-      params.fetch(:playlist, {}).permit(:name, videos: [:id])
+      params.require(:playlist).permit(:name, videos: [:id])
     end
 
     def has_video_id(playlist, video_id)
