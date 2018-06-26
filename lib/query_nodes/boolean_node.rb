@@ -10,7 +10,12 @@ module QueryNodes
     end
 
     def apply(query, keys)
-      query.where(@key => @included)
+      metadata = keys[@key]
+      if metadata.type == "taglist"
+        query.where(:"#{@key}.0".exists => @included)
+      else
+        query.where(@key => @included)
+      end
     end
   end
 end
