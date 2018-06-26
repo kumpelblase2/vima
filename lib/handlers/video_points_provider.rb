@@ -46,7 +46,11 @@ class VideoPointsProvider < MetadataProvider
     when Boolean
       scoring[metadata_value.to_s] || 0
     when Array
-      metadata_value.map { |value| scoring[value] || 0 }.sum
+      if metadata_value.empty?
+        scoring['_empty'] || 0
+      else
+        metadata_value.map { |value| scoring[value] || 0 }.sum
+      end
     when Numeric
       scoring.sort_by { |key,_value| key }.reverse.find([0]) { |elem| metadata_value >= elem.first }.last
     when String
