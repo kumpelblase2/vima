@@ -3,7 +3,9 @@
         <div class="card video-card">
             <div class="card-image">
                 <% video = playlist.videos.sample %>
-                <%= image_tag video_thumbnail_path(video.selected_thumbnail_path), class: 'image' %>
+                <% if video %>
+                    <%= image_tag video_thumbnail_path(video.selected_thumbnail_path), class: 'image' %>
+                <% end %>
             </div>
             <div class="card-header">
                 <div class="card-header-title"><%= playlist.name %></div>
