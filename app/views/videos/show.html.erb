@@ -42,7 +42,7 @@
                         <td><%= metadata.name %></td>
                         <td>
                             <% if metadata.type == "taglist" %>
-                                <% tag_values = @video[metadata.name] %>
+                                <% tag_values = @video[metadata.name] || [] %>
                                 <%= render 'shared/taglist', tags: tag_values %>
                             <% else %>
                                 <%= @video[metadata.name] %>
