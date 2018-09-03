@@ -1,9 +1,9 @@
 require 'streamio-ffmpeg'
 
 module ImageHelper
-  RESOLUTION = "640x480"
+  RESOLUTION = "1280x960"
 
-  def self.generate_thumbnails(video, amount, output_format, quality = 5)
+  def self.generate_thumbnails(video, amount, output_format, quality = 2)
     movie = FFMPEG::Movie.new(video)
     if movie.valid?
       times = generate_image_times movie.duration, amount
