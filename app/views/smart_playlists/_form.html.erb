@@ -1,0 +1,47 @@
+<%= form_for(playlist) do |f| %>
+    <div class="columns">
+        <div class="column is-5">
+            <% if playlist.errors.any? %>
+                <div id="error_explanation">
+                    <h2><%= pluralize(playlist.errors.count, "error") %> prohibited this playlist from being saved:</h2>
+
+                    <ul>
+                        <% playlist.errors.full_messages.each do |message| %>
+                            <li><%= message %></li>
+                        <% end %>
+                    </ul>
+                </div>
+            <% end %>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <%= f.label :name, class: 'label' %>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <%= f.text_field :name, class: 'input' %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <%= f.label :query, class: 'label' %>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <%= f.text_field :query, class: 'input' %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-grouped is-grouped-right">
+                <div class="actions control">
+                    <%= f.submit class: 'button is-primary' %>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>

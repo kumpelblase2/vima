@@ -1,0 +1,14 @@
+<div class="column is-2">
+    <a href="<%= smart_playlist_path(playlist) %>">
+        <div class="card video-card">
+            <div class="card-image">
+            </div>
+            <div class="card-header">
+                <div class="card-header-title"><%= playlist.name %></div>
+            </div>
+            <div class="card-content">
+                <%= playlist.query %>
+            </div>
+        </div>
+    </a>
+</div>

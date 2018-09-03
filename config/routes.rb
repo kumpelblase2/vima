@@ -30,5 +30,6 @@ Rails.application.routes.draw do
 
   resources :videos
   resources :playlists
+  resources :smart_playlists
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -10,12 +10,12 @@
                         <div class="video-edit">
                             <a href="<%= edit_video_path(video) %>">
                                 <span class="icon">
-                                    <i class="fa fa-pencil"></i>
+                                    <i class="fa fa-pencil fa-6"></i>
                                 </span>
                             </a>
                         </div>
                         <div class="video-play">
-                            <%= link_to watch_video_path(video, playlist: playlist) do %>
+                            <%= link_to watch_video_path(video, playlist_params) do %>
                                 <span class="icon">
                                     <i class="fa fa-play"></i>
                                 </span>

@@ -1,10 +1,13 @@
 <div class="header">
     <nav class="level has-shadow">
+        <p class="level-item has-text-centered <%= if current_page?(home_path) then 'is-active' end %>">
+            <a class="link title" href="<%= home_path %>">Vima</a>
+        </p>
         <p class="level-item has-text-centered <%= if current_controller?('playlists') then 'is-active' end %>">
             <a class="link" href="<%= playlists_path %>">Playlists</a>
         </p>
-        <p class="level-item has-text-centered <%= if current_page?(home_path) then 'is-active' end %>">
-            <a class="link title" href="<%= home_path %>">Vima</a>
+        <p class="level-item has-text-centered <%= if current_controller?('smart_playlists') then 'is-active' end %>">
+            <a class="link" href="<%= smart_playlists_path %>">Smart Playlists</a>
         </p>
         <p class="level-item has-text-centered <%= if current_controller?('videos') then 'is-active' end %>">
             <a class="link" href="<%= videos_path %>">Library</a>

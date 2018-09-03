@@ -1,0 +1,11 @@
+<div class="columns is-multiline">
+    <div class="columns column is-12">
+        <div class="column is-2 is-offset-1 title">Playlists</div>
+        <a href="<%= new_smart_playlist_path %>">Create new</a>
+    </div>
+    <div class="column is-10 is-offset-2">
+        <% @playlists.each do |playlist| %>
+            <%= render 'shared/smart_playlist', playlist: playlist %>
+        <% end %>
+    </div>
+</div>
