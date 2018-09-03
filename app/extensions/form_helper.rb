@@ -14,6 +14,7 @@ module ActionView
             text_field_tag name, value, options
           when "range"
             options[:class] = 'range'
+            value = value || 0
             range_field_tag name, value, options.merge(metadata_info.options)
           when "select"
             tag.div(class: 'select') do
@@ -29,6 +30,7 @@ module ActionView
             time_field_tag name, value, options
           when "taglist"
             selected_values = options_from_collection_for_select(MetadataHelper.get_values_for_metadata(metadata_info.name), 'to_s', 'to_s', value)
+            value = value || []
             selected_data = { metadata: metadata_info.name, value: value.join(',') }
             options[:class] = 'taglist'
             tag.div(class: %(select is-multiple)) do
