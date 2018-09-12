@@ -14,3 +14,8 @@
 //= require jquery_ujs
 //= require select2-full
 //= require_tree .
+
+
+$(function () {
+    $('.lazy').Lazy();
+});
