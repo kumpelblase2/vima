@@ -51,4 +51,4 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'send_file_with_range', git: 'https://github.com/tom-sherman/send_file_with_range.git', branch: 'rails51'
+gem 'send_file_with_range', git: 'https://github.com/tom-sherman/send_file_with_range.git'
