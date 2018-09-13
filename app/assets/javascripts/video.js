@@ -6,3 +6,18 @@ function get_selected_videoids() {
     });
     return ids;
 }
+
+$(document).ready(() => {
+    const collection = document.querySelector("#video-collection");
+    const scroll = new InfiniteScroll(collection, {
+        path: '/videos.js?path={{#}}',
+        append: '.videos',
+        prefill: true,
+        responseType: 'text'
+    });
+
+    scroll.on('load', (doc, path) => {
+        eval(doc);
+        $('.lazy').Lazy();
+    });
+});

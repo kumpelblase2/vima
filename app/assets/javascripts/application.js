@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require select2-full
 //= require jquery.lazy.min
+//= require jquery.infinitescroll.min
 //= require_tree .
 
 

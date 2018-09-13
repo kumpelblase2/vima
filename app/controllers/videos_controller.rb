@@ -9,9 +9,9 @@ class VideosController < ApplicationController
 
     query = params[:search]
     if query and not query.empty?
-      @videos = SearchHelper.query(Video.order_by(order_by => direction), query)
+      @videos = SearchHelper.query(Video.order_by(order_by => direction), query).page(params[:page])
     else
-      @videos = Video.order_by(order_by => direction)
+      @videos = Video.order_by(order_by => direction).page(params[:page])
     end
   end
 

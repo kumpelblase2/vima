@@ -1,5 +1,5 @@
 <%= render 'shared/video_bar', search_term: params[:search] %>
-<%= render 'shared/video_collection', videos: @videos, playlist: nil %>
+<%= render 'shared/video_collection', videos: @videos, playlist: nil, pager: paginate(@videos) %>
 <div id="playlist-select"></div> <!-- need this when adding videos to a playlist -->
 <script>
     let controlDown = false;
