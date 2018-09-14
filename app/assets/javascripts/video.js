@@ -10,14 +10,13 @@ function get_selected_videoids() {
 $(document).ready(() => {
     const collection = document.querySelector("#video-collection");
     const scroll = new InfiniteScroll(collection, {
-        path: '/videos.js?path={{#}}',
-        append: '.videos',
-        prefill: true,
-        responseType: 'text'
+        path: 'nav.pagination a[rel=next]',
+        append: '.video-column',
+        hideNav: '.pagination'
     });
 
-    scroll.on('load', (doc, path) => {
-        eval(doc);
+    scroll.on('append', () => {
         $('.lazy').Lazy();
     });
+
 });
