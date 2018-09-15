@@ -4,14 +4,17 @@
 <script>
     let controlDown = false;
 
-    $('.video-card').click(event => {
-        if(controlDown) {
-            $(event.currentTarget).toggleClass('is-selected-video');
+    $(document).click(event => {
+        if (controlDown) {
+            const parent = $(event.target).parents('.video-card');
+            if (parent.length === 1) {
+                parent.toggleClass('is-selected-video');
+            }
         }
     });
 
     const toggleControl = (status) => (event) => {
-        if(event.which == 17) {
+        if (event.which == 17) {
             controlDown = status;
         }
     };
