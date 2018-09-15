@@ -24,10 +24,6 @@
     $('.checkbox input[type=checkbox]').change(event => {
         const metadataName = $(event.target).data('metadata-name');
         const checked = event.target.checked;
-        if (checked) {
-            $(`.metadata-display-${metadataName}`).removeClass('is-hidden');
-        } else {
-            $(`.metadata-display-${metadataName}`).addClass('is-hidden');
-        }
+        $(`.metadata-display-${metadataName}`).toggleClass('is-hidden', !checked);
     });
 </script>
