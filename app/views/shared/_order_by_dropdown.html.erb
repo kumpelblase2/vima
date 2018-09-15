@@ -9,12 +9,12 @@
     </div>
     <div class="dropdown-menu" id="order-menu" role="menu">
         <div class="dropdown-content">
-            <%= video_ordering_dropdown_item 'Name', 'name' %>
-            <%= video_ordering_dropdown_item 'Added', 'created_at' %>
-            <%= video_ordering_dropdown_item 'Updated', 'updated_at' %>
+            <%= video_ordering_dropdown_item 'Name', 'name', 'asc' %>
+            <%= video_ordering_dropdown_item 'Added', 'created_at', 'desc' %>
+            <%= video_ordering_dropdown_item 'Updated', 'updated_at', 'desc' %>
             <hr class="dropdown-divider">
-            <% MetadataHelper.get_ordering_metadata.each do |name| %>
-                <%= video_ordering_dropdown_item name, name %>
+            <% MetadataHelper.get_ordering_metadata.each do |metadata| %>
+                <%= video_ordering_dropdown_item metadata.name, metadata.name, metadata.default_ordering %>
             <% end %>
         </div>
     </div>

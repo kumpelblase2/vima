@@ -1,9 +1,10 @@
 class Metadata
-  def initialize(name, type, readonly = false, options = {})
+  def initialize(name, type, readonly = false, options = {}, ordering = 'asc')
     @name = name
     @type = type
     @options = options.map { |k,v| [k.to_sym, v] }.to_h
     @readonly = readonly
+    @ordering = ordering
   end
 
   def name
@@ -30,6 +31,10 @@ class Metadata
     @options[:default] || Metadata.get_default_value(@type, @options)
   end
 
+  def default_ordering
+    @ordering
+  end
+
   def as_param_requirement
     if @type.to_s == "taglist"
       return @name => []
@@ -43,7 +48,7 @@ class Metadata
       key = hash.keys.first
       new(key, hash[key])
     else
-      new(hash['name'], hash['type'], hash.fetch('readonly', false), hash.fetch('options', {}))
+      new(hash['name'], hash['type'], hash.fetch('readonly', false), hash.fetch('options', {}), hash.fetch('ordering', 'asc'))
     end
   end
 

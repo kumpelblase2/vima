@@ -53,6 +53,6 @@ module MetadataHelper
   end
 
   def self.get_ordering_metadata
-    get_configured_metadata.reject { |metadata| metadata.type == "taglist" }.map(&:name)
+    get_configured_metadata.reject { |metadata| metadata.type == "taglist" }
   end
 end
