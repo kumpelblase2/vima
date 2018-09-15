@@ -16,7 +16,7 @@ class VideoPointsProvider < MetadataProvider
     end
 
     @metadata = [
-        Metadata.new("points", "number", true)
+        Metadata.new("points", "number", true, {}, 'desc')
     ]
   end
 

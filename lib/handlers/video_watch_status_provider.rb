@@ -22,9 +22,9 @@ class VideoWatchStatusProvider < MetadataProvider
     @metadata = [
       Metadata.new("watched", "on_off"),
       Metadata.new("watched_times", "number"),
-      Metadata.new("last_watched", "date"),
+      Metadata.new("last_watched", "date", {}, 'desc'),
       Metadata.new("first_watched", "date", true),
-      Metadata.new("added_date", "date", true)
+      Metadata.new("added_date", "date", true,  {}, 'desc')
     ]
   end
 end
