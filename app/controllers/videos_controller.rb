@@ -9,9 +9,9 @@ class VideosController < ApplicationController
 
     query = params[:search]
     if query and not query.empty?
-      @videos = SearchHelper.query(Video.order_by(order_by => direction), query)
+      @videos = SearchHelper.query(Video.order_by(order_by => direction), query).page(params[:page])
     else
-      @videos = Video.order_by(order_by => direction)
+      @videos = Video.order_by(order_by => direction).page(params[:page])
     end
   end
 
@@ -37,6 +37,7 @@ class VideosController < ApplicationController
   # POST /videos
   # POST /videos.json
   def create
+    Rails.cache.delete_matched("values_*")
     params = MetadataHelper.fix_metadata_types(video_params)
     @video = Video.new(params)
     respond_to do |format|
@@ -53,6 +54,7 @@ class VideosController < ApplicationController
   # PATCH/PUT /videos/1
   # PATCH/PUT /videos/1.json
   def update
+    Rails.cache.delete_matched("values_*")
     params = MetadataHelper.fix_metadata_types(video_params)
     respond_to do |format|
       if @video.update(params)
@@ -69,6 +71,7 @@ class VideosController < ApplicationController
   # DELETE /videos/1
   # DELETE /videos/1.json
   def destroy
+    Rails.cache.delete_matched("values_*")
     VideoHelper.clear_thumbnails @video
     @video.destroy
     respond_to do |format|

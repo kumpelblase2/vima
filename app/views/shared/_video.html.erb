@@ -4,20 +4,20 @@
             <div class="card-image">
                 <div class="image-overlay">
                     <figure class="image is-16by9">
-                        <%= image_tag video_thumbnail_path(video.selected_thumbnail_path) %>
+                        <%= image_tag image_path('placeholder.png'), alt: video.name, class: 'lazy', data: { src: video_thumbnail_path(video.selected_thumbnail_path) } %>
                     </figure>
                     <div class="image-overlay-content">
                         <div class="video-edit">
                             <a href="<%= edit_video_path(video) %>">
                                 <span class="icon">
-                                    <i class="fa fa-pencil"></i>
+                                    <i class="fa fa-pencil fa-6"></i>
                                 </span>
                             </a>
                         </div>
                         <div class="video-play">
-                            <%= link_to watch_video_path(video, playlist: playlist) do %>
+                            <%= link_to watch_video_path(video, playlist_params) do %>
                                 <span class="icon">
-                                    <i class="fa fa-play"></i>
+                                    <i class="fa fa-play fa-3x"></i>
                                 </span>
                             <% end %>
                         </div>

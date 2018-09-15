@@ -6,3 +6,17 @@ function get_selected_videoids() {
     });
     return ids;
 }
+
+$(document).ready(() => {
+    const collection = document.querySelector("#video-collection");
+    const scroll = new InfiniteScroll(collection, {
+        path: 'nav.pagination a[rel=next]',
+        append: '.video-column',
+        hideNav: '.pagination'
+    });
+
+    scroll.on('append', () => {
+        $('.lazy').Lazy();
+    });
+
+});

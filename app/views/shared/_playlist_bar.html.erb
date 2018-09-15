@@ -1,6 +1,12 @@
 <div class="level">
-    <div class="level-item"></div> <!-- Need this to have the next one on the right -->
+    <div class="level-item"><%= playlist_name %></div> <!-- Need this to have the next one on the right -->
     <div class="level-right">
+        <div class="level-item">
+            <a href="<%= delete_url %>" class="button is-warning">Delete</a>
+        </div>
+        <div class="level-item">
+            <a href="<%= edit_url %>" class="button">Edit</a>
+        </div>
         <div class="level-item">
             <%= render 'shared/top_panel/video_metadata_select', metadata_elements: MetadataHelper.get_configured_metadata %>
         </div>
