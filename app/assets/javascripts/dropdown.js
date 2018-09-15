@@ -4,7 +4,8 @@ $(document).ready(() => {
     });
 
     $(document).click(event => {
-        if(!event.target.parentElement.className.includes("dropdown-trigger")) {
+        const dropdownParent = $(event.target).parentsUntil('.dropdown');
+        if(dropdownParent.get(dropdownParent.length - 1) === document.children[0]) {
             $('.dropdown').removeClass('is-active');
         }
     });
