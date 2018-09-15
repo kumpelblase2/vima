@@ -12,7 +12,7 @@
             <% metadata_elements.each do |metadata| %>
                 <div class="dropdown-item">
                     <label class="checkbox">
-                        <input type="checkbox" checked data-metadata-name="<%= metadata.name %>" autocomplete="off"/>
+                        <input type="checkbox" class="metadata-toggle" checked data-metadata-name="<%= metadata.name %>" autocomplete="off"/>
                         <%= metadata.name %>
                     </label>
                 </div>

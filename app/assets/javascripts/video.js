@@ -15,8 +15,15 @@ $(document).ready(() => {
         hideNav: '.pagination'
     });
 
-    scroll.on('append', () => {
+    scroll.on('append', (response, path, items) => {
+        document.querySelectorAll('.metadata-toggle').forEach(toggle => {
+            const name = toggle.dataset.metadataName;
+            items.forEach(videoCard => {
+                videoCard.querySelectorAll('.metadata-display-' + name).forEach(display => {
+                    $(display).toggleClass('is-hidden', !toggle.checked);
+                });
+            });
+        });
         $('.lazy').Lazy();
     });
-
 });
