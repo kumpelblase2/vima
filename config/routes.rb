@@ -30,6 +30,8 @@ Rails.application.routes.draw do
 
   resources :videos
   resources :playlists
+  get '/playlist/:id/delete', to: 'playlists#destroy', as: 'playlists_delete'
   resources :smart_playlists
+  get '/smart_playlist/:id/delete', to: 'smart_playlists#destroy', as: 'smart_playlists_delete'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
