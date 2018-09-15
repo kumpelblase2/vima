@@ -64,6 +64,7 @@
         font-size: 1rem;
 
         &.select2-results__option--highlighted {
+          background-color: $grey-darker;
         }
       }
     }
