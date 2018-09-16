@@ -80,6 +80,26 @@ class VideosController < ApplicationController
     end
   end
 
+  def updateAll
+    Rails.cache.delete_matched("values_*")
+    videoIds = params[:videoIds]
+    included_names = params[:include] || []
+    videos = videoIds.map { |id| Video.find(id) }
+
+    update_params = MetadataHelper.fix_metadata_types(video_params).select {|k, _| included_names.member?(k)}
+    array_params = update_params.select { |_,v| v.is_a?(Array) }
+    non_array_params = update_params.reject { |_,v| v.is_a?(Array) }
+    videos.each do |v|
+      v.assign_attributes(non_array_params)
+      array_params.each do |key, value|
+        v[key] = (v[key] + value).uniq
+      end
+      v.save
+    end
+
+    redirect_to params[:redirect_to]
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_video

@@ -2,7 +2,7 @@ module ActionView
   module Helpers
     module FormTagHelper
       def generate_input_for(video, metadata_info)
-        value = video[metadata_info.name]
+        value = video && video[metadata_info.name]
         read_only = metadata_info.read_only?
         options = {readonly: read_only, class: 'input' }
         name = "video[#{metadata_info.name}]" # This is a little ugly ...

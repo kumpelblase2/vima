@@ -26,10 +26,80 @@
     </div>
     <div class="level-right">
         <div class="level-item">
+            <script>
+                function showEditAllModal() {
+                    const videoIds = $(".is-selected-video").get().map(elem => elem.dataset.videoId);
+                    const modal = document.getElementById("editMultipleModal");
+                    const formElement = modal.querySelector("form");
+                    formElement.querySelector("input[name=redirect_to]").value = window.location.pathname + window.location.search;
+                    videoIds.forEach(videoId => {
+                        const inputElement = $("<input type='hidden' name='videoIds[]' />").get(0);
+                        inputElement.value = videoId;
+                        formElement.appendChild(inputElement);
+                    });
+
+                    $(modal).addClass('is-active');
+                }
+
+                function closeEditAllForm() {
+                    const modal = document.getElementById("editMultipleModal");
+                    const formElement = modal.querySelector("form");
+                    const children = Array.from(formElement.children);
+                    children.filter(child => child.type === 'hidden').forEach(input => {
+                        formElement.removeChild(input);
+                    });
+
+                    $(modal).removeClass('is-active');
+                }
+            </script>
+            <a href="javascript:showEditAllModal()" class="button">Edit all</a>
+        </div>
+        <div class="level-item">
             <%= render 'shared/order_by_dropdown', search: search_term %>
         </div>
         <div class="level-item">
             <%= render 'shared/top_panel/video_metadata_select', metadata_elements: MetadataHelper.get_configured_metadata %>
         </div>
     </div>
+</div>
+<div class="modal" id="editMultipleModal">
+    <form method="post" action="/videos/updateAll">
+        <%= token_tag nil %>
+        <input type="hidden" name="redirect_to">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Edit multiple</p>
+                <button type="button" class="delete" aria-label="close" onclick="closeEditAllForm()" />
+            </header>
+            <section class="modal-card-body">
+                <% MetadataHelper.get_configured_metadata.each do |metadata| %>
+                    <div class="field">
+                        <div class="label">
+                            <%= label_tag metadata.name %>
+                            <%= check_box_tag "include[]", metadata.name, false %>
+                        </div>
+                        <div class="control">
+                            <%= generate_input_for nil, metadata %>
+                        </div>
+                    </div>
+                <% end %>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-primary">Save changes</button>
+                <button type="button" class="button" onclick="closeEditAllForm()">Cancel</button>
+            </footer>
+        </div>
+    </form>
+    <script>
+        $('.taglist').each(function () {
+            const input = $(this);
+            input.select2({
+                tags: true,
+                theme: 'vima',
+                tokenSeparators: [',', ' '],
+                containerCssClass: 'select input'
+            });
+        });
+    </script>
 </div>

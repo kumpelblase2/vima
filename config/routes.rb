@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :videos
+  post '/videos/updateAll', to: 'videos#updateAll', as: 'update_multiple'
   resources :playlists
   get '/playlist/:id/delete', to: 'playlists#destroy', as: 'playlists_delete'
   resources :smart_playlists
