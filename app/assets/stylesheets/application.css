@@ -14,3 +14,8 @@
  *= require font-awesome
  *= require select2
  */
+
+
+.title {
+    padding-top: 5px;
+}
