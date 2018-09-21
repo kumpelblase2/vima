@@ -31,8 +31,12 @@ class MetadataProvider
     register_handler :video_update, block
   end
 
-  def run(type, video)
-    call_handler type, video
+  def on_video_watch_progress(&block)
+    register_handler :watch_progress, block
+  end
+
+  def run(type, video, data)
+    call_handler type, video, data
   end
 
   private

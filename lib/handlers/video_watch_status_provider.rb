@@ -17,6 +17,11 @@ class VideoWatchStatusProvider < MetadataProvider
       if video[:first_watched] == nil
         video[:first_watched] = DateTime.now
       end
+      video[:last_watch_progress] = 0
+    end
+
+    on_video_watch_progress do |video, info|
+      video[:last_watch_progress] = info["current_time"].to_i
     end
 
     @metadata = [
@@ -24,7 +29,8 @@ class VideoWatchStatusProvider < MetadataProvider
       Metadata.new("watched_times", "number"),
       Metadata.new("last_watched", "date", false, {}, 'desc'),
       Metadata.new("first_watched", "date", true),
-      Metadata.new("added_date", "date", true,  {}, 'desc')
+      Metadata.new("added_date", "date", true,  {}, 'desc'),
+      Metadata.new("last_watch_progress", "duration", true, {}, 'desc')
     ]
   end
 end

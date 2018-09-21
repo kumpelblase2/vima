@@ -1,4 +1,4 @@
-<%= video_tag video_stream_path(video._id), controls: true, autoplay: true, autobuffer: true, class: 'video-player', :data => { 'video-id' => video._id.to_s, 'next-video-path' => next_video_path } %>
+<%= video_tag video_stream_path(video._id), controls: true, autoplay: true, autobuffer: true, class: 'video-player', :data => { 'video-id' => video._id.to_s, 'next-video-path' => next_video_path, 'last-watch-progress' => video[:last_watch_progress] } %>
 <script>
     $('.video-player').on('ended', event => {
         const elem = $(event.target);
@@ -9,6 +9,27 @@
             }
         });
     });
+
+    $('.video-player').on('canplay', event => {
+        const elem = $(event.target);
+        try {
+            const seekTime = parseInt(elem.data('last-watch-progress'));
+            elem.removeData('last-watch-progress');
+            elem.removeAttr('data-last-watch-progress');
+            if(seekTime > 0) {
+                console.log(`Set seek time to ${seekTime}`);
+                event.target.currentTime = seekTime;
+            }
+        } catch (e) {
+        }
+    });
+
+    $('.video-player').on('timeupdate', debounce(event => {
+        if(!event.target.ended) {
+            const elem = $(event.target);
+            sendEvent(elem.data('video-id'), 'watch_progress', { current_time: Math.round(event.target.currentTime) });
+        }
+    }, 1000));
 
     $('.video-player').on('loadstart', event => {
         const elem = $(event.target);
