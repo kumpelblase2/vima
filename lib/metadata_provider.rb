@@ -40,7 +40,7 @@ class MetadataProvider
       @handlers[type] = block
     end
 
-    def call_handler(type, video)
-      @handlers[type].call(video) if @handlers.has_key? type
+    def call_handler(type, video, data)
+      @handlers[type].call(video, data) if @handlers.has_key? type
     end
 end
