@@ -1,6 +1,11 @@
 .select2-container--vima {
   .select2-selection--multiple {
     min-width: 260px;
+
+    &[aria-expanded=true] {
+      border: 2px solid $border;
+      border-bottom-width: 0;
+    }
   }
 
   .select2-selection__choice__remove {
@@ -58,6 +63,8 @@
     .select2-results__options {
       max-height: 200px !important;
       overflow: auto;
+      border: 2px solid $border;
+      border-top-width: 0;
 
       .select2-results__option {
         padding: 0.37em 0.75em !important;
