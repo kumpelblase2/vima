@@ -11,7 +11,16 @@ module ActionView
           when "number" || "duration"
             number_field_tag name, value, options
           when "text"
-            text_field_tag name, value, options
+            content = ""
+            if metadata_info.options[:suggest]
+              suggestion_values = MetadataHelper.get_values_for_metadata(metadata_info.name).reject {|val| val.empty?}
+              list_id = metadata_info.name + "_suggestion"
+              options[:list] = list_id
+              content = tag.datalist(id: list_id) do
+                options_for_select(suggestion_values)
+              end
+            end
+            content + text_field_tag(name, value, options)
           when "range"
             options[:class] = 'range'
             value = value || 0
