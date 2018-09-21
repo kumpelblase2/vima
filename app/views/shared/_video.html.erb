@@ -31,12 +31,15 @@
             </div>
             <div class="card-content">
                 <table class="table">
-                    <% MetadataHelper.get_allowed_keys.each do |name| %>
+                    <% MetadataHelper.get_configured_metadata.each do |metadata| %>
+                        <% name = metadata.name %>
                         <tr class="metadata-display-<%= name %>">
                             <td><%= name %></td>
                             <td>
-                                <% if video[name].is_a?(Array) %>
-                                    <%= render 'shared/taglist', tags: video[name] %>
+                                <% if metadata.type == "taglist" %>
+                                    <%= render 'shared/metadata/taglist', tags: video[name] %>
+                                <% elsif metadata.type == "duration" %>
+                                    <%= render 'shared/metadata/duration', time: video[name] %>
                                 <% else %>
                                     <%= video[name] %>
                                 <% end %>
