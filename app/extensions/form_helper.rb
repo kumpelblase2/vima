@@ -8,7 +8,7 @@ module ActionView
         name = "video[#{metadata_info.name}]" # This is a little ugly ...
 
         case metadata_info.type
-          when "number" || "duration"
+          when "number", "duration"
             number_field_tag name, value, options
           when "text"
             content = ""
