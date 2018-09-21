@@ -49,7 +49,9 @@ module MetadataHelper
   end
 
   def self.get_values_for_metadata(name)
-    Video.all.map {|v| v[name]}.flatten.uniq
+    Rails.cache.fetch("values_" + name) do
+      Video.all.map {|v| v[name]}.flatten.uniq
+    end
   end
 
   def self.get_ordering_metadata

@@ -13,9 +13,7 @@ class MetadataController < ApplicationController
 
   def values
     metadata_name = params[:name]
-    values = Rails.cache.fetch("values_" + metadata_name) do
-      MetadataHelper.get_values_for_metadata(metadata_name)
-    end
+    values = MetadataHelper.get_values_for_metadata(metadata_name)
     respond_to do |format|
       format.json {render json: values}
     end
