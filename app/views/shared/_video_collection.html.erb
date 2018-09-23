@@ -1,5 +1,5 @@
 <div id="video-collection" class="columns is-multiline">
-    <% locals = if defined?(smart_playlist) then { playlist_params: { smart_playlist: smart_playlist } } else { playlist_params: { playlist: playlist } } end %>
+    <% locals = if playlist then { playlist_params: playlist.as_playlist_param } else { playlist_params: {} } end %>
     <%= render partial: 'shared/video', collection: videos, as: 'video', cached: true, locals: locals %>
 </div>
 <div class="column is-one-third is-offset-one-third">

@@ -1,4 +1,18 @@
-<%= video_tag video_stream_path(video._id), controls: true, autoplay: true, autobuffer: true, class: 'video-player', :data => { 'video-id' => video._id.to_s, 'next-video-path' => next_video_path, 'last-watch-progress' => video[:last_watch_progress] } %>
+<div class="columns">
+    <%= video_tag video_stream_path(video._id), controls: true, autoplay: true, autobuffer: true, class: 'video-player column is-9', :data => {'video-id' => video._id.to_s, 'next-video-path' => next_video_path, 'last-watch-progress' => video[:last_watch_progress]} %>
+    <div class="column is-3">
+        <% playlist_query = playlist.as_playlist_param %>
+        <% playlist.videos.each do |playlist_video| %>
+            <%= link_to watch_video_path(playlist_video, playlist_query) do %>
+                <% background_style = if video._id == playlist_video._id then 'background' else 'background-dark' end %>
+                <div class="columns <%= background_style %>">
+                    <%= image_tag video_thumbnail_path(playlist_video.selected_thumbnail_path), class: 'column is-half', style: 'height: 100%' %>
+                    <p class="column is-half force-wrap"><%= playlist_video.name %></p>
+                </div>
+            <% end %>
+        <% end %>
+    </div>
+</div>
 <script>
     $('.video-player').on('ended', event => {
         const elem = $(event.target);
