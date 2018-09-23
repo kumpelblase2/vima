@@ -7,7 +7,23 @@
                 <% background_style = if video._id == playlist_video._id then 'background' else 'background-dark' end %>
                 <div class="columns <%= background_style %>">
                     <%= image_tag video_thumbnail_path(playlist_video.selected_thumbnail_path), class: 'column is-half', style: 'height: 100%' %>
-                    <p class="column is-half force-wrap"><%= playlist_video.name %></p>
+                    <div class="column is-half">
+                        <p class="force-wrap"><%= playlist_video.name %></p>
+                        <hr>
+                        <% PlaylistsHelper.get_metadata_display_in_playlist.each do |metadata| %>
+                            <p>
+                                <%= metadata.name %>:
+                                <% if metadata.type == "taglist" %>
+                                    <%= playlist_video[metadata.name].join(", ") %>
+                                <% elsif metadata.type == "duration" %>
+                                    <%= render 'shared/metadata/duration', time: playlist_video[metadata.name] %>
+                                <% else %>
+                                    <%= playlist_video[metadata.name] %>
+                                <% end %>
+                            </p>
+                        <% end %>
+                    </div>
+
                 </div>
             <% end %>
         <% end %>

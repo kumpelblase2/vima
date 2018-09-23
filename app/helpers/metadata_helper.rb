@@ -57,4 +57,8 @@ module MetadataHelper
   def self.get_ordering_metadata
     get_configured_metadata.reject { |metadata| metadata.type == "taglist" }
   end
+
+  def self.get_metadata_by_name(name)
+    get_configured_metadata.select { |metadata| metadata.name == name }.first
+  end
 end
