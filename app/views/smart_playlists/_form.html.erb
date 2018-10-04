@@ -37,6 +37,31 @@
                     </div>
                 </div>
             </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <%= f.label :ordering_name, class: 'label' %>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <% ordering_names = MetadataHelper.get_ordering_metadata.map(&:name) %>
+                            <%= select_tag 'smart_playlist[order_name]', options_for_select(%w(name created_at updated_at) + ordering_names, playlist.order_name), class: 'select' %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <%= f.label :ordering_dir, class: 'label' %>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <%= select_tag 'smart_playlist[order_dir]', options_for_select(%w(asc desc), playlist.order_dir), class: 'select' %>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="field is-grouped is-grouped-right">
                 <div class="actions control">
                     <%= f.submit class: 'button is-primary' %>

@@ -9,10 +9,12 @@ class SmartPlaylist
   validates_uniqueness_of :name
 
   field :query
+  field :order_name, default: 'name'
+  field :order_dir, default: 'asc'
 
 
   def videos
-    SearchHelper.query(Video, self.query).to_a
+    SearchHelper.query(Video.order_by(self.order_name => self.order_dir), self.query).to_a
   end
 
   def as_playlist_param

@@ -11,7 +11,7 @@ class SmartPlaylistsController < ApplicationController
   # GET /playlists/1.json
   def show
     if @playlist
-      @playlist["videos"] = SearchHelper.query(Video, @playlist.query)
+      @playlist["videos"] = @playlist.videos
     end
   end
 
@@ -76,6 +76,6 @@ class SmartPlaylistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def playlist_params
-      params.require(:smart_playlist).permit(:name, :query)
+      params.require(:smart_playlist).permit(:name, :query, :order_name, :order_dir)
     end
 end
