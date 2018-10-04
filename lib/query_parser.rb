@@ -23,11 +23,10 @@ class QueryParser < Parslet::Parser
   rule(:key) { match('[a-zA-Z_]').repeat(1).as(:key) }
 
   rule(:propertyValue) { match('[a-zA-Z0-9_]').repeat(1) }
-  rule(:quotedValue) { str('"') >> match('[^\']').repeat >> str('"') }
+  rule(:quotedValue) { str('"') >> match('[^"]').repeat >> str('"') }
 
-  rule(:exactText) { str('"') >> match('[a-zA-Z0-9\'\-+_ ]').repeat >> str('"') }
-  rule(:simpleText) { match('[a-zA-Z0-9]').repeat }
-  rule(:text) { (exactText.as(:exact) | simpleText.as(:simple)).as(:text) }
+  rule(:simpleText) { match('[^ ]').repeat }
+  rule(:text) { (quotedValue.as(:exact) | simpleText.as(:simple)).as(:text) }
 
   rule(:property) { (key >> str(':') >> (quotedValue | propertyValue).as(:value)).as(:property) }
 

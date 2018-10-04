@@ -2,6 +2,9 @@ module QueryNodes
   class PropertyNode < Node
     def initialize(key, value)
       @key = format_key key
+      if value.start_with?('"') and value.end_with?('"')
+        value = value.slice(1, value.size - 2)
+      end
       @value = value
     end
 
