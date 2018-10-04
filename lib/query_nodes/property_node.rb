@@ -11,7 +11,8 @@ module QueryNodes
     def apply(query, keys)
       metadata = keys[@key]
       if metadata.type == "taglist"
-        query.in(@key => [@value])
+        selectors = @value.split(' ').map { |val| query.in(@key => [val]).selector }
+        query.and(*selectors)
       else
         query.where(@key => @value)
       end
