@@ -11,7 +11,7 @@ module ActionView
           when "number", "duration"
             number_field_tag name, value, options
           when "text"
-            content = ""
+            content = tag.div()
             if metadata_info.options[:suggest]
               suggestion_values = MetadataHelper.get_values_for_metadata(metadata_info.name).reject {|val| val.empty?}
               list_id = metadata_info.name + "_suggestion"
