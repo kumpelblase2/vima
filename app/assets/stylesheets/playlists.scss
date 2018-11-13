@@ -2,3 +2,8 @@
   background: #EEEEEE;
   box-shadow: 1px 1px #BBBBBB;
 }
+
+.playlist-video-list {
+  max-height: 86vh;
+  overflow-y: scroll;
+}

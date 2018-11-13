@@ -1,31 +1,34 @@
 <div class="columns">
-    <%= video_tag video_stream_path(video._id), controls: true, autoplay: true, autobuffer: true, class: 'video-player column is-9', :data => {'video-id' => video._id.to_s, 'next-video-path' => next_video_path, 'last-watch-progress' => video[:last_watch_progress]} %>
-    <div class="column is-3">
+    <% video_player_data = {'video-id' => video._id.to_s, 'next-video-path' => next_video_path, 'last-watch-progress' => video[:last_watch_progress]} %>
+    <%= video_tag video_stream_path(video._id), controls: true, autoplay: true, autobuffer: true, class: 'video-player column', :data => video_player_data %>
+    <div class="column is-3 playlist-video-list">
         <% playlist_query = playlist.as_playlist_param %>
         <% playlist.videos.each do |playlist_video| %>
-            <%= link_to watch_video_path(playlist_video, playlist_query) do %>
-                <% background_style = if video._id == playlist_video._id then 'background' else 'background-dark' end %>
-                <div class="columns <%= background_style %>">
-                    <%= image_tag video_thumbnail_path(playlist_video.selected_thumbnail_path), class: 'column is-half', style: 'height: 100%' %>
-                    <div class="column is-half">
-                        <p class="force-wrap"><%= playlist_video.name %></p>
-                        <hr>
-                        <% PlaylistsHelper.get_metadata_display_in_playlist.each do |metadata| %>
-                            <p>
-                                <%= metadata.name %>:
-                                <% if metadata.type == "taglist" %>
-                                    <%= playlist_video[metadata.name].join(", ") %>
-                                <% elsif metadata.type == "duration" %>
-                                    <%= render 'shared/metadata/duration', time: playlist_video[metadata.name] %>
-                                <% else %>
-                                    <%= playlist_video[metadata.name] %>
-                                <% end %>
-                            </p>
-                        <% end %>
-                    </div>
+            <div class="playlist-video-item">
+                <%= link_to watch_video_path(playlist_video, playlist_query) do %>
+                    <% background_style = if video._id == playlist_video._id then 'background' else 'background-dark' end %>
+                    <div class="columns <%= background_style %>">
+                        <%= image_tag video_thumbnail_path(playlist_video.selected_thumbnail_path), class: 'column is-half', style: 'height: 100%' %>
+                        <div class="column is-half">
+                            <p class="force-wrap"><%= playlist_video.name %></p>
+                            <hr>
+                            <% PlaylistsHelper.get_metadata_display_in_playlist.each do |metadata| %>
+                                <p>
+                                    <%= metadata.name %>:
+                                    <% if metadata.type == "taglist" %>
+                                        <%= playlist_video[metadata.name].join(", ") %>
+                                    <% elsif metadata.type == "duration" %>
+                                        <%= render 'shared/metadata/duration', time: playlist_video[metadata.name] %>
+                                    <% else %>
+                                        <%= playlist_video[metadata.name] %>
+                                    <% end %>
+                                </p>
+                            <% end %>
+                        </div>
 
-                </div>
-            <% end %>
+                    </div>
+                <% end %>
+            </div>
         <% end %>
     </div>
 </div>

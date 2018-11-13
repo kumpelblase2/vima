@@ -77,13 +77,8 @@
   cursor: pointer;
 }
 
-.fullscreen-video {
-  max-height: 88vh;
-}
-
 .fullscreen-video video {
-  height: 88vh;
-  width: 100vw;
+  max-height: 86vh;
 }
 
 .thumbnail-select {
