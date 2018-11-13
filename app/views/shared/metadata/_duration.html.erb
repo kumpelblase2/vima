@@ -2,6 +2,6 @@
 time = time || 0
 seconds = time % 60
 minutes = (time / 60) % 60
-hours = if time > 3600 then (time / 3600) + ":" else "" end
+hours = if time > 3600 then (time / 3600).to_s + ":" else "" end
 %>
 <%= "#{hours}#{"%02d" % minutes}:#{"%02d" % seconds}" %>
