@@ -13,6 +13,8 @@ module QueryNodes
       if metadata.type == "taglist"
         selectors = @value.split(' ').map { |val| query.in(@key => [val]).selector }
         query.and(*selectors)
+      elsif metadata.type == "number"
+        query.where(@key => @value.to_i)
       else
         query.where(@key => @value)
       end
