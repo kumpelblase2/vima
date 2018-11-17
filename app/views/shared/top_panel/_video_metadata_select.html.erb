@@ -25,5 +25,8 @@
         const metadataName = $(event.target).data('metadata-name');
         const checked = event.target.checked;
         $(`.metadata-display-${metadataName}`).toggleClass('is-hidden', !checked);
+
+        const hasMetadata = $('.checkbox input[type=checkbox]:checked').length > 0;
+        $('.video-card .card-content').toggleClass('is-hidden', !hasMetadata);
     });
 </script>
