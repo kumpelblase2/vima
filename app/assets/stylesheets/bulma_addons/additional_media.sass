@@ -1,0 +1,123 @@
+=uhd
+  @media screen and (min-width: 1600px)
+    @content
+
+=uwhd
+  @media screen and (min-width: 1900px)
+    @content
+
+.column
+  +uhd
+    &.is-narrow-uhd
+      flex: none
+    &.is-full-uhd
+      flex: none
+      width: 100%
+    &.is-three-quarters-uhd
+      flex: none
+      width: 75%
+    &.is-two-thirds-uhd
+      flex: none
+      width: 66.6666%
+    &.is-half-uhd
+      flex: none
+      width: 50%
+    &.is-one-third-uhd
+      flex: none
+      width: 33.3333%
+    &.is-one-quarter-uhd
+      flex: none
+      width: 25%
+    &.is-one-fifth-uhd
+      flex: none
+      width: 20%
+    &.is-two-fifths-uhd
+      flex: none
+      width: 40%
+    &.is-three-fifths-uhd
+      flex: none
+      width: 60%
+    &.is-four-fifths-uhd
+      flex: none
+      width: 80%
+    &.is-offset-three-quarters-uhd
+      margin-left: 75%
+    &.is-offset-two-thirds-uhd
+      margin-left: 66.6666%
+    &.is-offset-half-uhd
+      margin-left: 50%
+    &.is-offset-one-third-uhd
+      margin-left: 33.3333%
+    &.is-offset-one-quarter-uhd
+      margin-left: 25%
+    &.is-offset-one-fifth-uhd
+      margin-left: 20%
+    &.is-offset-two-fifths-uhd
+      margin-left: 40%
+    &.is-offset-three-fifths-uhd
+      margin-left: 60%
+    &.is-offset-four-fifths-uhd
+      margin-left: 80%
+    @for $i from 1 through 12
+      &.is-#{$i}-uhd
+        flex: none
+        width: percentage($i / 12)
+      &.is-offset-#{$i}-uhd
+        margin-left: percentage($i / 12)
+  +uwhd
+    &.is-narrow-uwhd
+      flex: none
+    &.is-full-uwhd
+      flex: none
+      width: 100%
+    &.is-three-quarters-uwhd
+      flex: none
+      width: 75%
+    &.is-two-thirds-uwhd
+      flex: none
+      width: 66.6666%
+    &.is-half-uwhd
+      flex: none
+      width: 50%
+    &.is-one-third-uwhd
+      flex: none
+      width: 33.3333%
+    &.is-one-quarter-uwhd
+      flex: none
+      width: 25%
+    &.is-one-fifth-uwhd
+      flex: none
+      width: 20%
+    &.is-two-fifths-uwhd
+      flex: none
+      width: 40%
+    &.is-three-fifths-uwhd
+      flex: none
+      width: 60%
+    &.is-four-fifths-uwhd
+      flex: none
+      width: 80%
+    &.is-offset-three-quarters-uwhd
+      margin-left: 75%
+    &.is-offset-two-thirds-uwhd
+      margin-left: 66.6666%
+    &.is-offset-half-uwhd
+      margin-left: 50%
+    &.is-offset-one-third-uwhd
+      margin-left: 33.3333%
+    &.is-offset-one-quarter-uwhd
+      margin-left: 25%
+    &.is-offset-one-fifth-uwhd
+      margin-left: 20%
+    &.is-offset-two-fifths-uwhd
+      margin-left: 40%
+    &.is-offset-three-fifths-uwhd
+      margin-left: 60%
+    &.is-offset-four-fifths-uwhd
+      margin-left: 80%
+    @for $i from 1 through 12
+      &.is-#{$i}-uwhd
+        flex: none
+        width: percentage($i / 12)
+      &.is-offset-#{$i}-uwhd
+        margin-left: percentage($i / 12)
