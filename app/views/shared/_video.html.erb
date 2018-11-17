@@ -1,4 +1,4 @@
-<% cache video do %>
+<% cache_if playlist_params.empty?, video do %>
     <div class="column video-column is-4-mobile is-3-fullhd is-one-fifth-uhd is-2-uwhd">
         <div class="card video-card" data-video-id="<%= video._id.to_s %>">
             <div class="card-image">
