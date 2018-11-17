@@ -5,3 +5,22 @@
 <div class="column is-one-third is-offset-one-third">
     <%= pager %>
 </div>
+<script>
+    const collection = document.getElementById('video-collection');
+    const observerConfig = {childList: true};
+    const callback = (mutationsList, observer) => {
+        for (let mutation of mutationsList) {
+            if (mutation.addedNodes.length > 0) {
+                document.querySelectorAll('.metadata-toggle').forEach(element => {
+                    $(`.metadata-display-${element.getAttribute('data-metadata-name')}`).toggleClass('is-hidden', !element.checked);
+                });
+
+                const hasMetadata = $('.checkbox input[type=checkbox]:checked').length > 0;
+                $('.video-card .card-content').toggleClass('is-hidden', !hasMetadata);
+            }
+        }
+    };
+
+    const observer = new MutationObserver(callback);
+    observer.observe(collection, observerConfig);
+</script>
