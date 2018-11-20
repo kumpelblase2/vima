@@ -2,7 +2,7 @@
     <div class="columns column is-12">
         <div class="column is-2 is-offset-1 title">Playlists</div>
     </div>
-    <div class="column is-10 is-offset-2">
+    <div class="columns column is-10 is-offset-2">
         <% @playlists.each do |playlist| %>
             <%= render 'shared/playlist', playlist: playlist %>
         <% end %>
