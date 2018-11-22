@@ -35,15 +35,7 @@
                         <% name = metadata.name %>
                         <tr class="metadata-display-<%= name %>">
                             <td><%= name.humanize %></td>
-                            <td>
-                                <% if metadata.type == "taglist" %>
-                                    <%= render 'shared/metadata/taglist', tags: video[name] %>
-                                <% elsif metadata.type == "duration" %>
-                                    <%= render 'shared/metadata/duration', time: video[name] %>
-                                <% else %>
-                                    <%= video[name] %>
-                                <% end %>
-                            </td>
+                            <td><%= render_metadata(metadata, video[name]) %></td>
                         </tr>
                     <% end %>
                 </table>
