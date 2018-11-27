@@ -13,7 +13,7 @@ module ActionView
           when "text"
             content = tag.div()
             if metadata_info.options[:suggest]
-              suggestion_values = MetadataHelper.get_values_for_metadata(metadata_info.name).reject {|val| val.empty?}
+              suggestion_values = MetadataHelper.get_values_for_metadata(metadata_info.name).reject(&:empty?).sort
               list_id = metadata_info.name + "_suggestion"
               options[:list] = list_id
               content = tag.datalist(id: list_id) do
