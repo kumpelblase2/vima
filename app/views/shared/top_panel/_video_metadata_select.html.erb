@@ -1,32 +1,52 @@
 <div class="dropdown is-right">
-    <div class="dropdown-trigger">
-        <button class="button is-primary" aria-haspopup="true" aria-controls="metadata-menu">
-            <span>Display</span>
-            <span class="icon is-small">
+  <div class="dropdown-trigger">
+    <button class="button is-primary" aria-haspopup="true" aria-controls="metadata-menu">
+      <span>Display</span>
+      <span class="icon is-small">
                 <i class="fa fa-angle-down" aria-hidden="true"></i>
             </span>
-        </button>
-    </div>
-    <div class="dropdown-menu" id="metadata-menu" role="menu">
-        <div class="dropdown-content">
-            <% metadata_elements.each do |metadata| %>
-                <div class="dropdown-item">
-                    <label class="checkbox">
-                        <input type="checkbox" class="metadata-toggle" checked data-metadata-name="<%= metadata.name %>" autocomplete="off"/>
-                        <%= metadata.name %>
-                    </label>
-                </div>
-            <% end %>
+    </button>
+  </div>
+  <div class="dropdown-menu" id="metadata-menu" role="menu">
+    <div class="dropdown-content">
+      <div class="dropdown-item columns">
+        <a class="button column is-6" onclick="selectAllMetadata()">All</a>
+        <a class="button column is-6" onclick="selectNoMetadata()">None</a>
+      </div>
+      <% metadata_elements.each do |metadata| %>
+        <div class="dropdown-item">
+          <label class="checkbox">
+            <input type="checkbox" class="metadata-toggle" checked data-metadata-name="<%= metadata.name %>" autocomplete="off"/>
+            <%= metadata.name %>
+          </label>
         </div>
+      <% end %>
     </div>
+  </div>
 </div>
 <script>
-    $('.checkbox input[type=checkbox]').change(event => {
-        const metadataName = $(event.target).data('metadata-name');
-        const checked = event.target.checked;
+    $('.checkbox input[type=checkbox]').change(event => onMetadataToggle(event.target));
+
+    function onMetadataToggle(checkbox) {
+        const metadataName = $(checkbox).data('metadata-name');
+        const checked = checkbox.checked;
         $(`.metadata-display-${metadataName}`).toggleClass('is-hidden', !checked);
 
         const hasMetadata = $('.checkbox input[type=checkbox]:checked').length > 0;
         $('.video-card .card-content').toggleClass('is-hidden', !hasMetadata);
-    });
+    }
+
+    function selectNoMetadata() {
+        $('.metadata-toggle').each(function() {
+            this.checked = false;
+            onMetadataToggle(this);
+        });
+    }
+
+    function selectAllMetadata() {
+        $('.metadata-toggle').each(function() {
+            this.checked = true;
+            onMetadataToggle(this);
+        });
+    }
 </script>
