@@ -22,33 +22,35 @@
             </div>
         </div>
     </div>
-    <div class="column is-8">
-        <table class="table is-fullwidth">
-            <tbody>
-                <tr>
-                    <td>Name</td>
-                    <td><%= @video.name %></td>
-                </tr>
-                <tr>
-                    <td>Location</td>
-                    <td><%= @video.location %></td>
-                </tr>
-                <tr>
-                    <td>Hash</td>
-                    <td><%= @video.file_hash %></td>
-                </tr>
-                <% MetadataHelper.get_configured_metadata.each do |metadata| %>
+    <div class="column columns is-8 is-multiline">
+        <div class="column is-full">
+          <%= link_to 'Edit', edit_video_path(@video), class: 'button is-primary is-fullwidth' %>
+        </div>
+        <div class="is-full column">
+            <table class="table is-fullwidth">
+                <tbody>
                     <tr>
-                        <td><%= metadata.name %></td>
-                        <td>
-                            <%= render_metadata(metadata, @video[metadata.name]) %>
-                        </td>
+                        <td>Name</td>
+                        <td><%= @video.name %></td>
                     </tr>
-                <% end %>
-            </tbody>
-        </table>
-        <div class="column pull-right">
-            <%= link_to 'Edit', edit_video_path(@video), class: 'button is-primary' %>
+                    <tr>
+                        <td>Location</td>
+                        <td><%= @video.location %></td>
+                    </tr>
+                    <tr>
+                        <td>Hash</td>
+                        <td><%= @video.file_hash %></td>
+                    </tr>
+                    <% MetadataHelper.get_configured_metadata.each do |metadata| %>
+                        <tr>
+                            <td><%= metadata.name %></td>
+                            <td>
+                                <%= render_metadata(metadata, @video[metadata.name]) %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
