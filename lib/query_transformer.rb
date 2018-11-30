@@ -19,7 +19,7 @@ class QueryTransformer < Parslet::Transform
   }
 
   rule(:property => subtree(:text)) {
-    QueryNodes::PropertyNode.new(text[:key], text[:value].str)
+    QueryNodes::PropertyNode.new(text[:key], text[:value].str, !text[:negation].nil?)
   }
 
   rule(:or => subtree(:union)) {

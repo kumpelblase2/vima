@@ -28,7 +28,7 @@ class QueryParser < Parslet::Parser
   rule(:simpleText) { match('[^ ]').repeat }
   rule(:text) { (quotedValue.as(:exact) | simpleText.as(:simple)).as(:text) }
 
-  rule(:property) { (key >> str(':') >> (quotedValue | propertyValue).as(:value)).as(:property) }
+  rule(:property) { (str('-').maybe.as(:negation) >> key >> str(':') >> (quotedValue | propertyValue).as(:value)).as(:property) }
 
   rule(:number) { match('[0-9]').repeat(1) }
   rule(:date) { number >> str('-') >> number >> str('-') >> number }
@@ -40,7 +40,7 @@ class QueryParser < Parslet::Parser
   rule(:exclusion) { str('-') >> key }
   rule(:boolean) { (inclusion.as(:inclusion) | exclusion.as(:exclusion)).as(:boolean) }
 
-  rule(:element) { boolean | property | range | text }
+  rule(:element) { property | boolean | range | text }
 
   rule(:andOp) { str('AND') }
   rule(:orOp) { str('OR') }
