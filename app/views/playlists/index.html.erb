@@ -3,8 +3,14 @@
         <div class="column is-2 is-offset-1 title">Playlists</div>
     </div>
     <div class="columns column is-10 is-offset-2">
-        <% @playlists.each do |playlist| %>
-            <%= render 'shared/playlist', playlist: playlist %>
+        <% if @playlists.empty? %>
+            <div class="column is-8 has-text-centered is-size-5">
+              <i>There are no playlists.</i>
+            </div>
+        <% else %>
+            <% @playlists.each do |playlist| %>
+                <%= render 'shared/playlist', playlist: playlist %>
+            <% end %>
         <% end %>
     </div>
 </div>
