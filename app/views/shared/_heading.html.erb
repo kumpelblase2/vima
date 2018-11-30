@@ -12,6 +12,18 @@
         <p class="level-item has-text-centered <%= if current_controller?('videos') then 'is-active' end %>">
             <a class="link" href="<%= videos_path %>">Library</a>
         </p>
+        <div class="level-item">
+            <form action="/videos">
+                <div class="field has-addons">
+                    <div class="control">
+                        <input class="input" type="text" name="search" placeholder="Find a video">
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-primary">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </nav>
     <div class="empty"></div> <!-- this is so we get margin from the level element -->
 </div>
