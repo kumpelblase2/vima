@@ -1,12 +1,15 @@
 .selectable-list {
-  padding: 2px;
+  list-style: none !important;
+  list-style-position: inside;
+  margin-bottom: 10px;
 }
 
-.selectable-list li {
-  padding: 2px;
+.selectable-list-element {
+  padding: 5px;
+  cursor: pointer;
 }
 
-.selectable-list li:nth-child(2) {
-  border: 0 solid #dddddd;
-  border-top-width: 2px;
+.selectable-list-element:hover {
+  background-color: $primary;
+  color: $text-invert;
 }
