@@ -80,7 +80,7 @@ class VideosController < ApplicationController
     end
   end
 
-  def updateAll
+  def update_all
     Rails.cache.delete_matched("values_*")
     videoIds = params[:videoIds]
     included_names = params[:include] || []
