@@ -82,9 +82,9 @@ class VideosController < ApplicationController
 
   def update_all
     Rails.cache.delete_matched("values_*")
-    videoIds = params[:videoIds]
     included_names = params[:include] || []
-    videos = videoIds.map { |id| Video.find(id) }
+    video_ids = params[:videoIds]
+    videos = Video.find(video_ids)
 
     update_params = MetadataHelper.fix_metadata_types(video_params).select {|k, _| included_names.member?(k)}
     array_params = update_params.select { |_,v| v.is_a?(Array) }
