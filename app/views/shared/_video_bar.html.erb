@@ -27,6 +27,26 @@
     <div class="level-right">
         <div class="level-item">
             <script>
+                function selectNone() {
+                    document.querySelectorAll(".video-card").forEach(video => {
+                        $(video).removeClass("is-selected-video")
+                    })
+                }
+            </script>
+            <a href="javascript:selectNone()" class="button">Select None</a>
+        </div>
+        <div class="level-item">
+            <script>
+                function selectAll() {
+                    document.querySelectorAll(".video-card").forEach(video => {
+                        $(video).addClass("is-selected-video")
+                    })
+                }
+            </script>
+            <a href="javascript:selectAll()" class="button">Select All</a>
+        </div>
+        <div class="level-item">
+            <script>
                 function showEditAllModal() {
                     const videoIds = $(".is-selected-video").get().map(elem => elem.dataset.videoId);
                     const modal = document.getElementById("editMultipleModal");
