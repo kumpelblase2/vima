@@ -44,8 +44,7 @@
                 function closeEditAllForm() {
                     const modal = document.getElementById("editMultipleModal");
                     const formElement = modal.querySelector("form");
-                    const children = Array.from(formElement.children);
-                    children.filter(child => child.type === 'hidden').forEach(input => {
+                    formElement.querySelectorAll("input[name='videoIds[]']").forEach(input => {
                         formElement.removeChild(input);
                     });
 
