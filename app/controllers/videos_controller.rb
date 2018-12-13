@@ -4,8 +4,8 @@ class VideosController < ApplicationController
   # GET /videos
   # GET /videos.json
   def index
-    order_by = params[:order] || :name
-    direction = params[:dir] || 'asc'
+    order_by = params[:order] || default_ordering
+    direction = params[:dir] || default_ordering_direction
 
     query = params[:search]
     if query and not query.empty?
@@ -104,6 +104,14 @@ class VideosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_video
       @video = Video.find(params[:id])
+    end
+
+    def default_ordering
+      Rails.configuration.library.fetch("defaults", Hash.new).fetch("order_by", :name)
+    end
+
+    def default_ordering_direction
+      Rails.configuration.library.fetch("defaults", Hash.new).fetch("order_direction", :asc)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
