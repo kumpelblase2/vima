@@ -10,8 +10,8 @@ module PlaylistsHelper
   end
 
   def self.get_metadata_display_in_playlist
-    playlist_config = Rails.configuration.library["playlist"] || {}
-    metadata_to_display = playlist_config["display"] || []
+    playlist_config = Rails.configuration.library.fetch("playlist", Hash.new)
+    metadata_to_display = playlist_config.fetch("display", [])
     metadata_to_display.map { |name| MetadataHelper.get_metadata_by_name(name) }
   end
 end
