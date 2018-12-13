@@ -50,7 +50,7 @@ module MetadataHelper
 
   def self.get_values_for_metadata(name)
     Rails.cache.fetch("values_" + name) do
-      Video.all.map {|v| v[name]}.flatten.uniq
+      Video.distinct(name).flatten.uniq
     end
   end
 
