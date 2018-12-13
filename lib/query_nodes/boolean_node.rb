@@ -13,7 +13,7 @@ module QueryNodes
       metadata = keys[@key]
       if metadata.type == "taglist"
         query.where(:"#{@key}.0".exists => @included)
-      elsif metadata.type == "yes_no"
+      elsif metadata.type == "on_off"
         query.where(@key => @included)
       else
         query.where((@included ? @key.ne : @key) => "")
