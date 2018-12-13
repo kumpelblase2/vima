@@ -3,6 +3,13 @@ require 'parslet'
 class QueryTransformer < Parslet::Transform
   rule(:exact => simple(:text)) { { exact: text.str.slice(1, text.size - 2) } }
   rule(:expr => { :expr => subtree(:inner) }) { { :expr => inner } }
+  rule(:text => subtree(:text)) do
+    if text[:exact]
+      QueryNodes::TextSearchNode.new(text[:exact], true)
+    else
+      QueryNodes::TextSearchNode.new(text[:simple])
+    end
+  end
 
   rule(:range => subtree(:range)) {
     if range.has_key? :smallerRange
@@ -44,17 +51,6 @@ class QueryTransformer < Parslet::Transform
 
   rule(:query => subtree(:queries)) {
     queries_array = (queries.is_a?(Array) ? queries : [ queries ])
-
-    text_queries, normal_queries = queries_array.partition { |q| q.is_a? Hash and q.has_key? :text }
-    full_text, simple_text = text_queries.map { |t| t[:text] }.partition { |t| t.has_key? :exact }
-
-    full_text.map! { |t| QueryNodes::TextSearchNode.new(t[:exact], true) }
-    remaining_text = simple_text.map { |s| s[:simple] }.join(' ')
-    rest = []
-    if remaining_text.length > 0
-      rest << QueryNodes::TextSearchNode.new(remaining_text)
-    end
-
-    { query: normal_queries + full_text + rest}
+    { query: queries_array }
   }
 end
