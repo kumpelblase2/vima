@@ -20,6 +20,23 @@
                 <% end %>
             </div>
         </div>
+        <% if params[:search] %>
+            <div class="level-item">
+                <form action="/smart_playlists" method="post">
+                    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                    <input type="hidden" name="smart_playlist[name]" value="<%= params[:search] %>">
+                    <input type="hidden" name="smart_playlist[query]" value="<%= params[:search] %>">
+                    <input type="hidden" name="smart_playlist[order_name]" value="<%= params[:order] || "name" %>">
+                    <input type="hidden" name="smart_playlist[order_dir]" value="<%= params[:dir] || "asc" %>">
+                    <button class="button outlined" type="submit">
+                        <span class="icon">
+                            <i class="fa fa-plus-square"></i>
+                        </span>
+                        <span>Create Smart Playlist</span>
+                    </button>
+                </form>
+            </div>
+        <% end %>
     </div>
     <div class="level-item">
         <%= render 'shared/top_panel/video_search', search: search_term %>
