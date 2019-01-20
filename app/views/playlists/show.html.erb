@@ -1,2 +1,5 @@
 <%= render 'shared/playlist_bar', edit_url: edit_playlist_path(@playlist), delete_url: playlists_delete_path(@playlist), playlist_name: @playlist.name %>
-<%= render 'shared/video_collection', videos: @playlist.videos, playlist: @playlist, pager: nil %>
+<%= render 'shared/video_collection', videos: @playlist.ordered_videos, playlist: @playlist, pager: nil %>
+<script>
+    enableDragAndDrop(Array.from(document.querySelectorAll('.video-column[draggable=true]')));
+</script>

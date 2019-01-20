@@ -1,5 +1,5 @@
 class PlaylistsController < ApplicationController
-  before_action :set_playlist, only: [:show, :edit, :update, :destroy, :videos, :add_videos, :update_videos]
+  before_action :set_playlist, only: [:show, :edit, :update, :destroy, :add_videos, :update_videos]
 
   # GET /playlists
   # GET /playlists.json
@@ -52,18 +52,13 @@ class PlaylistsController < ApplicationController
   end
 
   def update_videos
-    @playlist.videos.clear
-    params[:videos].each { |id|
-      @playlist.videos << Video.find(id) unless has_video_id(@playlist, id)
-    }
-
+    @playlist.set(videos: [])
+    @playlist.add_videos(params[:videos])
     @playlist.save!
   end
 
   def add_videos
-    params[:videos].each {|id|
-      @playlist.videos << Video.find(id) unless has_video_id(@playlist, id)
-    }
+    @playlist.add_videos(params[:videos])
     @playlist.save!
   end
 
@@ -90,9 +85,5 @@ class PlaylistsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def playlist_params
       params.require(:playlist).permit(:name, videos: [:id])
-    end
-
-    def has_video_id(playlist, video_id)
-      playlist.videos.any? { |video| video.id.eql? video_id }
     end
 end

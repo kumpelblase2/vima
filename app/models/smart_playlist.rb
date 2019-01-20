@@ -17,6 +17,8 @@ class SmartPlaylist
     SearchHelper.query(Video.order_by(self.order_name => self.order_dir), self.query).to_a
   end
 
+  alias :ordered_videos :videos
+
   def as_playlist_param
     { smart_playlist: self.id }
   end

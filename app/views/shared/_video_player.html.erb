@@ -4,7 +4,7 @@
     <% if playlist %>
         <div class="column is-3 playlist-video-list">
             <% playlist_query = playlist.as_playlist_param %>
-            <% playlist.videos.each do |playlist_video| %>
+            <% playlist.ordered_videos.each do |playlist_video| %>
                 <div class="playlist-video-item">
                     <%= link_to watch_video_path(playlist_video, playlist_query) do %>
                         <% background_style = if video._id == playlist_video._id then 'background' else 'background-dark' end %>
