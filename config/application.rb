@@ -27,6 +27,7 @@ module Vima
     end
 
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    config.load_defaults 5.0
 
     config.library = config_for(:library)
     config.library["metadata"].map! { |lib_hash| Metadata.from_hash lib_hash }
