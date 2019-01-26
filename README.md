@@ -8,7 +8,7 @@ This application takes a lot of inspiration from the Plex Media Server as the fr
 
 Plex is, for most people, a really good media server and serves their needs well. Because an average user mostly has a video collection at home that is primarily movies and tv shows. Plex is great for that because it automatically gets all the details for each movie from the web and there's nothing really to add.
 
-The problem arises when you have a giant collection of videos that are not as neatly indexed and want to search _properly_. Plex' search used to be pretty horrible, only providing OR connections and being in general very limited, but Plex actually improved in this regard. However, it's still nowhere near the complexity I want since it's now a bunch of ANDs where you can only do an OR for each property, not freely combine ANDs and ORs.
+The problem arises when you have a giant collection of videos that are not as neatly indexed and you want to search those _properly_. Plex' search used to be pretty horrible, only providing OR connections and being in general very limited, but Plex actually improved in this regard. However, it's still nowhere near the complexity I want since it's now a bunch of ANDs where you can only do an OR for each property, not freely combine ANDs and ORs.
 
 Moreover, Plex is really lacking when it comes to customization of metadata. You can only use the already pre-defined fields from Plex(*) and combined with the lacking search, you can't really find the things you're actually looking for.
 
@@ -28,7 +28,7 @@ Vima's basic concept is that a video does not get any metadata from the system i
 
 These are assumptions that I made when developing this project. This is not to say that my goal is to specifically target these, but if there's a decision to be made, it'll be made with these assumptions in mind (e.g.: available APIs).
 
-- Modern Browser (e.g. FF 59 or Chrome 60)
+- Modern Browser (e.g. FF 64 or Chrome 70)
 - Served locally or internal network (not internet)
 - files are on a local drive (not network share)
 - Desktop focus
@@ -36,8 +36,31 @@ These are assumptions that I made when developing this project. This is not to s
 
 If you do not agree with one or more of these assumptions, feel free to submit a PR that adapts the current behavior to allow for different setups or just fork it.
 
+## Setup
+
+If you want to run Vima, you need the following:
+
+- Ruby (and the bundler gem installed)
+- MongoDB
+- ffmpeg
+
+Once these are installed, clone this repository to a place you like. After the cloning is finished, switch into the directory and install the dependencies using bundler:
+
+```
+$ bundle install --path vendor
+```
+
+After you go over the configuration, you can start Vima using `bin/rails server`.
+
+## Configuration
+
+TODO
+
+## Contributing
+
+TODO
+
 ## Internal TODO
 
-- Ordering of videos in playlist
 - Improving video metadata display
 - Allow for keeping video in fullscreen when switching to next one in playlist
