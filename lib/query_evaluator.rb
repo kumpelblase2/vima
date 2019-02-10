@@ -1,6 +1,6 @@
 class QueryEvaluator
   def initialize(query, keys)
-    @query = query
+    @query = query.strip
     @metadata = keys
   end
 
