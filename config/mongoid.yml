@@ -1,11 +1,31 @@
 development:
+  clients:
+    default:
+      database: vima_development
+      hosts:
+        - localhost:27017
+  options:
+    raise_not_found_error: false
+
+test:
+  clients:
+    default:
+      database: vima_test
+      hosts:
+        - localhost:27017
+      options:
+        read:
+          mode: :primary
+        max_pool_size: 1
+
+production:
   # Configure available database clients. (required)
   clients:
     # Defines the default client. (required)
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: vima_development
+      database: vima
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
@@ -131,13 +151,3 @@ development:
     # environment. The Mongoid logger will be set to the Rails logger
     # otherwise.(default: :info)
     # log_level: :info
-test:
-  clients:
-    default:
-      database: vima_test
-      hosts:
-        - localhost:27017
-      options:
-        read:
-          mode: :primary
-        max_pool_size: 1
