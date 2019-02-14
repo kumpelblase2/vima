@@ -1,2 +1,3 @@
+<% title "Smart Playlist \"#{@playlist.name}\"" %>
 <%= render 'shared/playlist_bar', edit_url: edit_smart_playlist_path(@playlist), delete_url: smart_playlists_delete_path(@playlist), playlist_name: @playlist.name %>
 <%= render 'shared/video_collection', videos: @playlist[:videos], playlist: @playlist, pager: nil %>

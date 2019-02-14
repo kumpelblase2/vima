@@ -1,3 +1,4 @@
+<% title @video.name + (@playlist.nil? ? "" : " (Playlist: #{@playlist.name})") %>
 <div class="column fullscreen-video">
     <%= render 'shared/video_player', video: @video, next_video_path: @next_video, playlist: @playlist %>
 </div>

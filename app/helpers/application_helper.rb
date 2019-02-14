@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def title(text)
+    content_for(:title, text.html_safe)
+  end
+
   def import_component(component)
     path = asset_path(component + ".html")
     "<link rel=\"import\" href=\"#{path}\">".html_safe
