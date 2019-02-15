@@ -3,11 +3,6 @@ module ApplicationHelper
     content_for(:title, text.html_safe)
   end
 
-  def import_component(component)
-    path = asset_path(component + ".html")
-    "<link rel=\"import\" href=\"#{path}\">".html_safe
-  end
-
   def select_thumbnail(video)
     # TODO: should select a default empty url
     if video.thumbnails.length > 0 then video.thumbnails[video.selected_thumbnail] else "" end
