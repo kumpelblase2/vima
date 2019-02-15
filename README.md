@@ -12,6 +12,8 @@ The problem arises when you have a giant collection of videos that are not as ne
 
 Moreover, Plex is really lacking when it comes to customization of metadata. You can only use the already pre-defined fields from Plex(*) and combined with the lacking search, you can't really find the things you're actually looking for.
 
+There are a couple more of personal annoyances with plex, such as auto play pausing for 10 seconds if you haven't interacted for some time or not being able to regenerate thumbnails. I could live with these but I think this could be improved upon as well. 
+
 (*): There are also some stupid things with metadata in plex. Some metadata will be pulled from the file metadata, but is not visible/editable in the UI (like Cast of a Movie). Others are there, but cannot be searched for (there's a 'Rating' when editing a video, but it's not the same field as 'Rating' in the search).
 
 ## Other Solutions
@@ -26,15 +28,21 @@ Vima's basic concept is that a video does not get any metadata from the system i
 
 ## Assumptions
 
-These are assumptions that I made when developing this project. This is not to say that my goal is to specifically target these, but if there's a decision to be made, it'll be made with these assumptions in mind (e.g.: available APIs).
+These are assumptions that I made when developing this project. This is not to say that my goal is to specifically target these, but if there's a decision to be made, it'll be made with these assumptions in mind (e.g.: available Browser APIs).
 
 - Modern Browser (e.g. FF 64 or Chrome 70)
+    - Rationale: I'm using a modern browser which possible provides APIs that are not available on older ones. I don't think it's worth the
+            time and effort to retrofit older browsers using polyfills or avoiding the newer APIs.
 - Served locally or internal network (not internet)
-- files are on a local drive (not network share)
+    - Rationale: If videos are streamed over the internet, it's not a good idea to stream in the original quality because of bandwidth and connectivity. I don't want to re-encode videos on the fly just to allow this and make the application needlessly complex.
+- Files are on a local drive (not network share)
+    - Rationale: This isn't really something that I really enforce, the idea behind it is that I just want to assume that I can directly stream the video from the filestore. This doesn't necessarily mean no network storage, but it means that I'd like to avoid caching/prefetching videos because access to videos is slow.
 - Desktop focus
+    - Or otherwise: Desktop first. Rationale: The application will mostly be used on a computer with a horizontal screen attached to it. No vertical viewport but a large screen size. It should be _usable_ on mobile, but that should focus un watching the videos, not working with them.
 - Single library
+    - Rationale: I don't see the need to allow for multiple libraries, one could set up multiple instances of Vima to achieve the same.
 
-If you do not agree with one or more of these assumptions, feel free to submit a PR that adapts the current behavior to allow for different setups or just fork it.
+They are specific to my use case, so you may disagree with some of them. If that's the case, feel free to submit a PR that adapts the current behavior to allow for different setups or just fork it.
 
 ## Setup
 
@@ -51,6 +59,30 @@ $ bundle install --path vendor
 ```
 
 After you go over the configuration, you can start Vima using `bin/rails s -e production`.
+
+## Query Language
+
+Vima uses a query language to properly search for videos. It is very similar to [Lucene's query language](http://www.lucenetutorial.com/lucene-query-syntax.html) but is less powerful. Just like Lucene, one can query for certain properties like `year:1980` and can combine queries using `AND` and `OR`, like `year:1980 OR year:1990`. This can be combined in any way and allows for brackets as well: `(year:1980 OR length>10) AND (year:1990 OR length<5)` allowing you to narrow down your search as much as you want. One thing that was consciously left out for example was the weighing of certain attributes as there's no intention of sorting videos that way.
+
+The language features several operators for comparing values, checking their existence or negating things. See below for supported operations.
+
+### Full text search
+
+`text` type metadata is automatically indexed and allows for full text search. Thus a query like `hello world` would look for any text metadata in a video that contains either `hello` or `world`. You can use quotes to specifically match a string with multiple words. `"Hello World"` would look for the whole string `Hello World` in text.
+
+### Exact match 
+`metadata:value` check if the attribute `metadata` has value `value`. For all types, except taglists, this checks if the value is exactly the given value. For text with spaces, one has to use quotes, e.g. `notes:"Has a watermark"`.
+
+For taglists, it checks if the given value is present in the lists of tags and allows for more than just that tag to be present.
+
+### Relative Comparison
+`metadata>value` and `metadata<value` check if `metadata` has a value that's bigger or smaller than `value` respectively.
+
+### Negation / Absence
+Using `-` one can check for the absence of any or a certain value, this can be seen as the opposite/negation of an exact match. `-license` would only match videos that don't have a license or `-license:MIT` would match all videos that don't have the MIT license.
+
+### Existence / On
+This checks effectively the opposite of a negation or absence. `+metadata` makes sure that a value exists for attribute `metadata`. There are special cases however: for taglists that means at least one value and for on/off values that means "on". So for example, `+license` would return any videos that have a license attached to them.
 
 ## Configuration
 
@@ -95,8 +127,9 @@ There are several kinds of metadata:
 
 You can define any number of these with any name, ordering or options you like. Not all types have options, the possible ones are listed below:
 
-- `number` / `duration` / `range` have `min`, `max`, `step`
-- `select` has `values`
+- `text` has `suggest` (boolean) -> suggests values from other values of this metadata
+- `number` / `duration` / `range` have `min`, `max`, `step` (integers) -> the minimum, maximum value or size of steps between values.
+- `select` has `values` (list) -> possible values one can select from
 
 There are two ways of defining metadata. The short variant (without options) or the long variant (with options).
 Short variant:
@@ -160,6 +193,24 @@ These are the currently existing metadata providers:
 ## Contributing
 
 Feel free to contribute any kind of improvement, may that be wording, translation, UI/UX, new metadata provider, bug fixes or better documentation. This is a hobby project for me so time is a little limited and thus any help is appreciated. 
+
+## Roadmap / Features for the future
+
+There are obviously some things that I want to add to the application that I didn't work just yet. A couple of them are below.
+These are mostly ideas that came to my mind that I thought would be a good idea, but I haven't fully flushed out yet or might not
+even work as I would expect them to. If it's in the list below it does not mean that I _will_ add it, it's just something that I
+would like to have.
+
+- "Sorting mode": Some mode to easier set metadata on videos. For example, there will be three visible buckets: 1. Cartoon 2. Anime 3. Neither.
+  It will go through each video in the library which does not have a value for this metadata and present it to you. You can then put it into either of the buckets.
+- "Quick Actions": Configure certain actions to allow faster editing of certain metadata. For example, configuring a "watched" action, that allows you to quickly toggle/set the "watched" metadata value.
+- Quick Edit for single videos
+- Preview of videos when playing, like on youtube and other sites. So hovering over the timestamp will show a more or less accurate preview image
+- "Group Metadata": Basically a bundle of more metadata. For example: "studio.name", "studio.origin", "studio.established_in", ...
+    - Allow lists of these objects
+- Runtime editing of metadata
+- Allowing metadata providers to define UI
+
 
 ## Internal TODO
 
