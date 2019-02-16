@@ -5,25 +5,24 @@ development:
   home:
     videos: 5
   thumbnails:
-    generate: true
-    amount: 3
+    amount: 4
     dir: ./.thumbnails
+  playlist:
+    display:
+      - license
+      - length
   metadata:
-   - alternative: text
-   - name: rating
-     type: range
-     options:
-      min: 1
-      max: 10
-     ordering: desc
-   - good: on_off
-   - name: type
-     type: select
-     options:
-      values:
-       - a
-       - b
-   - butts: taglist
+    - name: license
+      type: text
+      options:
+        suggest: true
+    - year: number
+    - name: studio
+      type: text
+      options:
+        suggest: true
+    - genres: taglist
+    - commercially_usable: on_off
   providers:
-   WatchedStatus: true
-   VideoMetadata: true
+    VideoMetadata: true
+    VideoVersion: true
