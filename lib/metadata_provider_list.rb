@@ -37,14 +37,10 @@ class MetadataProviderList
       provider.run(type, value, data)
     end
 
-    if save
-      value.save!
-    end
+    value.save! if save
   end
 
   def enabled_metadata
-    @enabled_providers.map do |provider|
-      provider.metadata
-    end.flatten
+    @enabled_providers.map(&:metadata).flatten
   end
 end

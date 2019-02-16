@@ -38,7 +38,8 @@ module ActionView
           when "time"
             time_field_tag name, value, options
           when "taglist"
-            selected_values = options_from_collection_for_select(MetadataHelper.get_values_for_metadata(metadata_info.name), 'to_s', 'to_s', value)
+            existing_tags = MetadataHelper.get_values_for_metadata(metadata_info.name)
+            selected_values = options_from_collection_for_select(existing_tags, 'to_s', 'to_s', value)
             value = value || []
             selected_data = { metadata: metadata_info.name, value: value.join(',') }
             options[:class] = 'taglist'
@@ -46,6 +47,7 @@ module ActionView
               select_tag name + "[]", selected_values, options.merge({ data: selected_data, multiple: 'multiple', style: 'width: 100%' })
             end
           else
+            tag.div
         end
       end
     end
