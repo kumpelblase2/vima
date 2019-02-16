@@ -17,7 +17,7 @@
         <div class="dropdown-item">
           <label class="checkbox">
             <input type="checkbox" class="metadata-toggle" checked data-metadata-name="<%= metadata.name %>" autocomplete="off"/>
-            <%= metadata.name %>
+            <%= metadata.name.humanize %>
           </label>
         </div>
       <% end %>
