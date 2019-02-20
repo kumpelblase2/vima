@@ -8,6 +8,8 @@ This application takes a lot of inspiration from the Plex Media Server as the fr
 
 (You can find more screenshots in the `screenshots` directory.)
 
+Vima is licensed under the terms of the [MIT license](LICENSE). You can find the full license text in the license file in this repository.
+
 ## What is the problem with Plex / other media servers?
 
 Plex is, for most people, a really good media server and serves their needs well. Because an average user mostly has a video collection at home that is primarily movies and tv shows. Plex is great for that because it automatically gets all the details for each movie from the web and there's nothing really to add.
