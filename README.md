@@ -4,7 +4,7 @@
 
 This application takes a lot of inspiration from the Plex Media Server as the frustration with certain parts led to the creation of Vima.
 
-![library example screenshot](screenshots/library.png)
+![library example screenshot](screenshots/library.jpg)
 
 (You can find more screenshots in the `screenshots` directory.)
 
