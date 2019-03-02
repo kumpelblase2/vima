@@ -207,15 +207,15 @@ These are mostly ideas that came to my mind that I thought would be a good idea,
 even work as I would expect them to. If it's in the list below it does not mean that I _will_ add it, it's just something that I
 would like to have.
 
-- "Sorting mode": Some mode to easier set metadata on videos. For example, there will be three visible buckets: 1. Cartoon 2. Anime 3. Neither.
+- [ ] "Sorting mode": Some mode to easier set metadata on videos. For example, there will be three visible buckets: 1. Cartoon 2. Anime 3. Neither.
   It will go through each video in the library which does not have a value for this metadata and present it to you. You can then put it into either of the buckets.
-- "Quick Actions": Configure certain actions to allow faster editing of certain metadata. For example, configuring a "watched" action, that allows you to quickly toggle/set the "watched" metadata value.
-- Quick Edit for single videos
-- Preview of videos when playing, like on youtube and other sites. So hovering over the timestamp will show a more or less accurate preview image
-- "Group Metadata": Basically a bundle of more metadata. For example: "studio.name", "studio.origin", "studio.established_in", ...
-    - Allow lists of these objects
-- Runtime editing of metadata
-- Allowing metadata providers to define UI
+- [ ] "Quick Actions": Configure certain actions to allow faster editing of certain metadata. For example, configuring a "watched" action, that allows you to quickly toggle/set the "watched" metadata value.
+- [ ] Quick Edit for single videos
+- [ ] Preview of videos when playing, like on youtube and other sites. So hovering over the timestamp will show a more or less accurate preview image
+- [x] "Group Metadata": Basically a bundle of more metadata. For example: "studio.name", "studio.origin", "studio.established_in", ...
+    - [ ] Allow lists of these objects
+- [ ] Runtime editing of metadata
+- [ ] Allowing metadata providers to define UI
 
 
 ## Internal TODO
