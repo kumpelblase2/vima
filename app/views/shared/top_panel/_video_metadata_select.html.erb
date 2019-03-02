@@ -1,39 +1,64 @@
 <div class="dropdown is-right">
-  <div class="dropdown-trigger">
-    <button class="button is-primary" aria-haspopup="true" aria-controls="metadata-menu">
-      <span>Display</span>
-      <span class="icon is-small">
+    <div class="dropdown-trigger">
+        <button class="button is-primary" aria-haspopup="true" aria-controls="metadata-menu">
+            <span>Display</span>
+            <span class="icon is-small">
                 <i class="fa fa-angle-down" aria-hidden="true"></i>
             </span>
-    </button>
-  </div>
-  <div class="dropdown-menu" id="metadata-menu" role="menu">
-    <div class="dropdown-content">
-      <div class="dropdown-item columns">
-        <a class="button column is-6" onclick="selectAllMetadata()">All</a>
-        <a class="button column is-6" onclick="selectNoMetadata()">None</a>
-      </div>
-      <% metadata_elements.each do |metadata| %>
-        <div class="dropdown-item">
-          <label class="checkbox">
-            <input type="checkbox" class="metadata-toggle" checked data-metadata-name="<%= metadata.name %>" autocomplete="off"/>
-            <%= metadata_display_name(metadata) %>
-          </label>
-        </div>
-      <% end %>
+        </button>
     </div>
-  </div>
+    <div class="dropdown-menu" id="metadata-menu" role="menu">
+        <div class="dropdown-content">
+            <div class="dropdown-item columns">
+                <a class="button column is-6" onclick="selectAllMetadata()">All</a>
+                <a class="button column is-6" onclick="selectNoMetadata()">None</a>
+            </div>
+            <% previous_group = nil %>
+            <% metadata_elements.each do |metadata| %>
+                <% if metadata.belongs_to_group? %>
+                    <% if previous_group != metadata.group_name %>
+                        <div class="dropdown-item">
+                            <label class="checkbox">
+                                <input type="checkbox" class="metadata-toggle" checked data-group-name="<%= metadata.group_name %>" autocomplete="off"/>
+                                <%= metadata.group_name.humanize %>
+                            </label>
+                        </div>
+                    <% end %>
+                    <% previous_group = metadata.group_name %>
+                <% else %>
+                    <% previous_group = nil %>
+                <% end %>
+                <div class="dropdown-item">
+                    <label class="checkbox">
+                        <% unless previous_group.nil? %>
+                            &nbsp;&nbsp;
+                        <% end %>
+                        <input type="checkbox" class="metadata-toggle" checked data-metadata-name="<%= metadata.name %>" autocomplete="off"/>
+                        <%= metadata.grouped_name.humanize %>
+                    </label>
+                </div>
+            <% end %>
+        </div>
+    </div>
 </div>
 <script>
     $('.checkbox input[type=checkbox]').change(event => onMetadataToggle(event.target));
 
     function onMetadataToggle(checkbox) {
         const metadataName = $(checkbox).data('metadata-name');
-        const checked = checkbox.checked;
-        $(`.metadata-display-${metadataName}`).toggleClass('is-hidden', !checked);
+        const groupName = $(checkbox).data('group-name');
+        if (groupName != null && groupName.length > 0) {
+            $('.metadata-toggle[data-metadata-name^="studio__"]').each(function() {
+                this.checked = checkbox.checked;
+                onMetadataToggle(this);
+            });
+        } else {
+            const checked = checkbox.checked;
+            $(`.metadata-display-${metadataName}`).toggleClass('is-hidden', !checked);
 
-        const hasMetadata = $('.checkbox input[type=checkbox]:checked').length > 0;
-        $('.video-card .card-content').toggleClass('is-hidden', !hasMetadata);
+            const hasMetadata = $('.checkbox input[type=checkbox]:checked').length > 0;
+            $('.video-card .card-content').toggleClass('is-hidden', !hasMetadata);
+        }
     }
 
     function selectNoMetadata() {
