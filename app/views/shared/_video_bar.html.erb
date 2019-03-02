@@ -106,7 +106,7 @@
         <div class="modal-card">
             <header class="modal-card-head">
                 <p class="modal-card-title">Edit multiple</p>
-                <button type="button" class="delete" aria-label="close" onclick="closeEditAllForm()" />
+                <button type="button" class="delete" aria-label="close" onclick="closeEditAllForm()"/>
             </header>
             <section class="modal-card-body">
                 <% MetadataHelper.get_configured_metadata.each do |metadata| %>
@@ -136,6 +136,11 @@
         </div>
     </form>
     <script>
+        function setIncludeState(metadataName, state) {
+            const includeSelector = `input[type=checkbox][name="include[]"][value="${metadataName}"]`;
+            document.querySelector(includeSelector).checked = state;
+        }
+
         $('.taglist').each(function () {
             const input = $(this);
             input.select2({
@@ -144,6 +149,18 @@
                 tokenSeparators: [',', ' '],
                 containerCssClass: 'select input'
             });
+        });
+
+        const valueNameRegex = /video\[([^\]]+)]/;
+
+        function getMetadataNameFromInput(inputName) {
+            return valueNameRegex.exec(inputName)[1];
+        }
+
+        $('[name^="video["]').change(function () {
+            const value = $(this).val();
+            const empty = value == null || value.length === 0;
+            setIncludeState(getMetadataNameFromInput(this.name), !empty);
         });
     </script>
 </div>
