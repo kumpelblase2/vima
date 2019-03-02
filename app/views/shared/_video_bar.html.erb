@@ -111,13 +111,21 @@
             <section class="modal-card-body">
                 <% MetadataHelper.get_configured_metadata.each do |metadata| %>
                     <div class="field">
-                        <div class="label">
-                            <%= label_tag metadata.name %>
-                            <%= check_box_tag "include[]", metadata.name, false %>
-                        </div>
-                        <div class="control">
-                            <%= generate_input_for nil, metadata %>
-                        </div>
+                        <% if metadata.type == "on_off" %>
+                            <div class="label">
+                                <%= check_box_tag "include[]", metadata.name, false %>
+                                <%= label_tag metadata.name %>
+                                <%= generate_input_for nil, metadata %>
+                            </div>
+                        <% else %>
+                            <div class="label">
+                                <%= check_box_tag "include[]", metadata.name, false %>
+                                <%= label_tag metadata.name %>
+                            </div>
+                            <div class="control">
+                                <%= generate_input_for nil, metadata %>
+                            </div>
+                        <% end %>
                     </div>
                 <% end %>
             </section>
