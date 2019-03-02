@@ -67,7 +67,7 @@
             <% MetadataHelper.get_configured_metadata.each do |metadata| %>
                 <div class="field is-horizontal">
                     <div class="field-label is-normal">
-                        <%= f.label metadata.name, class: 'label' %>
+                        <%= f.label metadata.name, metadata_display_name(metadata), class: 'label' %>
                     </div>
                     <div class="field-body">
                         <div class="field">

@@ -14,7 +14,7 @@
             <%= video_ordering_dropdown_item 'Updated', 'updated_at', 'desc' %>
             <hr class="dropdown-divider">
             <% MetadataHelper.get_ordering_metadata.each do |metadata| %>
-                <%= video_ordering_dropdown_item metadata.name.humanize, metadata.name, metadata.default_ordering %>
+                <%= video_ordering_dropdown_item metadata_display_name(metadata), metadata.name, metadata.default_ordering %>
             <% end %>
         </div>
     </div>

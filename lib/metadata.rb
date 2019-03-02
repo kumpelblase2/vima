@@ -1,3 +1,5 @@
+METADATA_GROUP_SEPARATOR = "__"
+
 class Metadata
   def initialize(name, type, readonly = false, options = {}, ordering = 'asc')
     @name = name
@@ -9,6 +11,14 @@ class Metadata
 
   def name
     @name
+  end
+
+  def grouped_name
+    if belongs_to_group?
+      @name.split(METADATA_GROUP_SEPARATOR).last
+    else
+      @name
+    end
   end
 
   def type
@@ -33,6 +43,18 @@ class Metadata
 
   def default_ordering
     @ordering
+  end
+
+  def belongs_to_group?
+    @name.include? METADATA_GROUP_SEPARATOR
+  end
+
+  def group_name
+    if belongs_to_group?
+      @name.split(METADATA_GROUP_SEPARATOR).first
+    else
+      ""
+    end
   end
 
   def as_param_requirement

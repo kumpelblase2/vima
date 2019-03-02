@@ -23,6 +23,8 @@ development:
         suggest: true
     - genres: taglist
     - commercially_usable: on_off
+    - studio__name: text
+    - studio__founding: number
   providers:
     VideoMetadata: true
     VideoVersion: true
