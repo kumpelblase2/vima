@@ -10,6 +10,8 @@ class Video
   field :thumbnails, type: Array, default: -> { [] }
   field :selected_thumbnail, type: Integer
 
+  belongs_to :library
+
   search_in :name, *MetadataHelper.get_searchable_metadata
 
   def file_name
@@ -17,7 +19,7 @@ class Video
   end
 
   def self.find_by_hash(hash)
-    self.where(file_hash: hash).first()
+    self.where(file_hash: hash).first
   end
 
   def selected_thumbnail_path

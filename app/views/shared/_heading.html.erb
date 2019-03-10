@@ -24,6 +24,9 @@
                 </div>
             </form>
         </div>
+        <p class="level-item <%= if current_controller?('settings') then 'is-active' end %>">
+            <a class="link" href="<%= settings_path %>">Settings</a>
+        </p>
     </nav>
     <div class="empty"></div> <!-- this is so we get margin from the level element -->
 </div>

@@ -1,0 +1,66 @@
+<% title "Settings" %>
+<div class="columns">
+    <div class="column is-8 is-offset-2">
+        <h1 class="is-size-1">Libraries</h1>
+        <div class="columns">
+            <div class="column is-6 is-offset-6">
+                <form method="post" action="<%= settings_create_library_path %>">
+                    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label" for="path">New:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input class="input" type="text" placeholder="Location..." name="path"/>
+                                </div>
+                                <div class="control">
+                                    <input type="submit" class="button is-primary" value="Add"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-12">
+                <table class="table is-striped is-hoverable is-fullwidth">
+                    <thead>
+                        <th>Path</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        <% @libraries.each do |library| %>
+                            <tr>
+                                <td><%= library.path %></td>
+                                <td><%= link_to("", settings_delete_library_path(library._id), method: :delete, class: 'button is-danger fa fa-trash delete-action-link') %></td>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        function warn_library_deletion(path) {
+            if(confirm("Do you really want to delete this library? It will delete all videos from this library as well.")) {
+                $.ajax({
+                    url: path,
+                    method: 'delete',
+                    success: function() {
+                        window.location.reload();
+                    }
+                });
+            }
+        }
+
+        $('.delete-action-link').click(function(event) {
+            warn_library_deletion(event.target.href);
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
+        });
+    </script>
+</div>

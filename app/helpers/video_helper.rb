@@ -4,22 +4,22 @@ module VideoHelper
   end
 
   def self.get_unknown_videos(videos)
-    video_checksum_map = videos.map {|video| { file: video, checksum: FileHelper.get_file_hash(video)}}
-    checksums = video_checksum_map.map { |elem| elem[:checksum] }
+    checksums = videos.map { |elem| elem[:checksum] }
     found = Video.where(:file_hash.in => checksums).distinct(:file_hash)
-    video_checksum_map.reject { |elem| found.include? elem[:checksum] }.map { |elem| elem[:file] }
+    videos.reject { |elem| found.include? elem[:checksum] }
   end
 
-  def self.load_video(video)
-    checksum = FileHelper.get_file_hash(video)
-    logger.debug "Checking video #{video}"
+  def self.load_video(video_location, library, checksum = nil)
+    checksum ||= FileHelper.get_file_hash(video_location)
+    logger.debug "Checking video #{video_location}"
     if Video.where(file_hash: checksum).exists?
       logger.debug 'Video already exists'
     else
       v = Video.new
-      v.location = video
+      v.location = video_location
       v.file_hash = checksum
-      v.name = get_video_name(video)
+      v.name = get_video_name(video_location)
+      v.library = library
 
       MetadataProviderList.instance.run :video_create, v, false
       MetadataHelper.apply_defaults(v)
@@ -27,7 +27,7 @@ module VideoHelper
 
       v.save!
 
-      generate_thumbnails video
+      generate_thumbnails video_location
     end
   end
 
@@ -35,7 +35,7 @@ module VideoHelper
     File.basename(file, ".mp4")
   end
 
-  def self.generate_thumbnails file
+  def self.generate_thumbnails(file)
     ThumbnailGeneratorJob.perform_later file
   end
 

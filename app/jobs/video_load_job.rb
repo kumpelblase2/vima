@@ -2,18 +2,19 @@ class VideoLoadJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    config = Rails.application.config
-    dir = File.absolute_path(config.library["dir"])
+    libraries = Library.all.to_a
     found = []
 
-    Dir.chdir(dir) do
-      Dir.glob("*.mp4") do |path|
-        next unless File.file?(path)
-        found << File.join(dir, path)
+    libraries.each do |library|
+      dir = library.path
+      Dir.glob("*.mp4", base: dir) do |path|
+        file = File.join(dir, path)
+        next unless File.file?(file)
+        found << { library: library, file: file, checksum: FileHelper.get_file_hash(file) }
       end
     end
 
     new_videos = VideoHelper.get_unknown_videos(found)
-    new_videos.each { |video| VideoHelper.load_video(video) }
+    new_videos.each { |video| VideoHelper.load_video(video[:file], video[:library], video[:checksum]) }
   end
 end
