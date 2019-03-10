@@ -1,4 +1,4 @@
-task :make_paths_absolute => :environment do
+task :migrate_1_make_paths_absolute => :environment do
   Video.all.each do |video|
     path = Pathname.new video.location
     unless path.absolute?
