@@ -11,7 +11,7 @@ require "action_view/railtie"
 require "action_cable/engine"
 require "sprockets/railtie"
 require "rails/test_unit/railtie"
-require_relative '../lib/metadata'
+require_relative "../app/lib/metadata"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -26,7 +26,6 @@ module Vima
         g.orm :mongoid
     end
 
-    config.autoload_paths += Dir["#{config.root}/lib/**/"]
     config.load_defaults 5.0
 
     config.library = config_for(:library)
