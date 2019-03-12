@@ -27,7 +27,7 @@ module VideoHelper
 
       v.save!
 
-      generate_thumbnails video_location
+      generate_thumbnails v
     end
   end
 
@@ -35,8 +35,8 @@ module VideoHelper
     File.basename(file, ".mp4")
   end
 
-  def self.generate_thumbnails(file)
-    ThumbnailGeneratorJob.perform_later file
+  def self.generate_thumbnails(video)
+    ThumbnailGeneratorJob.perform_later video.id.to_s
   end
 
   def self.clear_thumbnails(video)

@@ -1,7 +1,7 @@
 require "time"
 
 class ThumbnailsController < ApplicationController
-  before_action :set_video, only: [:thumbnails, :clear, :generate, :regenerate]
+  before_action :set_video, only: [:thumbnails, :clear, :generate, :regenerate, :thumbnail]
 
   def thumbnails
     respond_to do |format|
@@ -10,15 +10,13 @@ class ThumbnailsController < ApplicationController
   end
 
   def thumbnail
-    file = params[:file]
-    http_cache_forever public: true do
-      response.headers["Expires"] = 6.months.from_now.httpdate
-      send_file ThumbnailsHelper.full_thumbnail_path(file), type: "application/jpeg"
-    end
+    thumbnail_number = params[:thumbnail].to_i
+    fresh_when @video
+    send_file @video.thumbnails[thumbnail_number], type: "application/jpeg"
   end
 
   def generate
-    ThumbnailGeneratorJob.perform_now @video.location
+    ThumbnailGeneratorJob.perform_now @video.id.to_s
     respond_to do |format|
       format.json { head :no_content, status: :created }
     end
@@ -34,7 +32,7 @@ class ThumbnailsController < ApplicationController
   def regenerate
     disable_cache
     VideoHelper.clear_thumbnails @video
-    ThumbnailGeneratorJob.perform_now @video.location
+    ThumbnailGeneratorJob.perform_now @video.id.to_s
     @video = Video.find(@video._id)
   end
 

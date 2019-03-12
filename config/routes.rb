@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get '/thumbnails/:id', to: 'thumbnails#thumbnails', as: 'video_thumbnails'
   get '/thumbnails/:id/regenerate', to: 'thumbnails#regenerate', as: 'video_thumbnails_regenerate'
   post '/thumbnails/:id/generate', to: 'thumbnails#generate', as: 'video_thumbnails_generate'
-  get '/thumbnail/:file', to: 'thumbnails#thumbnail', as: 'video_thumbnail', :constraints => {:file => /[^\/]+/}
+  get '/thumbnail/:id/:thumbnail', to: 'thumbnails#thumbnail', as: 'video_thumbnail'
   delete '/thumbnails/:id', to: 'thumbnails#clear', as: 'video_thumbnails_delete'
 
   get '/metadata/keys', to: 'metadata#keys'

@@ -9,7 +9,7 @@
                     <%= link_to watch_video_path(playlist_video, playlist_query) do %>
                         <% background_style = if video._id == playlist_video._id then 'background' else 'background-dark' end %>
                         <div class="columns <%= background_style %>">
-                            <%= image_tag video_thumbnail_path(playlist_video.selected_thumbnail_path), class: 'column is-half', style: 'height: 100%' %>
+                            <%= image_tag thumbnail_path(playlist_video), class: 'column is-half', style: 'height: 100%' %>
                             <div class="column is-half">
                                 <p class="force-wrap"><%= playlist_video.name %></p>
                                 <hr>
