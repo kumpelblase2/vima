@@ -1,7 +1,6 @@
 production:
 
 development:
-  dir: ./videos
   home:
     videos: 5
   thumbnails:
