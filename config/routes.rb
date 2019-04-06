@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get '/smart_playlist/:id/delete', to: 'smart_playlists#destroy', as: 'smart_playlists_delete'
 
   get '/settings', to: 'settings#index', as: 'settings'
+  post '/settings/save', to: 'settings#save', as: 'save_settings'
   delete '/settings/library/:id', to: 'settings#delete_library', as: 'settings_delete_library'
   post '/settings/library', to: 'settings#create_library', as: 'settings_create_library'
 end

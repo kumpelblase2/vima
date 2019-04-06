@@ -91,6 +91,15 @@ class Metadata
     end
   end
 
+  def display_name
+    self.grouped_name.humanize + (
+    if self.belongs_to_group?
+      " (#{self.group_name.humanize})"
+    else
+      ""
+    end)
+  end
+
   def self.allowed_type?(type)
     case type.to_s
       when "number", "on_off", "text", "range", "select", "taglist", "date", "duration"

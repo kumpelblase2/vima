@@ -10,13 +10,4 @@ module MetadataRenderHelper
       value
     end
   end
-
-  def metadata_display_name(metadata)
-    metadata.grouped_name.humanize + (
-    if metadata.belongs_to_group? then
-      " (#{metadata.group_name.humanize})"
-    else
-      ""
-    end)
-  end
 end

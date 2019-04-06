@@ -2,10 +2,9 @@ class ThumbnailGeneratorJob < ApplicationJob
   queue_as :low_priority
 
   def perform(*args)
-    config = Rails.configuration
-    thumbnail_config = config.library["thumbnails"]
-    thumbnail_relative_dir = thumbnail_config["dir"]
-    amount = thumbnail_config["amount"] || 1
+    thumbnail_config = Settings.get_instance
+    thumbnail_relative_dir = thumbnail_config.thumbnail_dir
+    amount = thumbnail_config.thumbnail_amount || 1
 
     args.map {|id| Video.find(id) }.group_by(&:library).each do |library,videos|
       library_loc = library.path

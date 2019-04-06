@@ -107,11 +107,11 @@ class VideosController < ApplicationController
     end
 
     def default_ordering
-      Rails.configuration.library.fetch("defaults", Hash.new).fetch("order_by", :name)
+      Settings.get_instance.default_order
     end
 
     def default_ordering_direction
-      Rails.configuration.library.fetch("defaults", Hash.new).fetch("order_direction", :asc)
+      Settings.get_instance.default_order_direction
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

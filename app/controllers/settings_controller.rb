@@ -1,6 +1,7 @@
 class SettingsController < ApplicationController
   def index
     @libraries = Library.all
+    @settings = Settings.get_instance
   end
 
   def delete_library
@@ -23,4 +24,16 @@ class SettingsController < ApplicationController
     VideoLoadJob.perform_now(created)
     redirect_to "/settings"
   end
+
+  def save
+    @settings = Settings.get_instance
+    @settings.update(settings_params)
+    @settings.save
+    redirect_to "/settings"
+  end
+
+  private
+    def settings_params
+      params.permit(:thumbnail_dir, :thumbnail_amount, :home_video_count, :default_order, :default_order_direction)
+    end
 end

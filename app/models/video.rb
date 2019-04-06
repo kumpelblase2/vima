@@ -14,10 +14,6 @@ class Video
 
   search_in :name, *MetadataHelper.get_searchable_metadata
 
-  def file_name
-    File.basename(name) + ".mp4"
-  end
-
   def self.find_by_hash(hash)
     self.where(file_hash: hash).first
   end

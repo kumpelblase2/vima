@@ -1,5 +1,5 @@
 <% title "Settings" %>
-<div class="columns">
+<div class="rows">
     <div class="column is-8 is-offset-2">
         <h1 class="is-size-1">Libraries</h1>
         <div class="columns">
@@ -28,35 +28,80 @@
             <div class="column is-12">
                 <table class="table is-striped is-hoverable is-fullwidth">
                     <thead>
-                        <th>Path</th>
-                        <th>Actions</th>
+                    <th>Path</th>
+                    <th>Actions</th>
                     </thead>
                     <tbody>
-                        <% @libraries.each do |library| %>
-                            <tr>
-                                <td><%= library.path %></td>
-                                <td><%= link_to("", settings_delete_library_path(library._id), method: :delete, class: 'button is-danger fa fa-trash delete-action-link') %></td>
-                            </tr>
-                        <% end %>
+                    <% @libraries.each do |library| %>
+                        <tr>
+                            <td><%= library.path %></td>
+                            <td><%= link_to("", settings_delete_library_path(library._id), method: :delete, class: 'button is-danger fa fa-trash delete-action-link') %></td>
+                        </tr>
+                    <% end %>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+    <div class="column is-8 is-offset-2">
+        <h1 class="is-size-1">Library Settings</h1>
+        <div class="columns">
+            <form action="/settings/save" method="post">
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                <div class="column is-12">
+                    <div class="field">
+                        <label class="label" for="thumbnail_dir">Relative Thumbnail directory</label>
+                        <div class="control">
+                            <%= text_field_tag 'thumbnail_dir', @settings.thumbnail_dir, placeholder: 'Location...', class: 'input' %>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="thumbnail_amount">Thumbnail count</label>
+                        <div class="control">
+                            <%= number_field_tag 'thumbnail_amount', @settings.thumbnail_amount, min: 1, class: 'input' %>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="home_video_count">Videos on home view</label>
+                        <div class="control">
+                            <%= number_field_tag 'home_video_count', @settings.home_video_count, min: 1, class: 'input' %>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="default_order">Default Order</label>
+                        <div class="control">
+                            <%= select_tag 'default_order',
+                                           options_from_collection_for_select(MetadataHelper.get_ordering_metadata, 'name', 'display_name', @settings.default_order),
+                                           class: 'input select' %>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="default_order_direction">Default Order Direction</label>
+                        <div class="control">
+                            <%= select_tag 'default_order_direction',
+                                           options_for_select([%w(Ascending asc), %w(Descending desc)], @settings.default_order_direction),
+                                           class: 'input select' %>
+                        </div>
+                    </div>
+                </div>
+                <%= submit_tag 'Save', class: 'button is-primary' %>
+            </form>
+        </div>
+    </div>
     <script>
         function warn_library_deletion(path) {
-            if(confirm("Do you really want to delete this library? It will delete all videos from this library as well.")) {
+            if (confirm("Do you really want to delete this library? It will delete all videos from this library as well.")) {
                 $.ajax({
                     url: path,
                     method: 'delete',
-                    success: function() {
+                    success: function () {
                         window.location.reload();
                     }
                 });
             }
         }
 
-        $('.delete-action-link').click(function(event) {
+        $('.delete-action-link').click(function (event) {
             warn_library_deletion(event.target.href);
             event.preventDefault();
             event.stopPropagation();

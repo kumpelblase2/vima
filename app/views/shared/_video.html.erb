@@ -38,7 +38,7 @@
                 <% MetadataHelper.get_configured_metadata.each do |metadata| %>
                     <% name = metadata.name %>
                     <tr class="metadata-display-<%= name %>">
-                        <td><%= metadata_display_name(metadata) %></td>
+                        <td><%= metadata.display_name %></td>
                         <td><%= render_metadata(metadata, video[name]) %></td>
                     </tr>
                 <% end %>

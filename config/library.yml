@@ -1,11 +1,6 @@
 production:
 
 development:
-  home:
-    videos: 5
-  thumbnails:
-    amount: 4
-    dir: ./.thumbnails
   playlist:
     display:
       - license

@@ -10,6 +10,6 @@ class HomeController < ApplicationController
   private
 
   def video_amount
-    Rails.configuration.library.fetch("home", Hash.new).fetch("videos", 12)
+    Settings.get_instance.home_video_count || 12
   end
 end
