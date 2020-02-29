@@ -9,7 +9,7 @@ gem 'parslet'
 gem 'mongoid', '7.0.1'
 gem 'mongoid_search'
 # Use Puma as the app server
-gem 'puma', '3.12.2'
+gem 'puma', '3.12.3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '5.0.6'
 gem "bulma-rails", "0.6.2"
