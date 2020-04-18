@@ -2,4 +2,4 @@ Dir[File.dirname(__FILE__) + "/../../app/lib/handlers/*.rb"].each { |file| puts 
 
 config = Rails.application.config.library["providers"]
 
-MetadataProviderList.instance.setup config
+MetadataProviderList.instance.setup config if config
