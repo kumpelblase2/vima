@@ -1,3 +1,7 @@
+## ⚠️ Vima has been completely superceded by it's successor vimax ⚠️
+
+You can find vimax at https://github.com/kumpelblase2/vimax
+
 # Vima
 
 **Vima** is a video manager or video collection. It manages a set of videos and allows the user to define custom metadata for each video. The user can then search for specific videos via the specified metadata using a custom query language, create playlists the same way and obviously play the videos in their browser.
